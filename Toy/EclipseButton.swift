@@ -13,19 +13,25 @@ struct EclipseButton:View{
     @Binding var buttonSelected : Bool
     
     var body: some View{
-        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-            .foregroundStyle(buttonSelected ? .clear : Color(red: 236/255, green: 236/255, blue: 236/255))
-            .overlay(
-                Text(buttonTxt)
-                    .font(.caption)
-                    .bold()
-                    .foregroundStyle(buttonSelected ? .black : .gray)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 15)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 25.0)
-                    .stroke(buttonSelected ? Color.black : Color.clear, lineWidth: 2)
+        Text(buttonTxt)
+            .font(.caption)
+            .bold()
+            .padding(.vertical, 10)
+            .padding(.horizontal, 15)
+            .foregroundStyle(buttonSelected ? .black : .gray)
+        
+            .background(
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                    .foregroundStyle(buttonSelected ? .clear : Color(red: 236/255, green: 236/255, blue: 236/255))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                            .stroke(buttonSelected ? .black : .clear, lineWidth: 2)
                     )
+            )
+        
     }
+}
+
+#Preview {
+    EclipseButton(buttonTxt: "최근", buttonSelected: .constant(false))
 }

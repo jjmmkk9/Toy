@@ -19,6 +19,13 @@
 		BD94516E2B5F48D700E58FD6 /* ToyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94516D2B5F48D700E58FD6 /* ToyTests.swift */; };
 		BD9451782B5F48D700E58FD6 /* ToyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451772B5F48D700E58FD6 /* ToyUITests.swift */; };
 		BD94517A2B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */; };
+		BDD4D6A22B687FA700330284 /* ClovaMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A12B687FA700330284 /* ClovaMain.swift */; };
+		BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A52B68819200330284 /* BlogItem.swift */; };
+		BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A72B68937000330284 /* EclipseButton.swift */; };
+		BDD4D6AA2B68A48C00330284 /* RecordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A92B68A48C00330284 /* RecordItem.swift */; };
+		BDD4D6AC2B68A4CF00330284 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6AB2B68A4CF00330284 /* Record.swift */; };
+		BDD4D6AF2B68CFE800330284 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6AE2B68CFE800330284 /* CustomTabView.swift */; };
+		BDD4D6B12B68E52300330284 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6B02B68E52300330284 /* CircleButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +61,13 @@
 		BD9451732B5F48D700E58FD6 /* ToyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9451772B5F48D700E58FD6 /* ToyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITests.swift; sourceTree = "<group>"; };
 		BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BDD4D6A12B687FA700330284 /* ClovaMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClovaMain.swift; sourceTree = "<group>"; };
+		BDD4D6A52B68819200330284 /* BlogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogItem.swift; sourceTree = "<group>"; };
+		BDD4D6A72B68937000330284 /* EclipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EclipseButton.swift; sourceTree = "<group>"; };
+		BDD4D6A92B68A48C00330284 /* RecordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordItem.swift; sourceTree = "<group>"; };
+		BDD4D6AB2B68A4CF00330284 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		BDD4D6AE2B68CFE800330284 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		BDD4D6B02B68E52300330284 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +118,15 @@
 		BD94515B2B5F48D600E58FD6 /* Toy */ = {
 			isa = PBXGroup;
 			children = (
+				BDD4D6AD2B68A88800330284 /* Model */,
 				BD94515C2B5F48D600E58FD6 /* ToyApp.swift */,
 				BD4DF0ED2B5F52A500D95864 /* LoginView.swift */,
+				BDD4D6A12B687FA700330284 /* ClovaMain.swift */,
+				BDD4D6B02B68E52300330284 /* CircleButton.swift */,
+				BDD4D6AE2B68CFE800330284 /* CustomTabView.swift */,
+				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
+				BDD4D6A72B68937000330284 /* EclipseButton.swift */,
+				BDD4D6A52B68819200330284 /* BlogItem.swift */,
 				BD94515E2B5F48D600E58FD6 /* ContentView.swift */,
 				BD9451602B5F48D700E58FD6 /* Assets.xcassets */,
 				BD9451622B5F48D700E58FD6 /* Preview Content */,
@@ -140,6 +161,14 @@
 				BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */,
 			);
 			path = ToyUITests;
+			sourceTree = "<group>";
+		};
+		BDD4D6AD2B68A88800330284 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BDD4D6AB2B68A4CF00330284 /* Record.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,9 +305,16 @@
 				BD4DF0EE2B5F52A500D95864 /* LoginView.swift in Sources */,
 				BD94515F2B5F48D600E58FD6 /* ContentView.swift in Sources */,
 				BD6C6ED62B5F8DCF00177408 /* User.swift in Sources */,
+				BDD4D6AF2B68CFE800330284 /* CustomTabView.swift in Sources */,
+				BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */,
+				BDD4D6B12B68E52300330284 /* CircleButton.swift in Sources */,
+				BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */,
 				BD6C6EDA2B5F8E9A00177408 /* UserDetailView.swift in Sources */,
+				BDD4D6AC2B68A4CF00330284 /* Record.swift in Sources */,
 				BD94515D2B5F48D600E58FD6 /* ToyApp.swift in Sources */,
+				BDD4D6AA2B68A48C00330284 /* RecordItem.swift in Sources */,
 				BD6C6EDE2B5F924E00177408 /* ModelData.swift in Sources */,
+				BDD4D6A22B687FA700330284 /* ClovaMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,27 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selected : Tab = .home
+    @State private var clicked : Bool = false
+    @State private var selected : Tab = .home
     
     var body: some View {
         
-        switch selected {
+        ZStack(alignment: .bottomTrailing){
+            VStack{
+                switch selected {
+                    
+                case .home:
+                    ClovaMain()
+                case .folder:
+                    Text("folder")
+                case .calender:
+                    Text("calender")
+                case .myPage:
+                    Text("myPage")
+                }
+                
+                Spacer()
+                
+                Divider()
+                CustomTabView(selected: $selected)
+                    .padding(.bottom, -10)
+            }
             
-        case .home:
-            ClovaMain()
-        case .folder:
-        Text("folder")
-        case .calender:
-            Text("calender")
-        case .myPage:
-            Text("myPage")
+            //2층
+             if clicked{
+                 Color.black.opacity(0.6)
+                     .onTapGesture {
+                         clicked.toggle()
+                     }
+             }
+            if selected == .home || selected == .folder {
+                //3층
+                PlusButton(clicked: $clicked)
+                    .padding()
+                    .offset(y: -60.0)
+            }
+            
         }
-        
-        Spacer()
-        
-        Divider()
-        CustomTabView(selected: $selected)
-            .padding(.bottom, -10)
     }
 }
 

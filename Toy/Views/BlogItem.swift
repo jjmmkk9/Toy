@@ -22,20 +22,18 @@ struct BlogItem: View {
                 
                 VStack {
                     Text(text)
-                    .font(.headline)
-                    .bold()
-                    .foregroundStyle(textColor ?? .white)
-                    .fixedSize(horizontal: true, vertical: true)
-                    .padding()
+                        .font(.headline)
+                        .bold()
+                        .foregroundStyle(textColor ?? .white)
+                        .fixedSize(horizontal: true, vertical: true)
+                        .padding()
                     
                     Image(imgName)
                         .resizable()
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                    .alignmentGuide(.bottom) { dimensions in
-                                dimensions[.bottom] - dimensions.height / 2
-                            }
+            
             )
         
     }

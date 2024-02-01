@@ -22,18 +22,22 @@ struct BlogItem: View {
                 
                 VStack {
                     Text(text)
-                    .font(.headline)
-                    .bold()
-                    .foregroundStyle(textColor ?? .white)
-                    .fixedSize(horizontal: true, vertical: true)
-                    .padding()
+                        .font(.headline)
+                        .bold()
+                        .foregroundStyle(textColor ?? .white)
+                        .fixedSize(horizontal: true, vertical: true)
+                        .padding()
                     
                     Image(imgName)
                         .resizable()
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
+<<<<<<< HEAD:Toy/BlogItem.swift
                 
+=======
+            
+>>>>>>> faf9be87a0dff88480154e4af8a8df5c96da074e:Toy/Views/BlogItem.swift
             )
         
     }

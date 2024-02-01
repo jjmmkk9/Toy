@@ -14,7 +14,7 @@ enum Tab{
     case myPage
 }
 
-struct CustomTabView: View {
+struct CustomTab: View {
     @Binding var selected : Tab
     var body: some View {
         
@@ -60,5 +60,5 @@ struct CustomTabView: View {
 }
 
 #Preview {
-    CustomTabView(selected: .constant(.home))
+    CustomTab(selected: .constant(.home))
 }

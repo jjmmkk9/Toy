@@ -7,11 +7,14 @@
 
 import SwiftUI
 
-struct ClovaMain: View {
+struct ClovaMainView: View {
     @State private var recentButtonSelected = true
     @State private var sharedButtonSelected = false
+
     
     var body: some View {
+            
+            //1층
             HStack{
                 Text("CLOVA")
                     .bold()
@@ -37,11 +40,9 @@ struct ClovaMain: View {
             }
             .foregroundColor(.black)
             .padding( 20)
-        
-        //정렬을 사용하여 이미지가 Scrollview가 사용가능한 모든 공간을 사용하도록 한다. 왠지 모르겠는데 이렇게 하면 내가 공중부양 시키고 싶은 버튼이 그쪽으로 가서 붙음
-        ZStack(alignment: .bottomTrailing) {
+            
             ScrollView{
-                    ScrollView(.horizontal){
+                    ScrollView(.horizontal, showsIndicators: false){
                         HStack{
                             Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
                                 BlogItem(
@@ -61,6 +62,7 @@ struct ClovaMain: View {
                         }.padding(.horizontal, 20)
                         }
                     
+                //최근, 공유받은
                     HStack{
                         Button {
                             if !recentButtonSelected{
@@ -82,29 +84,40 @@ struct ClovaMain: View {
                         Spacer()
                     }
                     .padding(20)
-
+                //
                     if recentButtonSelected {
                         ForEach(0..<4){_ in
                             RecordItem(record: Record.default)
                                 .padding(.horizontal, 20)
                         }
+                        //없으면
+                        
                     } else if sharedButtonSelected {
-                        Text("Display Shared Files View")
+                        //공유받은 노트가 없으면
+                        NoteNothingView(noteCategory: "공유 받은")
+                        //있으면 뿌리기
                     }
-//
-                    
+                
+                //페이지뷰!!
+                PageView(pages: blogBigItems)
+                
+                VStack(alignment: .leading, spacing: 30){
+                    Text("유용한 기능 알아보기")
+                        .font(.headline)
+                        .bold()
+                    UsefulFeatures()
+                }
+                .padding(20)
+                
+                
+                
             }
             .background(Color(red: 247/255, green: 247/255, blue: 247/255))
-            
-            CircleButton()
-                .padding()
-                .shadow(radius: 5)
-                .offset(x: 10.0, y:10.0)
-        }
-            
+
+
 }
 }
 
 #Preview {
-    ClovaMain()
+    ClovaMainView()
 }

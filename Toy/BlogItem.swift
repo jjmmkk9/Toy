@@ -33,9 +33,7 @@ struct BlogItem: View {
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                    .alignmentGuide(.bottom) { dimensions in
-                                dimensions[.bottom] - dimensions.height / 2
-                            }
+                
             )
         
     }

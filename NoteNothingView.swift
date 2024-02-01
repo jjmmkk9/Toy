@@ -21,7 +21,7 @@ struct NoteNothingView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 150)
         .background(
-            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+            RoundedRectangle(cornerRadius: 25.0)
                 .foregroundStyle(.white)
         )
     }

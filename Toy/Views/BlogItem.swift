@@ -33,7 +33,11 @@ struct BlogItem: View {
                         .scaledToFit()
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
+<<<<<<< HEAD:Toy/BlogItem.swift
+                
+=======
             
+>>>>>>> faf9be87a0dff88480154e4af8a8df5c96da074e:Toy/Views/BlogItem.swift
             )
         
     }

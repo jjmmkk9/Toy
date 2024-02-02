@@ -85,10 +85,10 @@ struct ClovaMainView: View {
                     }
                     .padding(20)
 
+                VStack{
                     if recentButtonSelected {
                         ForEach(0..<4){_ in
                             RecordItem(record: Record.default)
-                                .padding(.horizontal, 20)
                         }
                         //없으면
                         
@@ -97,6 +97,9 @@ struct ClovaMainView: View {
                         NoteNothingView(noteCategory: "공유 받은")
                         //있으면 뿌리기
                     }
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
 
                 
                 //페이지뷰!!

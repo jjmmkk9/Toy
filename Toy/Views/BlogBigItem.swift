@@ -36,12 +36,12 @@ struct BlogBigItem: View {
         .padding(50)
         
         .background(
-            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+            RoundedRectangle(cornerRadius: 25.0)
             .foregroundStyle(btnColor)
             .padding(20)
             .background(Color(red: 247/255, green: 247/255, blue: 247/255))
         )
-        .frame(height: 160)
+        .frame(height: 180)
         
             
     }

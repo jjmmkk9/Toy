@@ -23,8 +23,7 @@ struct PageView<Page: View>: View {
             
         VStack {
                 PageViewController(pages: pages, currentPage: $currentPage)
-//                        .frame(height: 160)
-                    .aspectRatio( 4 / 2, contentMode: .fit)
+                .aspectRatio(5 / 2,contentMode: .fit)
                 PageControl(numberOfPages: pages.count, currentPage: $currentPage)
                     
                 }

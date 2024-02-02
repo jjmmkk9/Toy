@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//backGroundColor (Color(red: 247/255, green: 247/255, blue: 247/255)) 
 struct BlogBigItem: View {
     var text : String
     var btnColor: Color
@@ -39,6 +39,7 @@ struct BlogBigItem: View {
             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
             .foregroundStyle(btnColor)
             .padding(20)
+            .background(Color(red: 247/255, green: 247/255, blue: 247/255))
         )
         .frame(height: 160)
         

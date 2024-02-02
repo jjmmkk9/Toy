@@ -10,6 +10,7 @@ import SwiftUI
 struct ClovaMainView: View {
     @State private var recentButtonSelected = true
     @State private var sharedButtonSelected = false
+    var modelData = ModelData()
 
     
     var body: some View {
@@ -103,7 +104,7 @@ struct ClovaMainView: View {
 
                 
                 //페이지뷰!!
-                PageView(pages: blogBigItems)
+                PageView(pages: modelData.blogBigItems)
                     .padding(EdgeInsets())
                 
                 VStack(alignment: .leading, spacing: 30){

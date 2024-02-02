@@ -23,5 +23,5 @@ struct PageView<Page: View>: View {
 }
 
 #Preview {
-    PageView(pages: blogBigItems)
+    PageView(pages: ModelData().blogBigItems)
 }

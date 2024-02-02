@@ -11,6 +11,9 @@
 		BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DAD2B6B85490090CF84 /* ModelData.swift */; };
 		BD357DB02B6B8CA20090CF84 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DAF2B6B8CA20090CF84 /* FolderView.swift */; };
 		BD357DB22B6C9E640090CF84 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DB12B6C9E640090CF84 /* LoadingIndicator.swift */; };
+		BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DB62B6CC72A0090CF84 /* FolderItem.swift */; };
+		BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */; };
+		BD357DC12B6CED630090CF84 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = BD357DC02B6CED630090CF84 /* WrappingHStack */; };
 		BD41E84E2B69D51900931D23 /* BlogBigItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E84D2B69D51900931D23 /* BlogBigItem.swift */; };
 		BD41E8502B69DF8900931D23 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E84F2B69DF8900931D23 /* PageView.swift */; };
 		BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E8512B69E02400931D23 /* PageViewController.swift */; };
@@ -59,6 +62,8 @@
 		BD357DAD2B6B85490090CF84 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		BD357DAF2B6B8CA20090CF84 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		BD357DB12B6C9E640090CF84 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		BD357DB62B6CC72A0090CF84 /* FolderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItem.swift; sourceTree = "<group>"; };
+		BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
 		BD41E84D2B69D51900931D23 /* BlogBigItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogBigItem.swift; sourceTree = "<group>"; };
 		BD41E84F2B69DF8900931D23 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		BD41E8512B69E02400931D23 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD357DC12B6CED630090CF84 /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,18 +122,14 @@
 		BD357DA92B6B34E90090CF84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BD357DB52B6CBE430090CF84 /* Main */,
+				BD357DB32B6CBDD10090CF84 /* Folder */,
 				BD357DAA2B6B354B0090CF84 /* PageControl */,
-				BDD4D6A12B687FA700330284 /* ClovaMainView.swift */,
 				BD357DB12B6C9E640090CF84 /* LoadingIndicator.swift */,
+				BDD4D6A12B687FA700330284 /* ClovaMainView.swift */,
 				BD94515E2B5F48D600E58FD6 /* ContentView.swift */,
-				BD357DAF2B6B8CA20090CF84 /* FolderView.swift */,
-				BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */,
-				BD41E84D2B69D51900931D23 /* BlogBigItem.swift */,
-				BDD4D6B02B68E52300330284 /* PlusButton.swift */,
+				BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */,
 				BDD4D6AE2B68CFE800330284 /* CustomTab.swift */,
-				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
-				BDD4D6A72B68937000330284 /* EclipseButton.swift */,
-				BDD4D6A52B68819200330284 /* BlogItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,10 +144,32 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
-		BD9451502B5F48D600E58FD6 = {
+		BD357DB32B6CBDD10090CF84 /* Folder */ = {
+			isa = PBXGroup;
+			children = (
+				BD357DAF2B6B8CA20090CF84 /* FolderView.swift */,
+				BD357DB62B6CC72A0090CF84 /* FolderItem.swift */,
+			);
+			path = Folder;
+			sourceTree = "<group>";
+		};
+		BD357DB52B6CBE430090CF84 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				BD41E8552B6A336100931D23 /* NoteNothingView.swift */,
+				BDD4D6A52B68819200330284 /* BlogItem.swift */,
+				BDD4D6B02B68E52300330284 /* PlusButton.swift */,
+				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
+				BDD4D6A72B68937000330284 /* EclipseButton.swift */,
+				BD41E84D2B69D51900931D23 /* BlogBigItem.swift */,
+				BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		BD9451502B5F48D600E58FD6 = {
+			isa = PBXGroup;
+			children = (
 				BD94515B2B5F48D600E58FD6 /* Toy */,
 				BD94516C2B5F48D700E58FD6 /* ToyTests */,
 				BD9451762B5F48D700E58FD6 /* ToyUITests */,
@@ -230,6 +254,9 @@
 			dependencies = (
 			);
 			name = Toy;
+			packageProductDependencies = (
+				BD357DC02B6CED630090CF84 /* WrappingHStack */,
+			);
 			productName = Toy;
 			productReference = BD9451592B5F48D600E58FD6 /* Toy.app */;
 			productType = "com.apple.product-type.application";
@@ -302,6 +329,9 @@
 				Base,
 			);
 			mainGroup = BD9451502B5F48D600E58FD6;
+			packageReferences = (
+				BD357DBF2B6CED620090CF84 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+			);
 			productRefGroup = BD94515A2B5F48D600E58FD6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -364,6 +394,8 @@
 				BDD4D6AA2B68A48C00330284 /* RecordItem.swift in Sources */,
 				BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */,
 				BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */,
+				BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */,
+				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,
 				BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */,
 				BD357DAC2B6B35800090CF84 /* PageControl.swift in Sources */,
@@ -696,6 +728,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD357DBF2B6CED620090CF84 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD357DC02B6CED630090CF84 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD357DBF2B6CED620090CF84 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD9451512B5F48D600E58FD6 /* Project object */;
 }

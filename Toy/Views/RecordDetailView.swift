@@ -8,10 +8,19 @@
 import SwiftUI
 import WrappingHStack
 
+
+
 struct RecordDetailView: View {
     var record : Record = Record.default
+    @State private var selectedTab: Tab = .voiceRecord
+    
+    enum Tab: Hashable {
+            case voiceRecord
+            case memoSummary
+        }
     
     var body: some View {
+        
         //header
         HStack(spacing: 15){
             Button{
@@ -71,6 +80,7 @@ struct RecordDetailView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(20)
             
+            //키워드
             WrappingHStack(alignment: .leading){
                 ForEach(record.keyWord, id: \.self){keyword in
                     KeywordBtn(keyword: keyword)
@@ -78,6 +88,8 @@ struct RecordDetailView: View {
             }
             .padding(20)
 
+            RecordDetailViewCustomTab()
+            
             
         }
         

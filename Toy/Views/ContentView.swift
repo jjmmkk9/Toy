@@ -30,7 +30,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Divider()
-                CustomTab(selected: $selected)
+                MainCustomTab(selected: $selected)
                     .padding(.bottom, -10)
             }
             

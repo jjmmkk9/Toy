@@ -85,7 +85,7 @@ struct RecordDetailView: View {
             
             //키워드
             WrappingHStack(alignment: .leading){
-                ForEach(record.keyWord, id: \.self){keyword in
+                ForEach(record.keyword, id: \.self){keyword in
                     KeywordBtn(keyword: keyword)
                 }
             }

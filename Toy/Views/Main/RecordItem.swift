@@ -39,6 +39,6 @@ struct RecordItem: View {
 }
 
 #Preview {
-    let modelData = ModelData()
+    let modelData = ModelData.modelData
     return RecordItem(record: modelData.records[0])
 }

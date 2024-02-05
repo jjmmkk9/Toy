@@ -118,6 +118,6 @@ struct KeywordBtn: View {
 
 
 #Preview {
-    let modelData = ModelData()
+    let modelData = ModelData.modelData
     return RecordDetailView(record: modelData.records[0])
 }

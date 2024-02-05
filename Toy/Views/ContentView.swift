@@ -20,7 +20,7 @@ struct ContentView: View {
                 case .home:
                     ClovaMainView()
                 case .folder:
-                    Text("folder")
+                    FolderView()
                 case .calender:
                     Text("calender")
                 case .myPage:

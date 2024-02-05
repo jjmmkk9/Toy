@@ -12,7 +12,7 @@ struct ClovaMainView: View {
     @State private var sharedButtonSelected = false
     @State private var isPresented : Bool = false
     
-    var modelData = ModelData()
+    var modelData = ModelData.modelData
     
     
     var body: some View {

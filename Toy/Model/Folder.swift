@@ -9,6 +9,5 @@ import Foundation
 struct Folder: Hashable {
     var id :Int
     var name : String
-    var contents : [Record]?
-    
+
 }

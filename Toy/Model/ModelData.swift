@@ -20,12 +20,18 @@ class ModelData{
     
     var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]
     
-    var myFolders : [Folder]?
+    var myFolders : [Folder] = [Folder(id: 0, name: "기본"), Folder(id: 1, name: "학교")]
+    
+    var categories : [String: [Record]]{
+        Dictionary(
+            grouping: records, by: {$0.category}
+            )
+    }
     
     //싱글톤
-    private init(){
-        self.myFolders = [Folder(id: 0, name: "기본 폴더", contents: records), Folder(id: 1, name: "학교", contents: [])]
-    }
+//    private init(){
+//        self.myFolders = [Folder(id: 0, name: "기본"), Folder(id: 1, name: "학교")]
+//    }
     
 }
 

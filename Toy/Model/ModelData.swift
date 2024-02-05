@@ -16,6 +16,8 @@ class ModelData{
         BlogBigItem(text: "알고 쓰면\n더욱 유용한 기능", btnColor: Color(red: 153 / 255, green: 145 / 255, blue: 145 / 255), image: "root", isWhite: true, destination: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184906572&proxyReferer=")
     ]
     
+    var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3)]
+    
     
     var myFolders : [String] = ["기본폴더", "회의노트"]
 }

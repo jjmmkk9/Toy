@@ -11,8 +11,10 @@ import WrappingHStack
 
 
 struct RecordDetailView: View {
-    var record : Record = Record.default
+    var record : Record
     @State private var selectedTab: Tab = .voiceRecord
+    @Environment(\.dismiss) var dismiss
+    
     
     enum Tab: Hashable {
             case voiceRecord
@@ -24,7 +26,7 @@ struct RecordDetailView: View {
         //header
         HStack(spacing: 15){
             Button{
-                
+                dismiss()
             }label: {
                 Image(systemName: "xmark")
             }
@@ -65,8 +67,9 @@ struct RecordDetailView: View {
         ScrollView{
             VStack(alignment: .leading, spacing: 10) {
                 Text("1.29 월 10:26(16:46 수정) . 73분 44초")
-                Text(record.name)
+                Text("\(record.name) \(record.id)")
                     .font(.title)
+                    .bold()
                 
                 Button{
                     //창띄우기
@@ -115,5 +118,6 @@ struct KeywordBtn: View {
 
 
 #Preview {
-    RecordDetailView()
+    let modelData = ModelData()
+    return RecordDetailView(record: modelData.records[0])
 }

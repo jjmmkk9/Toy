@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordItem: View {
-    var record : Record = Record.default
+    var record : Record
     
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
@@ -21,7 +21,7 @@ struct RecordItem: View {
                         .foregroundStyle(Color(red: 0, green: 204 / 255, blue: 127 / 255))
                     
                     VStack(alignment: .leading, spacing: 10){
-                        Text(record.name)
+                        Text("\(record.name) \(record.id)")
                             .font(.headline)
                         Text(record.summary)
                             .font(.system(size: 14))
@@ -39,5 +39,6 @@ struct RecordItem: View {
 }
 
 #Preview {
-    RecordItem()
+    let modelData = ModelData()
+    return RecordItem(record: modelData.records[0])
 }

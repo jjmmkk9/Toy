@@ -10,11 +10,12 @@ import SwiftUI
 struct ClovaMainView: View {
     @State private var recentButtonSelected = true
     @State private var sharedButtonSelected = false
+    @State private var isPresented : Bool = false
+    
     var modelData = ModelData()
-
+    
     
     var body: some View {
-            
             //1층
             HStack{
                 Text("CLOVA")
@@ -43,54 +44,62 @@ struct ClovaMainView: View {
             .padding( 20)
             
             ScrollView{
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
-                                BlogItem(
-                                    text: "모바일, PC \n어디서든 편하게", color: Color(red: 24/255, green: 136/255, blue: 97/255), imgName: "mic")
-                            })
-                            Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
-                                BlogItem(
-                                    text: "AI 기능으로\n요점만 쏙쏙", textColor: .black, color: Color(red: 196/255, green: 223/255, blue: 203/255), imgName: "apple")
-                            })
-                            
-                            Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
-                                BlogItem(
-                                    text: "중요한 정보만\n모아서 한눈에", color: Color(red: 185/255, green: 85/255, blue: 143/255), imgName: "moa")
-                            })
-                            
-                            
-                        }.padding(.horizontal, 20)
-                        }
-                    
-                //최근, 공유받은
+                ScrollView(.horizontal, showsIndicators: false){
                     HStack{
-                        Button {
-                            if !recentButtonSelected{
-                                recentButtonSelected = true
-                                sharedButtonSelected = false
-                            }
-                        }label: {
-                            EclipseButton(buttonTxt: "최근", buttonSelected: $recentButtonSelected)
-                        }
+                        Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
+                            BlogItem(
+                                text: "모바일, PC \n어디서든 편하게", color: Color(red: 24/255, green: 136/255, blue: 97/255), imgName: "mic")
+                        })
+                        Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
+                            BlogItem(
+                                text: "AI 기능으로\n요점만 쏙쏙", textColor: .black, color: Color(red: 196/255, green: 223/255, blue: 203/255), imgName: "apple")
+                        })
                         
-                        Button {
-                            if !sharedButtonSelected{
-                                sharedButtonSelected = true
-                                recentButtonSelected = false
-                            }
-                        }label: {
-                            EclipseButton(buttonTxt: "공유 받은", buttonSelected: $sharedButtonSelected)
+                        Link(destination: URL(string: "https://m.blog.naver.com/PostView.naver?blogId=clova_ai&logNo=223184899363&proxyReferer=")!, label: {
+                            BlogItem(
+                                text: "중요한 정보만\n모아서 한눈에", color: Color(red: 185/255, green: 85/255, blue: 143/255), imgName: "moa")
+                        })
+                        
+                        
+                    }.padding(.horizontal, 20)
+                }
+                
+                //최근, 공유받은
+                HStack{
+                    Button {
+                        if !recentButtonSelected{
+                            recentButtonSelected = true
+                            sharedButtonSelected = false
                         }
-                        Spacer()
+                    }label: {
+                        EclipseButton(buttonTxt: "최근", buttonSelected: $recentButtonSelected)
                     }
-                    .padding(20)
-
+                    
+                    Button {
+                        if !sharedButtonSelected{
+                            sharedButtonSelected = true
+                            recentButtonSelected = false
+                        }
+                    }label: {
+                        EclipseButton(buttonTxt: "공유 받은", buttonSelected: $sharedButtonSelected)
+                    }
+                    Spacer()
+                }
+                .padding(20)
+                
+                
                 VStack{
                     if recentButtonSelected {
-                        ForEach(0..<4){_ in
-                            RecordItem(record: Record.default)
+                        ForEach(modelData.records){record in
+                            RecordItem(record: record)
+                                .onTapGesture {
+                                    isPresented.toggle()
+                                }
+                                .fullScreenCover(isPresented: $isPresented, content: {
+                                    RecordDetailView(record: record)
+                                })
                         }
+                        
                         //없으면
                         
                     } else if sharedButtonSelected {
@@ -101,7 +110,7 @@ struct ClovaMainView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
-
+                
                 
                 //페이지뷰!!
                 PageView(pages: modelData.blogBigItems)
@@ -121,7 +130,8 @@ struct ClovaMainView: View {
             .background(Color(red: 247/255, green: 247/255, blue: 247/255))
 
 
-}
+    }
+
 }
 
 #Preview {

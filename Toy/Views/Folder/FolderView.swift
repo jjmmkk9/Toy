@@ -11,7 +11,7 @@ struct FolderView: View {
     @State private var isNoteOpen : Bool = false
     @State private var isSharedNoteOpen : Bool = false
     
-    var myFolders : [Folder] = ModelData.modelData.myFolders!
+    var myFolders : [Folder] = ModelData().myFolders
     var body: some View {
         
         
@@ -39,7 +39,7 @@ struct FolderView: View {
                     
                     Button{
                         //전체 노트 클릭시
-                        //                    전체 페이지 보여주삼
+
                     }label: {
                         Image(systemName: "note")
                         Text("전체 노트")
@@ -68,19 +68,16 @@ struct FolderView: View {
                     
                     //전체폴더! 접고 펼때 나타나는 폴더만 패딩 .leading 20
                     if isNoteOpen {
-                        VStack(spacing: 30){
+                        VStack(spacing: 20){
                             ForEach(myFolders, id: \.self){folder in
                                 NavigationLink(folder.name, value: folder)
                             }
                         }
                         .padding(.leading, 20)
                         .navigationDestination(for: Folder.self){ folder in
-                            NoteView()
+                            NoteView(folder: folder)
                         }
                     }
-                    
-                    
-                    
                     
                     
                     Button{

@@ -22,7 +22,7 @@ struct ContentView: View {
                 case .folder:
                     FolderView()
                 case .calender:
-                    Text("calender")
+                    CalenderView(month: Date())
                 case .myPage:
                     Text("myPage")
                 }

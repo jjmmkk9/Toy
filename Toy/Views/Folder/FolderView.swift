@@ -37,35 +37,6 @@ struct FolderView: View {
                 
                 VStack(alignment: .leading, spacing: 20){
                     
-//                    Button{
-//                        //전체 노트 클릭시
-//
-//                    }label: {
-//                        Image(systemName: "note")
-//                        Text("전체 노트")
-//                        
-//                        Spacer()
-//                        HStack{
-//                            Button{
-//                                //전체노트 + 버튼 클릭시
-//                            }label: {
-//                                Text("+")
-//                            }
-//                            .padding(.trailing, 10)
-//                            .foregroundStyle(.secondary)
-//                            
-//                            Button{
-//                                // 전체 노트 접고 펴기
-//                                isNoteOpen.toggle()
-//                            }label: {
-//                                Image(systemName:isNoteOpen ? "arrowtriangle.up" : "arrowtriangle.down")
-//                            }
-//                            .foregroundStyle(.secondary)
-//                        }
-//                        .font(.title)
-//                        
-//                    }
-                    
                     NavigationLink {
                         NoteView(folder: "전체 노트", isFullNote: true)
                     } label: {
@@ -97,7 +68,12 @@ struct FolderView: View {
                     if isNoteOpen {
                         VStack(spacing: 20){
                             ForEach(myFolders, id: \.self){folder in
-                                NavigationLink(folder, value: folder)
+                                NavigationLink{
+                                    NoteView(folder: folder)
+                                }label: {
+                                    Image(systemName: "folder")
+                                    Text(folder)
+                                }
                             }
                         }
                         .padding(.leading, 20)

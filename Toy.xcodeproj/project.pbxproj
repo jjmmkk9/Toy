@@ -19,13 +19,13 @@
 		BD41E8502B69DF8900931D23 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E84F2B69DF8900931D23 /* PageView.swift */; };
 		BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E8512B69E02400931D23 /* PageViewController.swift */; };
 		BD41E8542B69EF2C00931D23 /* UsefulFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */; };
-		BD41E8562B6A336100931D23 /* NoteNothingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD41E8552B6A336100931D23 /* NoteNothingView.swift */; };
 		BD4DF0EE2B5F52A500D95864 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DF0ED2B5F52A500D95864 /* LoginView.swift */; };
 		BD6C6ED62B5F8DCF00177408 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C6ED52B5F8DCF00177408 /* User.swift */; };
 		BD6C6EDA2B5F8E9A00177408 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C6ED92B5F8E9A00177408 /* UserDetailView.swift */; };
 		BD6C6EDC2B5F915E00177408 /* userData.json in Resources */ = {isa = PBXBuildFile; fileRef = BD6C6EDB2B5F915E00177408 /* userData.json */; };
 		BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C6EDD2B5F924E00177408 /* UserModelData.swift */; };
 		BD9425DB2B70A5CB00676ADA /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DA2B70A5CB00676ADA /* NoteView.swift */; };
+		BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DF2B71BCB200676ADA /* CalenderView.swift */; };
 		BD94515D2B5F48D600E58FD6 /* ToyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515C2B5F48D600E58FD6 /* ToyApp.swift */; };
 		BD94515F2B5F48D600E58FD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515E2B5F48D600E58FD6 /* ContentView.swift */; };
 		BD9451612B5F48D700E58FD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9451602B5F48D700E58FD6 /* Assets.xcassets */; };
@@ -71,13 +71,13 @@
 		BD41E84F2B69DF8900931D23 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		BD41E8512B69E02400931D23 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulFeatures.swift; sourceTree = "<group>"; };
-		BD41E8552B6A336100931D23 /* NoteNothingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteNothingView.swift; sourceTree = "<group>"; };
 		BD4DF0ED2B5F52A500D95864 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BD6C6ED52B5F8DCF00177408 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BD6C6ED92B5F8E9A00177408 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		BD6C6EDB2B5F915E00177408 /* userData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = userData.json; sourceTree = "<group>"; };
 		BD6C6EDD2B5F924E00177408 /* UserModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelData.swift; sourceTree = "<group>"; };
 		BD9425DA2B70A5CB00676ADA /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		BD9425DF2B71BCB200676ADA /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		BD9451592B5F48D600E58FD6 /* Toy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD94515C2B5F48D600E58FD6 /* ToyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyApp.swift; sourceTree = "<group>"; };
 		BD94515E2B5F48D600E58FD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +126,7 @@
 		BD357DA92B6B34E90090CF84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BD9425DE2B71BC9B00676ADA /* Calender */,
 				BD357DB52B6CBE430090CF84 /* Main */,
 				BD357DB32B6CBDD10090CF84 /* Folder */,
 				BD357DAA2B6B354B0090CF84 /* PageControl */,
@@ -161,7 +162,6 @@
 			children = (
 				BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */,
 				39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */,
-				BD41E8552B6A336100931D23 /* NoteNothingView.swift */,
 				BDD4D6AE2B68CFE800330284 /* MainCustomTab.swift */,
 				BDD4D6A52B68819200330284 /* BlogItem.swift */,
 				BDD4D6B02B68E52300330284 /* PlusButton.swift */,
@@ -171,6 +171,14 @@
 				BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		BD9425DE2B71BC9B00676ADA /* Calender */ = {
+			isa = PBXGroup;
+			children = (
+				BD9425DF2B71BCB200676ADA /* CalenderView.swift */,
+			);
+			path = Calender;
 			sourceTree = "<group>";
 		};
 		BD9451502B5F48D600E58FD6 = {
@@ -392,7 +400,6 @@
 				BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */,
 				BD357DB02B6B8CA20090CF84 /* FolderView.swift in Sources */,
 				BD9425DB2B70A5CB00676ADA /* NoteView.swift in Sources */,
-				BD41E8562B6A336100931D23 /* NoteNothingView.swift in Sources */,
 				BD6C6EDA2B5F8E9A00177408 /* UserDetailView.swift in Sources */,
 				BD41E84E2B69D51900931D23 /* BlogBigItem.swift in Sources */,
 				BDD4D6AC2B68A4CF00330284 /* Record.swift in Sources */,
@@ -401,6 +408,7 @@
 				BDD4D6AA2B68A48C00330284 /* RecordItem.swift in Sources */,
 				BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */,
 				BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */,
+				BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */,
 				BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */,
 				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,

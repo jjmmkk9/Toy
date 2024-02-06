@@ -104,7 +104,20 @@ struct ClovaMainView: View {
                         
                     } else if sharedButtonSelected {
                         //공유받은 노트가 없으면
-                        NoteNothingView(noteCategory: "공유 받은")
+                        VStack{
+                            Image(systemName: "link.circle.fill")
+                                .resizable()
+                                .foregroundStyle(.purple)
+                                .frame(width: 25, height: 25)
+                            Text("공유 받은 노트가 없어요.")
+                                .font(.headline)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 150)
+                        .background(
+                            RoundedRectangle(cornerRadius: 25.0)
+                                .foregroundStyle(.white)
+                        )
                         //있으면 뿌리기
                     }
                 }

@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct NoteView: View {
-    var folder :Folder
+    var folder :String
+    var isFullNote : Bool = false
     var modelData = ModelData()
     
     var body: some View {
         VStack{
             HStack {
-                Text("\(folder.name) 폴더")
+                Text(folder)
                     .font(.title)
                     .bold()
                     
                 Spacer()
             }
             
-            if let data = modelData.categories[folder.name]{
+            if let data = modelData.categories[folder]{
                 ScrollView{
                     ForEach(data, id: \.id){
                         RecordItem(record: $0)

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@Observable
 class ModelData{
     
     static let modelData = ModelData()
@@ -20,7 +21,7 @@ class ModelData{
     
     var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]
     
-    var myFolders : [Folder] = [Folder(id: 0, name: "기본"), Folder(id: 1, name: "학교")]
+    var myFolders : [String] = ["기본", "학교"]
     
     var categories : [String: [Record]]{
         Dictionary(
@@ -28,10 +29,6 @@ class ModelData{
             )
     }
     
-    //싱글톤
-//    private init(){
-//        self.myFolders = [Folder(id: 0, name: "기본"), Folder(id: 1, name: "학교")]
-//    }
     
 }
 

@@ -26,7 +26,6 @@
 		BD6C6EDC2B5F915E00177408 /* userData.json in Resources */ = {isa = PBXBuildFile; fileRef = BD6C6EDB2B5F915E00177408 /* userData.json */; };
 		BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C6EDD2B5F924E00177408 /* UserModelData.swift */; };
 		BD9425DB2B70A5CB00676ADA /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DA2B70A5CB00676ADA /* NoteView.swift */; };
-		BD9425DD2B70E6F200676ADA /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DC2B70E6F200676ADA /* Folder.swift */; };
 		BD94515D2B5F48D600E58FD6 /* ToyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515C2B5F48D600E58FD6 /* ToyApp.swift */; };
 		BD94515F2B5F48D600E58FD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515E2B5F48D600E58FD6 /* ContentView.swift */; };
 		BD9451612B5F48D700E58FD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9451602B5F48D700E58FD6 /* Assets.xcassets */; };
@@ -79,7 +78,6 @@
 		BD6C6EDB2B5F915E00177408 /* userData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = userData.json; sourceTree = "<group>"; };
 		BD6C6EDD2B5F924E00177408 /* UserModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelData.swift; sourceTree = "<group>"; };
 		BD9425DA2B70A5CB00676ADA /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
-		BD9425DC2B70E6F200676ADA /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		BD9451592B5F48D600E58FD6 /* Toy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD94515C2B5F48D600E58FD6 /* ToyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyApp.swift; sourceTree = "<group>"; };
 		BD94515E2B5F48D600E58FD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -242,7 +240,6 @@
 			children = (
 				BDD4D6AB2B68A4CF00330284 /* Record.swift */,
 				BD357DAD2B6B85490090CF84 /* ModelData.swift */,
-				BD9425DC2B70E6F200676ADA /* Folder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -410,7 +407,6 @@
 				39B2BD532B6F71AB00176D9D /* RecordDetailViewCustomTab.swift in Sources */,
 				BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */,
 				BD357DAC2B6B35800090CF84 /* PageControl.swift in Sources */,
-				BD9425DD2B70E6F200676ADA /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

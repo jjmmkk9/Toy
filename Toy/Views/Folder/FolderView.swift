@@ -11,7 +11,7 @@ struct FolderView: View {
     @State private var isNoteOpen : Bool = false
     @State private var isSharedNoteOpen : Bool = false
     
-    var myFolders : [Folder] = ModelData().myFolders
+    var myFolders : [String] = ModelData.modelData.myFolders
     var body: some View {
         
         
@@ -37,13 +37,40 @@ struct FolderView: View {
                 
                 VStack(alignment: .leading, spacing: 20){
                     
-                    Button{
-                        //전체 노트 클릭시
-
-                    }label: {
+//                    Button{
+//                        //전체 노트 클릭시
+//
+//                    }label: {
+//                        Image(systemName: "note")
+//                        Text("전체 노트")
+//                        
+//                        Spacer()
+//                        HStack{
+//                            Button{
+//                                //전체노트 + 버튼 클릭시
+//                            }label: {
+//                                Text("+")
+//                            }
+//                            .padding(.trailing, 10)
+//                            .foregroundStyle(.secondary)
+//                            
+//                            Button{
+//                                // 전체 노트 접고 펴기
+//                                isNoteOpen.toggle()
+//                            }label: {
+//                                Image(systemName:isNoteOpen ? "arrowtriangle.up" : "arrowtriangle.down")
+//                            }
+//                            .foregroundStyle(.secondary)
+//                        }
+//                        .font(.title)
+//                        
+//                    }
+                    
+                    NavigationLink {
+                        NoteView(folder: "전체 노트", isFullNote: true)
+                    } label: {
                         Image(systemName: "note")
                         Text("전체 노트")
-                        
                         Spacer()
                         HStack{
                             Button{
@@ -63,18 +90,18 @@ struct FolderView: View {
                             .foregroundStyle(.secondary)
                         }
                         .font(.title)
-                        
                     }
+
                     
                     //전체폴더! 접고 펼때 나타나는 폴더만 패딩 .leading 20
                     if isNoteOpen {
                         VStack(spacing: 20){
                             ForEach(myFolders, id: \.self){folder in
-                                NavigationLink(folder.name, value: folder)
+                                NavigationLink(folder, value: folder)
                             }
                         }
                         .padding(.leading, 20)
-                        .navigationDestination(for: Folder.self){ folder in
+                        .navigationDestination(for: String.self){ folder in
                             NoteView(folder: folder)
                         }
                     }

@@ -26,7 +26,7 @@ struct RecordItem: View {
                         Text(record.summary)
                             .font(.system(size: 14))
                             .foregroundStyle(Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255))
-                        Text(record.editTimeFormat + " - " + record.totalTimeFormat +  " - 전체 노트")
+                        Text(record.editTimeString + " - " + record.totalTimeString +  " - 전체 노트")
                             .font(.system(size: 14))
                             .foregroundStyle(Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255))
                     }
@@ -38,7 +38,7 @@ struct RecordItem: View {
     }
 }
 
-#Preview {
-    let modelData = ModelData.modelData
-    return RecordItem(record: modelData.records[0])
-}
+//#Preview {
+//    let modelData = ModelData.modelData
+//    return RecordItem(record: modelData.records[0])
+//}

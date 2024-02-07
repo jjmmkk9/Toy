@@ -136,11 +136,9 @@ struct ClovaMainView: View {
                     UsefulFeatures()
                 }
                 .padding(20)
-                
-                
-                
+
             }
-            .background(Color(red: 247/255, green: 247/255, blue: 247/255))
+            .background(Color(UIColor.MyTheme.bgColor))
 
 
     }

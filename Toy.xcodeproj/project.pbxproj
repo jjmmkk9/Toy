@@ -26,6 +26,9 @@
 		BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C6EDD2B5F924E00177408 /* UserModelData.swift */; };
 		BD9425DB2B70A5CB00676ADA /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DA2B70A5CB00676ADA /* NoteView.swift */; };
 		BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425DF2B71BCB200676ADA /* CalenderView.swift */; };
+		BD9425E22B73100F00676ADA /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425E12B73100F00676ADA /* DateFormatter.swift */; };
+		BD9425E72B731E5800676ADA /* SimpleRecordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425E62B731E5800676ADA /* SimpleRecordItem.swift */; };
+		BD9425E92B731ED500676ADA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9425E82B731ED500676ADA /* Colors.swift */; };
 		BD94515D2B5F48D600E58FD6 /* ToyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515C2B5F48D600E58FD6 /* ToyApp.swift */; };
 		BD94515F2B5F48D600E58FD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94515E2B5F48D600E58FD6 /* ContentView.swift */; };
 		BD9451612B5F48D700E58FD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9451602B5F48D700E58FD6 /* Assets.xcassets */; };
@@ -78,6 +81,9 @@
 		BD6C6EDD2B5F924E00177408 /* UserModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelData.swift; sourceTree = "<group>"; };
 		BD9425DA2B70A5CB00676ADA /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		BD9425DF2B71BCB200676ADA /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
+		BD9425E12B73100F00676ADA /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		BD9425E62B731E5800676ADA /* SimpleRecordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRecordItem.swift; sourceTree = "<group>"; };
+		BD9425E82B731ED500676ADA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		BD9451592B5F48D600E58FD6 /* Toy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD94515C2B5F48D600E58FD6 /* ToyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyApp.swift; sourceTree = "<group>"; };
 		BD94515E2B5F48D600E58FD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 		BD357DA92B6B34E90090CF84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BD9425E52B731E2B00676ADA /* Record */,
 				BD9425DE2B71BC9B00676ADA /* Calender */,
 				BD357DB52B6CBE430090CF84 /* Main */,
 				BD357DB32B6CBDD10090CF84 /* Folder */,
@@ -160,12 +167,9 @@
 		BD357DB52B6CBE430090CF84 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */,
-				39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */,
 				BDD4D6AE2B68CFE800330284 /* MainCustomTab.swift */,
 				BDD4D6A52B68819200330284 /* BlogItem.swift */,
 				BDD4D6B02B68E52300330284 /* PlusButton.swift */,
-				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
 				BDD4D6A72B68937000330284 /* EclipseButton.swift */,
 				BD41E84D2B69D51900931D23 /* BlogBigItem.swift */,
 				BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */,
@@ -179,6 +183,26 @@
 				BD9425DF2B71BCB200676ADA /* CalenderView.swift */,
 			);
 			path = Calender;
+			sourceTree = "<group>";
+		};
+		BD9425E32B73141A00676ADA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BD6C6EDB2B5F915E00177408 /* userData.json */,
+				BD9425E82B731ED500676ADA /* Colors.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BD9425E52B731E2B00676ADA /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				BD357DBB2B6CD4950090CF84 /* RecordDetailView.swift */,
+				39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */,
+				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
+				BD9425E62B731E5800676ADA /* SimpleRecordItem.swift */,
+			);
+			path = Record;
 			sourceTree = "<group>";
 		};
 		BD9451502B5F48D600E58FD6 = {
@@ -204,6 +228,7 @@
 		BD94515B2B5F48D600E58FD6 /* Toy */ = {
 			isa = PBXGroup;
 			children = (
+				BD9425E32B73141A00676ADA /* Sources */,
 				BD94515C2B5F48D600E58FD6 /* ToyApp.swift */,
 				BD357DA92B6B34E90090CF84 /* Views */,
 				BDD4D6AD2B68A88800330284 /* Model */,
@@ -213,7 +238,6 @@
 				BD6C6EDD2B5F924E00177408 /* UserModelData.swift */,
 				BD4DF0ED2B5F52A500D95864 /* LoginView.swift */,
 				BD6C6ED92B5F8E9A00177408 /* UserDetailView.swift */,
-				BD6C6EDB2B5F915E00177408 /* userData.json */,
 			);
 			path = Toy;
 			sourceTree = "<group>";
@@ -248,6 +272,7 @@
 			children = (
 				BDD4D6AB2B68A4CF00330284 /* Record.swift */,
 				BD357DAD2B6B85490090CF84 /* ModelData.swift */,
+				BD9425E12B73100F00676ADA /* DateFormatter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -397,6 +422,7 @@
 				BDD4D6AF2B68CFE800330284 /* MainCustomTab.swift in Sources */,
 				BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */,
 				BDD4D6B12B68E52300330284 /* PlusButton.swift in Sources */,
+				BD9425E22B73100F00676ADA /* DateFormatter.swift in Sources */,
 				BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */,
 				BD357DB02B6B8CA20090CF84 /* FolderView.swift in Sources */,
 				BD9425DB2B70A5CB00676ADA /* NoteView.swift in Sources */,
@@ -408,11 +434,13 @@
 				BDD4D6AA2B68A48C00330284 /* RecordItem.swift in Sources */,
 				BD6C6EDE2B5F924E00177408 /* UserModelData.swift in Sources */,
 				BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */,
+				BD9425E92B731ED500676ADA /* Colors.swift in Sources */,
 				BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */,
 				BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */,
 				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,
 				39B2BD532B6F71AB00176D9D /* RecordDetailViewCustomTab.swift in Sources */,
+				BD9425E72B731E5800676ADA /* SimpleRecordItem.swift in Sources */,
 				BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */,
 				BD357DAC2B6B35800090CF84 /* PageControl.swift in Sources */,
 			);

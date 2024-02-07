@@ -66,7 +66,7 @@ struct RecordDetailView: View {
         //content
         ScrollView{
             VStack(alignment: .leading, spacing: 10) {
-                Text("1.29 월 10:26(16:46 수정) . 73분 44초")
+                Text("\(record.detailTimeString) . \(record.totalTimeString)")
                 Text("\(record.name) \(record.id)")
                     .font(.title)
                     .bold()

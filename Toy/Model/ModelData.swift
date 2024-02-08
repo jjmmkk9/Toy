@@ -21,7 +21,7 @@ class ModelData{
     
     var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]
     
-    var history: Set<String> = []
+    
     
     var myFolders : [String] = ["기본", "학교"]
     
@@ -31,20 +31,7 @@ class ModelData{
             )
     }
     
-    func updateHistory() -> Set<String> {
-        history = []
-        for record in records{
-            if let createTime = record.createTime{
-                let str = dateToString(date: createTime)
-                history.insert(str)
-            }
-        }
-        
-        print(history)
-        return history
-    }
-    
-    
 }
+
 
 

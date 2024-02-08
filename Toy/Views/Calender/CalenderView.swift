@@ -12,16 +12,30 @@ struct CalenderView: View {
     //현재 달력의 월 정보 들고 있는 month
     //드래그 제스처로 월 변경해줄 offset
     //특정 일자 클릭하면 추가될 뷰 clickedDate
-    @State private var today : Date = Date()
     @State var month: Date
-    @State var offset: CGSize = CGSize()
+    @State private var offset: CGSize = CGSize()
     //클릭한 날짜 기본 값 = 오늘
-    @State var clickedDate: Date = Date()
+    @State private var clickedDate: Date = Date()
     @State private var isToday: Bool = true
-    
     @State private var changedMonth: Int = 0
-    var history : Set<String> = ModelData.modelData.updateHistory()
+    
+    var today : Date = Date()
     var records : [Record] = ModelData.modelData.records
+    @Binding var clicked : Bool
+    @Binding var wheelOn : Bool
+    
+    
+//    var history: Set<String> {
+//        var history : Set<String> = []
+//        for record in ModelData.modelData.records{
+//            if let createTime = record.createTime{
+//                let str = dateToString(date: createTime)
+//                history.insert(str)
+//            }
+//        }
+//        print(history)
+//        return history
+//    }
     
     
     
@@ -50,27 +64,25 @@ struct CalenderView: View {
                     }
             )
             .padding()
-            
-            
-            //날짜에 맞는 기록이 없으면 "노트가 없습니다."
-            //있으면 네비게이션 recordDetailview
-            let filterdRecord = records.filter{
-                isSameDay(date1: clickedDate, date2: $0.createTime!)
-            }
-            
-            if !filterdRecord.isEmpty {
-                
-                ScrollView{
-                    ForEach(filterdRecord) { record in
-                        SimpleRecordItem(record: record)
-                    }
+            VStack{
+                let filterdRecord = records.filter{
+                    isSameDay(date1: clickedDate, date2: $0.createTime!)
                 }
-                .padding()
-                .padding(.bottom, -20)
-            }else{
-                Text("노트가 없습니다.")
                 
+                if !filterdRecord.isEmpty {
+                    ScrollView{
+                        ForEach(filterdRecord) { record in
+                            SimpleRecordItem(record: record)
+                        }
+                    }
+                    .padding()
+                    .padding(.bottom, -20)
+                }else{
+                    Text("노트가 없습니다.")
+                    
+                }
             }
+            .frame(maxHeight: .infinity)
         }
     }
 
@@ -81,17 +93,18 @@ struct CalenderView: View {
                 //달 선택
                 HStack(alignment: .top){
                     Button{
-                        
+                        clicked = true
+                        wheelOn = true
                     }label: {
                         HStack(alignment: .top){
                             Text(month, formatter: Self.dateFormatter)
                                 .font(.title)
                                 .padding(.bottom)
-                            Image("arrow_under")
+                            Image(systemName: "chevron.down")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 25)
-                                .padding(.top, 10)
+                                .frame(width: 20)
+                                .padding(.top, 13)
                         }
                         .foregroundStyle(.black)
                     }
@@ -147,10 +160,10 @@ struct CalenderView: View {
                             let date = getDate(for: index - firstWeekday) //getDate(0~
                             let day = index - firstWeekday + 1
                             let clicked = isSameDay(date1: clickedDate, date2: date)
-                            let dateStr = dateToString(date: date)
-                            let isExists = history.contains(dateStr)
+//                            let dateStr = dateToString(date: date)
+//                            let isExists = history.contains(dateStr)
                             //일자 생성
-                            CellView(day: day, clicked: clicked, isExists: isExists)
+                            CellView(day: day, clicked: clicked)//isExists
                                     .onTapGesture {
                                         if !clicked {
                                             clickedDate = date
@@ -159,6 +172,7 @@ struct CalenderView: View {
                                     }
                             
                         }
+                        
                     }
                 }
             }
@@ -171,10 +185,10 @@ struct CalenderView: View {
         var clicked: Bool = false
         var isExists: Bool = false
         
-        init(day: Int, clicked: Bool, isExists: Bool) {
+        init(day: Int, clicked: Bool) {
             self.day = day
             self.clicked = clicked
-            self.isExists = isExists
+//            self.isExists = isExists
         }
         
         var body: some View {
@@ -221,7 +235,7 @@ struct CalenderView: View {
 
     
     // MARK: - 내부 메서드
-    private extension CalenderView {
+    extension CalenderView {
         /// 특정 해당 날짜
         private func getDate(for day: Int) -> Date {
             return Calendar.current.date(byAdding: .day, value: day, to: startOfMonth())!
@@ -287,6 +301,6 @@ struct CalenderView: View {
     }
 
     #Preview {
-        CalenderView(month: Date())
+        CalenderView(month: Date(), clicked: .constant(true), wheelOn: .constant(true))
     }
 

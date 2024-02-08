@@ -8,28 +8,71 @@
 import SwiftUI
 
 struct DatePickerView: View {
-    @State private var selected = 2024
+    @State private var year = 2024
+    @State private var month = 2
+    
+    @Binding var clicked : Bool
+    @Binding var wheelOn : Bool
+    @Binding var changeMonth : Date
+    
     var body: some View {
-        ZStack(alignment: .bottom){
-            
-//            DatePicker("", selection: $selected, displayedComponents: .date)
-//            .datePickerStyle(WheelDatePickerStyle())
-            Picker("select year", selection: $selected) {
-                ForEach(2000..<2101, id: \.self) { year in
-                    Text("\(year)").tag(year)}
+        Spacer()
+            ZStack(alignment: .bottom){
+                Color.clear.ignoresSafeArea()
+                Rectangle()
+                    .frame(height: 50)
+                    .foregroundStyle(.white)
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(height: 300)
+                    .foregroundStyle(.white)
+                    .ignoresSafeArea()
+                
+                HStack{
+                    Picker("select year", selection: $year) {
+                        ForEach(2000..<2101, id: \.self) { year in
+                            Text("\(String(year))").tag(year)}
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 200)
+                    .clipped()
+                    
+                    Picker("select month", selection: $month) {
+                        ForEach(1..<13, id: \.self) { month in
+                            Text("\(month)").tag(month)}
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 200)
+                    .clipped()
+                    
+                }
+                .frame(height: 200)
+                .offset(y: -70)
+                
+                
+                Button{
+                    //완료시 changeMonth
+                    clicked = false
+                    wheelOn = false
+                    let date = yearMonthCreate(for: year, month: month)
+                    let today = Date()
+                    print(today)
+                    
+                } label: {
+                    Text("완료")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 35)
+                }
+                .buttonStyle(.borderedProminent)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
-            .pickerStyle(.wheel)
-//            Rectangle()
-//                .frame(height: 100)
-//            RoundedRectangle(cornerRadius: 25)
-//                .frame(height: 300)
+            .ignoresSafeArea()
             
-        }
         
         
     }
 }
 
 #Preview {
-    DatePickerView()
+    DatePickerView(clicked: .constant(true), wheelOn: .constant(true), changeMonth: .constant(Date()))
 }

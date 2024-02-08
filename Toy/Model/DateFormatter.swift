@@ -41,3 +41,21 @@ func dateToString(date: Date) -> String {
     let str = dateFormatter.string(from: date)
     return str
 }
+
+func yearMonthCreate(for year: Int, month: Int) -> Date{
+    let calendar = Calendar.current
+    
+    let utcTimeZone = TimeZone(abbreviation: "UTC")
+    var calendarUTC = calendar
+    calendarUTC.timeZone = utcTimeZone!
+    
+    var dateComponents = DateComponents()
+    dateComponents.year = year
+    dateComponents.month = month
+    if let date = calendarUTC.date(from: dateComponents){
+        return date
+    }else{
+        fatalError("날짜 못찾음")
+    }
+    
+}

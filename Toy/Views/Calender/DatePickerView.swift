@@ -13,7 +13,8 @@ struct DatePickerView: View {
     
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
-    @Binding var changeMonth : Date
+    //바뀐 날짜
+    @State var dateViewModel = DateViewModel.shared
     
     var body: some View {
         Spacer()
@@ -54,8 +55,9 @@ struct DatePickerView: View {
                     clicked = false
                     wheelOn = false
                     let date = yearMonthCreate(for: year, month: month)
-                    let today = Date()
-                    print(today)
+                    
+                    //newMonth = date
+                    dateViewModel.newMonth = date
                     
                 } label: {
                     Text("완료")
@@ -74,5 +76,5 @@ struct DatePickerView: View {
 }
 
 #Preview {
-    DatePickerView(clicked: .constant(true), wheelOn: .constant(true), changeMonth: .constant(Date()))
+    DatePickerView(clicked: .constant(true), wheelOn: .constant(true))
 }

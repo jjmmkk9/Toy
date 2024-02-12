@@ -10,17 +10,20 @@ import SwiftUI
 
 struct CalenderView: View {
     //현재 달력의 월 정보 들고 있는 month
+    @State var month : Date = Date()
     //드래그 제스처로 월 변경해줄 offset
     //특정 일자 클릭하면 추가될 뷰 clickedDate
-    @State var month: Date
     @State private var offset: CGSize = CGSize()
     //클릭한 날짜 기본 값 = 오늘
     @State private var clickedDate: Date = Date()
-    @State private var isToday: Bool = true
+    @State private var isToday: Bool = false
     @State private var changedMonth: Int = 0
     
     var today : Date = Date()
     var records : [Record] = ModelData.modelData.records
+    
+    @State var dateViewModel = DateViewModel.shared
+    
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
     
@@ -46,6 +49,10 @@ struct CalenderView: View {
                 headerView
                 calendarGridView
             }
+            .onChange(of: dateViewModel.newMonth){
+                updateStates(date: dateViewModel.newMonth)
+            }
+            
             //드래그 제스처로 달 옮기기
             .gesture(
                 DragGesture()
@@ -97,6 +104,7 @@ struct CalenderView: View {
                         wheelOn = true
                     }label: {
                         HStack(alignment: .top){
+                            //2024.2
                             Text(month, formatter: Self.dateFormatter)
                                 .font(.title)
                                 .padding(.bottom)
@@ -122,7 +130,7 @@ struct CalenderView: View {
                         .foregroundStyle(isToday ? .black : .secondary)
                         .onTapGesture {
                             if !isToday{
-                                changeMonth(by: changedMonth * -1)
+                                combackToday()
                                 clickedDate = today
                                 isToday = true
                             }
@@ -275,11 +283,32 @@ struct CalenderView: View {
                 
             }
         }
-        func updateStates(date : Date, value : Int) {
-            self.month = date
-            clickedDate = startOfMonth()
+        //오늘 눌렀을때 돌아가기
+        func combackToday(){
+            self.month = today
+            clickedDate = today
             isToday = isSameDay(date1: clickedDate, date2: today)
-            changedMonth += value
+            changedMonth = 0
+
+        }
+        func differenceInMonths(from date: Date, to secondDate: Date) -> Int{
+            let calendar = Calendar.current
+            let difference = calendar.dateComponents([.month], from: date, to: secondDate)
+            return difference.month ?? 0
+        }
+        
+        func updateStates(date : Date) {
+            print("update month : \(date)")
+            self.month = date
+            changedMonth += differenceInMonths(from: today, to: date)
+            if changedMonth == 0 {
+                clickedDate = today
+            }else{
+                clickedDate = startOfMonth()
+                print("changed month : \(changedMonth)")
+            }
+            isToday = isSameDay(date1: clickedDate, date2: today)
+            
         }
         
         func isSameDay(date1: Date, date2: Date) -> Bool{
@@ -301,6 +330,6 @@ struct CalenderView: View {
     }
 
     #Preview {
-        CalenderView(month: Date(), clicked: .constant(true), wheelOn: .constant(true))
+        CalenderView(clicked: .constant(true), wheelOn: .constant(true))
     }
 

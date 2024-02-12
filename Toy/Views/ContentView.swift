@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var clicked : Bool = false
     @State private var wheelOn : Bool = false
-    @State private var changeMonth : Date = Date()
     @State private var selected : Tab = .home
     
     
@@ -24,9 +23,9 @@ struct ContentView: View {
                 case .folder:
                     FolderView()
                 case .calender:
-                    CalenderView(month: Date(), clicked: $clicked, wheelOn: $wheelOn)
+                    CalenderView(clicked: $clicked, wheelOn: $wheelOn)
                 case .myPage:
-                    Text("myPage")
+                    MyPageView()
                 }
                 
                 Spacer()
@@ -39,16 +38,16 @@ struct ContentView: View {
             //2층
             if clicked{
                 Color.black.opacity(0.6)
-                    .zIndex(1.0) //zindex를 안줘서 사라질때 zindex가 ClovaMain의 Scrollview보다 아래로 내려가면서 스크롤뷰 부분만 먼저 사라지는것처럼 보였다. 버그 해결!
+                    .zIndex(1.0)
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.3)){
                             clicked = false
                         }
                     }
-                    .ignoresSafeArea()// safeArea에만 까만색 안깔리는거 해결
+                    .ignoresSafeArea()
                 
                 if wheelOn {
-                    DatePickerView(clicked: $clicked, wheelOn: $wheelOn, changeMonth: $changeMonth)
+                    DatePickerView(clicked: $clicked, wheelOn: $wheelOn)
                         .zIndex(2.0)
                 }
             }

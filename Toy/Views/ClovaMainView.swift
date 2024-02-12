@@ -12,7 +12,7 @@ struct ClovaMainView: View {
     @State private var sharedButtonSelected = false
     @State private var isPresented : Bool = false
     
-    var modelData = ModelData.modelData
+    @State var modelData = ModelData.modelData
     
     
     var body: some View {
@@ -90,13 +90,13 @@ struct ClovaMainView: View {
                 
                 VStack{
                     if recentButtonSelected {
-                        ForEach(modelData.records){record in
-                            RecordItem(record: record)
+                        ForEach(modelData.records.indices){index in
+                            RecordItem(record: modelData.records[index])
                                 .onTapGesture {
-                                    isPresented.toggle()
+                                    modelData.records[index].isPresented.toggle()
                                 }
-                                .fullScreenCover(isPresented: $isPresented, content: {
-                                    RecordDetailView(record: record)
+                                .fullScreenCover(isPresented: $modelData.records[index].isPresented, content: {
+                                    RecordDetailView(record: modelData.records[index])
                                 })
                         }
                         

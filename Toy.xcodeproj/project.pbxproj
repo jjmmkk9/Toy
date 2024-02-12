@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		395BE9902B79F7FE0003D376 /* DateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395BE98F2B79F7FE0003D376 /* DateViewModel.swift */; };
+		395BE9932B7AB2250003D376 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395BE9922B7AB2250003D376 /* MyPageView.swift */; };
 		39B2BD532B6F71AB00176D9D /* RecordDetailViewCustomTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */; };
 		BD357DAC2B6B35800090CF84 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DAB2B6B35800090CF84 /* PageControl.swift */; };
 		BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD357DAD2B6B85490090CF84 /* ModelData.swift */; };
@@ -64,6 +66,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		395BE98F2B79F7FE0003D376 /* DateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewModel.swift; sourceTree = "<group>"; };
+		395BE9922B7AB2250003D376 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewCustomTab.swift; sourceTree = "<group>"; };
 		BD357DAB2B6B35800090CF84 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		BD357DAD2B6B85490090CF84 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
@@ -131,9 +135,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		395BE9912B7AB20E0003D376 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				395BE9922B7AB2250003D376 /* MyPageView.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		BD357DA92B6B34E90090CF84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				395BE9912B7AB20E0003D376 /* MyPage */,
 				BD9425E52B731E2B00676ADA /* Record */,
 				BD9425DE2B71BC9B00676ADA /* Calender */,
 				BD357DB52B6CBE430090CF84 /* Main */,
@@ -184,6 +197,7 @@
 			children = (
 				BD9425DF2B71BCB200676ADA /* CalenderView.swift */,
 				BD7B82A72B7382800002842C /* DatePickerView.swift */,
+				395BE98F2B79F7FE0003D376 /* DateViewModel.swift */,
 			);
 			path = Calender;
 			sourceTree = "<group>";
@@ -426,6 +440,7 @@
 				BD7B82A82B7382800002842C /* DatePickerView.swift in Sources */,
 				BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */,
 				BDD4D6B12B68E52300330284 /* PlusButton.swift in Sources */,
+				395BE9932B7AB2250003D376 /* MyPageView.swift in Sources */,
 				BD9425E22B73100F00676ADA /* DateFormatter.swift in Sources */,
 				BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */,
 				BD357DB02B6B8CA20090CF84 /* FolderView.swift in Sources */,
@@ -440,6 +455,7 @@
 				BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */,
 				BD9425E92B731ED500676ADA /* Colors.swift in Sources */,
 				BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */,
+				395BE9902B79F7FE0003D376 /* DateViewModel.swift in Sources */,
 				BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */,
 				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,

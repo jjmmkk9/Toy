@@ -11,9 +11,5 @@ import SwiftUI
     static let shared = DateViewModel()
     
     var newMonth : Date = Date()
-    
-    func updateNewMonth(){
-        print("update new month --- DateViewModel.swift")
-    }
-    
+
 }

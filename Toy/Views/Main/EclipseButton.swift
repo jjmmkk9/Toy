@@ -22,7 +22,7 @@ struct EclipseButton:View{
         
             .background(
                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(buttonSelected ? .clear : Color(red: 236/255, green: 236/255, blue: 236/255))
+                    .foregroundStyle(buttonSelected ? .white : Color(red: 236/255, green: 236/255, blue: 236/255))
                     .overlay(
                         RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                             .stroke(buttonSelected ? .black : .clear, lineWidth: 2)

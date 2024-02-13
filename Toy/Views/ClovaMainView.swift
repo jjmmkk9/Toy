@@ -90,20 +90,35 @@ struct ClovaMainView: View {
                 
                 VStack{
                     if recentButtonSelected {
-                        ForEach(modelData.records.indices){index in
-                            RecordItem(record: modelData.records[index])
-                                .onTapGesture {
-                                    modelData.records[index].isPresented.toggle()
-                                }
-                                .fullScreenCover(isPresented: $modelData.records[index].isPresented, content: {
-                                    RecordDetailView(record: modelData.records[index])
-                                })
+                        if !modelData.records.isEmpty {
+                            ForEach(modelData.records.indices){index in
+                                RecordItem(record: modelData.records[index])
+                                    .onTapGesture {
+                                        modelData.records[index].isPresented.toggle()
+                                    }
+                                    .fullScreenCover(isPresented: $modelData.records[index].isPresented, content: {
+                                        RecordDetailView(record: modelData.records[index])
+                                    })
+                            }
+                        }else{
+                            VStack{
+                                Image(systemName: "link.circle.fill")
+                                    .resizable()
+                                    .foregroundStyle(.purple)
+                                    .frame(width: 25, height: 25)
+                                Text("노트가 없어요.")
+                                    .font(.headline)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 150)
+                            .background(
+                                RoundedRectangle(cornerRadius: 25.0)
+                                    .foregroundStyle(.white)
+                            )
                         }
-                        
-                        //없으면
-                        
-                    } else if sharedButtonSelected {
-                        //공유받은 노트가 없으면
+
+                    } else{
+
                         VStack{
                             Image(systemName: "link.circle.fill")
                                 .resizable()

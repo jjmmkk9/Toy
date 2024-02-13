@@ -9,8 +9,12 @@ import SwiftUI
 
 struct NoteView: View {
     var folder :String
-    var isFullNote : Bool = false
-    var modelData = ModelData()
+    var isFullNote: Bool = false
+    
+    var items : [Record] {
+        ModelData.modelData.categories[folder] ?? []
+    }
+    @State private var records : [Record] = ModelData.modelData.records
     
     var body: some View {
         VStack{
@@ -18,30 +22,50 @@ struct NoteView: View {
                 Text(folder)
                     .font(.title)
                     .bold()
-                    
+                
                 Spacer()
             }
             
-            if let data = modelData.categories[folder]{
+            if records.isEmpty{
+                NoteNothingView()
+            }else if isFullNote {
                 ScrollView{
-                    ForEach(data, id: \.id){
-                        RecordItem(record: $0)
+                    ForEach(records.indices){index in
+                        RecordItem(record: records[index])
+                            .onTapGesture {
+                                records[index].isPresented.toggle()
+                            }
+                            .fullScreenCover(isPresented: $records[index].isPresented, content: {
+                                RecordDetailView(record: records[index])
+                            })
                     }
                 }
-            }else {
+            }else if !items.isEmpty {
+                ScrollView{
+                    ForEach(items.indices){index in
+                        let record = items[index]
+                        RecordItem(record: record)
+                            .onTapGesture {
+                                records[index] = record
+                                records[index].isPresented.toggle()
+                            }
+                            .fullScreenCover(isPresented: $records[index].isPresented, content: {
+                                RecordDetailView(record: record)
+                            })
+                    }
+                }
+            }else{
                 NoteNothingView()
             }
-
+            
             // 중앙 정렬을 위한 Spacer 추가
             Spacer()
-
-            
         }
         .padding(20)
         .frame(maxHeight: .infinity)
-        .background(Color(red: 246 / 255, green: 247 / 255, blue: 246 / 255))
-
-
+        .background(Color(UIColor.MyTheme.bgColor))
+        
+        
     }
 }
 

@@ -91,7 +91,7 @@ struct RecordDetailView: View {
             }
             .padding(20)
 
-            RecordDetailViewCustomTab()
+            RecordDetailViewCustomTab(record: record)
             
             
         }

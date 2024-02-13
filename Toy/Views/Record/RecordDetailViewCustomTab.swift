@@ -14,15 +14,15 @@ enum detailTab: String, CaseIterable {
 
 struct RecordDetailViewCustomTab: View {
     @State private var selectedTab: detailTab = .voiceRecord
+    var record : Record
 //    @Namespace private var animation
     
     var body: some View {
         VStack {
             animate()
-            testView(tests: selectedTab)
+            testView(record: record, tests: selectedTab)
                 }
             }
-            
             @ViewBuilder
             private func animate() -> some View {
                 HStack {
@@ -37,7 +37,7 @@ struct RecordDetailViewCustomTab: View {
                                 Capsule()
                                     .foregroundColor(.black)
                                     .frame(height: 3)
-//                                    .matchedGeometryEffect(id: "info", in: animation)
+//                                    .matchedGeometryEffect(id: item, in: animation)
                             }
                             
                         }
@@ -50,7 +50,7 @@ struct RecordDetailViewCustomTab: View {
         }
 
         struct testView : View {
-            var record : Record = Record.default
+            var record : Record
             var tests : detailTab
             var body: some View {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -120,5 +120,5 @@ struct textRow : View {
 }
 
 #Preview {
-    RecordDetailViewCustomTab()
+    RecordDetailViewCustomTab(record: ModelData.modelData.records[0])
 }

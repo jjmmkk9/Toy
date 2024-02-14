@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView{
                 HStack{
                     VStack(alignment: .leading){
@@ -60,7 +60,7 @@ struct MyPageView: View {
                         .foregroundStyle(.secondary)
                     
                     NavigationLink {
-                        Text("hi")
+                        ProfileInfoView()
                     } label: {
                         HStack{
                             Text("프로필 정보")

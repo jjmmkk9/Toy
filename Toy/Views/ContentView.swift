@@ -27,15 +27,14 @@ struct ContentView: View {
                 case .myPage:
                     MyPageView()
                 }
-                
-                Spacer()
-                
-                Divider()
+
                 MainCustomTab(selected: $selected)
                     .padding(.bottom, -10)
             }
+            .ignoresSafeArea(.keyboard)
+//            .padding(.bottom, 80)  //화면 탭뷰에 가리는 부분땜시
             
-            //2층
+
             if clicked{
                 Color.black.opacity(0.6)
                     .zIndex(1.0)
@@ -58,6 +57,7 @@ struct ContentView: View {
                     .zIndex(2.0)
                     .padding()
                     .offset(y: -60.0)
+                    .opacity(vm.isOpen ? 0 : 1)
             }
             
             if vm.isOpen {

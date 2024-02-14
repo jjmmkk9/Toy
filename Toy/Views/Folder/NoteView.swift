@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+class RecordViewModel{
+    
+}
 
 struct NoteView: View {
     var folder :String
@@ -14,7 +17,7 @@ struct NoteView: View {
     var items : [Record] {
         ModelData.modelData.categories[folder] ?? []
     }
-    @State private var records : [Record] = ModelData.modelData.records
+    @State private var modelData = ModelData.modelData
     
     var body: some View {
         VStack{
@@ -26,33 +29,15 @@ struct NoteView: View {
                 Spacer()
             }
             
-            if records.isEmpty{
+            if modelData.records.isEmpty{
                 NoteNothingView()
             }else if isFullNote {
                 ScrollView{
-                    ForEach(records.indices){index in
-                        RecordItem(record: records[index])
-                            .onTapGesture {
-                                records[index].isPresented.toggle()
-                            }
-                            .fullScreenCover(isPresented: $records[index].isPresented, content: {
-                                RecordDetailView(record: records[index])
-                            })
-                    }
+                    detailOpen(modelData: $modelData)
                 }
             }else if !items.isEmpty {
                 ScrollView{
-                    ForEach(items.indices){index in
-                        let record = items[index]
-                        RecordItem(record: record)
-                            .onTapGesture {
-                                records[index] = record
-                                records[index].isPresented.toggle()
-                            }
-                            .fullScreenCover(isPresented: $records[index].isPresented, content: {
-                                RecordDetailView(record: record)
-                            })
-                    }
+                    detailOpen(modelData: $modelData)
                 }
             }else{
                 NoteNothingView()

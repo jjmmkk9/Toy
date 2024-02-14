@@ -45,6 +45,15 @@ class ModelData : ObservableObject{
         print("history setted :::::::::::::::: \(set)")
         return set
     }
+    
+    func dayRecords(date : Date) -> [Record]{
+        let fr = records.filter{
+            Calendar.current.isDate(date, inSameDayAs: $0.createTime ?? Date())
+        }
+        return fr
+    }
+    
+
 }
 
 

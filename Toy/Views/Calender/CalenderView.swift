@@ -20,6 +20,7 @@ struct CalenderView: View {
     
     var today : Date = Date()
     var history = ModelData.modelData.history
+    
     @State private var records : [Record] = ModelData.modelData.records
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
@@ -31,6 +32,7 @@ struct CalenderView: View {
                 headerView
                 calendarGridView
             }
+            .padding()
             .onChange(of: dateViewModel.newMonth){
                 updateStates(date: dateViewModel.newMonth)
             }
@@ -51,12 +53,9 @@ struct CalenderView: View {
                         self.offset = CGSize()
                     }
             )
-            
             VStack{
-                let filterdRecord = records.filter{
-                    isSameDay(date1: clickedDate, date2: $0.createTime!)
-                }
                 
+            let filterdRecord = ModelData.modelData.dayRecords(date: clickedDate)
                 if !filterdRecord.isEmpty {
                     ScrollView{
                         ForEach(filterdRecord.indices) { index in
@@ -70,16 +69,18 @@ struct CalenderView: View {
                                     RecordDetailView(record: record)
                                 })
                         }
+                        Text("")
+                            .frame(height: 50)
                     }
-                    .padding(.bottom, -20)
+                    .padding(.bottom, 20)
                 }else{
                     Text("노트가 없습니다.")
                     
                 }
             }
+            .padding()
             .frame(maxHeight: .infinity)
         }
-        .padding(20)
     }
     
     // MARK: - 헤더 뷰
@@ -93,7 +94,6 @@ struct CalenderView: View {
                     wheelOn = true
                 }label: {
                     HStack(alignment: .top){
-                        //2024.2
                         Text(month, formatter: Self.dateFormatter)
                             .font(.title)
                             .padding(.bottom)
@@ -124,19 +124,16 @@ struct CalenderView: View {
                             isToday = true
                         }
                     }
-                
+
             }
-            
-            
             HStack {
-                //Array(myArray.enumerated()), id: \.1
                 ForEach(Array(daysSymbol.enumerated()), id: \.1) { index, symbol in
                     Text(symbol)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(index == 0 ? .red : .black)
                 }
             }
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
         }
     }
     
@@ -175,7 +172,7 @@ struct CalenderView: View {
                     
                 }
             }
-            .padding(.bottom, 30)
+            .padding(.bottom, 10)
         }
     }
 }

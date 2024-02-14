@@ -11,6 +11,9 @@ struct FolderView: View {
     @State private var isNoteOpen : Bool = false
     @State private var isSharedNoteOpen : Bool = false
     
+
+    @State private var vm = PopupViewModel.shared
+    
     var myFolders : [String] = ModelData.modelData.myFolders
     var body: some View {
         
@@ -46,6 +49,7 @@ struct FolderView: View {
                         HStack{
                             Button{
                                 //전체노트 + 버튼 클릭시
+                                vm.isOpen.toggle()
                             }label: {
                                 Text("+")
                             }
@@ -54,9 +58,10 @@ struct FolderView: View {
                             
                             Button{
                                 // 전체 노트 접고 펴기
+                                
                                 isNoteOpen.toggle()
                             }label: {
-                                Image(systemName:isNoteOpen ? "arrowtriangle.up" : "arrowtriangle.down")
+                                Image(systemName:isNoteOpen ? "chevron.up" : "chevron.down")
                             }
                             .foregroundStyle(.secondary)
                         }
@@ -66,7 +71,7 @@ struct FolderView: View {
                     
                     //전체폴더! 접고 펼때 나타나는 폴더만 패딩 .leading 20
                     if isNoteOpen {
-                        VStack(spacing: 20){
+                        VStack(alignment: .leading, spacing: 20){
                             ForEach(myFolders, id: \.self){folder in
                                 NavigationLink{
                                     NoteView(folder: folder)
@@ -102,7 +107,7 @@ struct FolderView: View {
                             Button{
                                 // 전체 노트 접고 펴기
                             }label: {
-                                Image(systemName:"arrowtriangle.down")
+                                Image(systemName:"chevron.down")
                             }
                             .foregroundStyle(.secondary)
                             

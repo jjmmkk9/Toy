@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var clicked : Bool = false
     @State private var wheelOn : Bool = false
     @State private var selected : Tab = .home
-    
+    @State private var vm = PopupViewModel.shared
     
     var body: some View {
         
@@ -59,6 +59,23 @@ struct ContentView: View {
                     .padding()
                     .offset(y: -60.0)
             }
+            
+            if vm.isOpen {
+                Color.black.opacity(0.6)
+                    .zIndex(3.0)
+                    .onTapGesture {
+                        withAnimation(.easeInOut(duration: 0.3)){
+                            vm.isOpen = false
+                        }
+                    }
+                    .ignoresSafeArea()
+                
+                NewFolderPopup()
+                    .zIndex(4.0)
+                    .padding(.horizontal, 40)
+                    .offset(y: -80)
+            }
+            
             
             
         }

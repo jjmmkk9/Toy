@@ -23,13 +23,18 @@ class ModelData : ObservableObject{
     var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]{
         
         didSet{
-            print("Records changed: \(records)")
+            print("Records changed presented ID is : \(records.filter{$0.isPresented}.map{$0.id})")
         }
     }
     
 
     
-    var myFolders : [String] = ["기본", "학교"]
+    var myFolders : [String] = ["기본", "학교"]{
+        didSet{
+            print(myFolders)
+        }
+    }
+    
     
     var categories : [String: [Record]]{
         Dictionary(

@@ -23,7 +23,7 @@ struct Record: Hashable, Identifiable {
         return editTimeToString(editTime: editTime)
     }
     var createTime : Date? {
-        var timeStr : String = "2024-02-01 14:30:00"
+        var timeStr : String = "2024-02-05 14:30:00"
         return stringToDateTime(dateString: timeStr)
     }
     var simpleTimeString : String{

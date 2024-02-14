@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ClovaMainView: View {
+
     @State private var recentButtonSelected = true
     @State private var sharedButtonSelected = false
     @State private var isPresented : Bool = false
@@ -91,53 +92,16 @@ struct ClovaMainView: View {
                 VStack{
                     if recentButtonSelected {
                         if !modelData.records.isEmpty {
-                            ForEach(modelData.records.indices){index in
-                                RecordItem(record: modelData.records[index])
-                                    .onTapGesture {
-                                        modelData.records[index].isPresented.toggle()
-                                    }
-                                    .fullScreenCover(isPresented: $modelData.records[index].isPresented, content: {
-                                        RecordDetailView(record: modelData.records[index])
-                                    })
-                            }
+                            detailOpen(modelData: $modelData)
                         }else{
-                            VStack{
-                                Image(systemName: "link.circle.fill")
-                                    .resizable()
-                                    .foregroundStyle(.purple)
-                                    .frame(width: 25, height: 25)
-                                Text("노트가 없어요.")
-                                    .font(.headline)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 150)
-                            .background(
-                                RoundedRectangle(cornerRadius: 25.0)
-                                    .foregroundStyle(.white)
-                            )
+                            noteNothingInfo(noteName: "최근")
                         }
 
                     } else{
-
-                        VStack{
-                            Image(systemName: "link.circle.fill")
-                                .resizable()
-                                .foregroundStyle(.purple)
-                                .frame(width: 25, height: 25)
-                            Text("공유 받은 노트가 없어요.")
-                                .font(.headline)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 150)
-                        .background(
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .foregroundStyle(.white)
-                        )
-                        //있으면 뿌리기
+                        noteNothingInfo(noteName: "공유 받은")
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 10)
+                .padding([.horizontal,.bottom] ,20)
                 
                 
                 //페이지뷰!!
@@ -158,6 +122,45 @@ struct ClovaMainView: View {
 
     }
 
+}
+
+extension View{
+    func roundedField() -> some View{
+        self
+            .frame(maxWidth: .infinity)
+            .frame(height: 150)
+            .background(
+                RoundedRectangle(cornerRadius: 25.0)
+                    .foregroundStyle(.white)
+            )
+    }
+    
+    func detailOpen(modelData : Binding<ModelData>) -> some View{
+        ForEach(modelData.wrappedValue.records.indices, id:\.self){index in
+            let recordBinding = modelData.records[index]
+            RecordItem(record: recordBinding.wrappedValue)
+                .onTapGesture {
+                    recordBinding.isPresented.wrappedValue.toggle()
+                }
+                .fullScreenCover(isPresented: recordBinding.isPresented, content: {
+                    RecordDetailView(record: recordBinding.wrappedValue)
+                })
+        }
+    }
+}
+struct noteNothingInfo: View {
+    var noteName: String
+    var body: some View {
+        VStack{
+            Image(systemName: "link.circle.fill")
+                .resizable()
+                .foregroundStyle(.purple)
+                .frame(width: 25, height: 25)
+            Text("\(noteName) 노트가 없어요.")
+                .font(.headline)
+        }
+        .roundedField()
+    }
 }
 
 #Preview {

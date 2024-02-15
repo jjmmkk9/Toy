@@ -32,8 +32,6 @@ struct ContentView: View {
                     .padding(.bottom, -10)
             }
             .ignoresSafeArea(.keyboard)
-//            .padding(.bottom, 80)  //화면 탭뷰에 가리는 부분땜시
-            
 
             if clicked{
                 Color.black.opacity(0.6)
@@ -51,8 +49,6 @@ struct ContentView: View {
                 }
             }
             if selected == .home || selected == .folder {
-                //3층
-                //이 버튼 클릭할때만
                 PlusButton(clicked: $clicked)
                     .zIndex(2.0)
                     .padding()

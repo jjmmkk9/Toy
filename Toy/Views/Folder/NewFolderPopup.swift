@@ -27,15 +27,24 @@ struct NewFolderPopup: View {
     var body: some View {
             VStack(alignment: .leading, spacing: 20){
                 Text("새 폴더 만들기")
+                    .foregroundStyle(.black)
                     .font(.title3)
                     .bold()
                 
-                TextField("폴더 이름", text: $name)
-                    .autocorrectionDisabled()
-                    .focused($isFocused, equals: .name)
+                ZStack(alignment: .leading){
+                    if name.isEmpty{
+                        Text("폴더 이름")
+                            .foregroundStyle(.gray)
+                            .padding(.horizontal, 2)
+                            .transition(.opacity)
+                    }
+                    TextField("", text: $name)
+                        .focused($isFocused, equals: .name)
+                        .foregroundStyle(.black)
+                }
                 Capsule()
                     .frame(height: 2)
-                    .foregroundStyle(.placeholder)
+                    .foregroundStyle(.gray)
                     .padding(.bottom, 20)
                 
                 HStack(spacing: 30){
@@ -51,9 +60,11 @@ struct NewFolderPopup: View {
                         vm.isOpen = false
                     }label: {
                         Text("만들기")
+                            .foregroundStyle(name.isEmpty ? .gray : .blue)
                             .bold()
                     }
                     .disabled(name.isEmpty)
+                    
                 }
             }
             .padding(.horizontal, 40)

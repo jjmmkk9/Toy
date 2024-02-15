@@ -9,6 +9,7 @@ import Foundation
 
 let dateFormatter = DateFormatter()
 
+//date formatter
 func stringToDateTime(dateString : String) -> Date? {
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     let date = dateFormatter.date(from: dateString)
@@ -42,6 +43,8 @@ func dateToString(date: Date) -> String {
     return str
 }
 
+
+//calendar
 func yearMonthCreate(for year: Int, month: Int) -> Date{
     let calendar = Calendar.current
     
@@ -58,4 +61,11 @@ func yearMonthCreate(for year: Int, month: Int) -> Date{
         fatalError("날짜 못찾음")
     }
     
+    
+    
+}
+func getDay() -> Int{
+    let calendar = Calendar.current
+    let day = calendar.component(.day, from: Date())
+    return day
 }

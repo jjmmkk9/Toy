@@ -41,6 +41,7 @@
 		BD94516E2B5F48D700E58FD6 /* ToyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94516D2B5F48D700E58FD6 /* ToyTests.swift */; };
 		BD9451782B5F48D700E58FD6 /* ToyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451772B5F48D700E58FD6 /* ToyUITests.swift */; };
 		BD94517A2B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */; };
+		BDB977962B7DF1BD008A16C8 /* CalendarIconSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB977952B7DF1BD008A16C8 /* CalendarIconSelected.swift */; };
 		BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A12B687FA700330284 /* ClovaMainView.swift */; };
 		BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A52B68819200330284 /* BlogItem.swift */; };
 		BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A72B68937000330284 /* EclipseButton.swift */; };
@@ -104,6 +105,7 @@
 		BD9451732B5F48D700E58FD6 /* ToyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9451772B5F48D700E58FD6 /* ToyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITests.swift; sourceTree = "<group>"; };
 		BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BDB977952B7DF1BD008A16C8 /* CalendarIconSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarIconSelected.swift; sourceTree = "<group>"; };
 		BDD4D6A12B687FA700330284 /* ClovaMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClovaMainView.swift; sourceTree = "<group>"; };
 		BDD4D6A52B68819200330284 /* BlogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogItem.swift; sourceTree = "<group>"; };
 		BDD4D6A72B68937000330284 /* EclipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EclipseButton.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				BDD4D6A72B68937000330284 /* EclipseButton.swift */,
 				BD41E84D2B69D51900931D23 /* BlogBigItem.swift */,
 				BD41E8532B69EF2C00931D23 /* UsefulFeatures.swift */,
+				BDB977952B7DF1BD008A16C8 /* CalendarIconSelected.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				BD7B82A82B7382800002842C /* DatePickerView.swift in Sources */,
 				BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */,
 				BDD4D6B12B68E52300330284 /* PlusButton.swift in Sources */,
+				BDB977962B7DF1BD008A16C8 /* CalendarIconSelected.swift in Sources */,
 				395BE9932B7AB2250003D376 /* MyPageView.swift in Sources */,
 				BD9425E22B73100F00676ADA /* DateFormatter.swift in Sources */,
 				BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */,

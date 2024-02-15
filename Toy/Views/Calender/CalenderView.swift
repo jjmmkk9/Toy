@@ -103,7 +103,7 @@ struct CalenderView: View {
                             .frame(width: 20)
                             .padding(.top, 13)
                     }
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color("blackWhite"))
                 }
                 
                 Spacer()
@@ -113,10 +113,10 @@ struct CalenderView: View {
                     .frame(width: 60, height: 40)
                     .background(
                         RoundedRectangle(cornerRadius: 25.0)
-                            .stroke(isToday ? .black : .secondary, lineWidth: 2)
+                            .stroke(isToday ? Color("blackWhite") : .secondary, lineWidth: 2)
                         
                     )
-                    .foregroundStyle(isToday ? .black : .secondary)
+                    .foregroundStyle(isToday ? Color("blackWhite") : .secondary)
                     .onTapGesture {
                         if !isToday{
                             combackToday()
@@ -130,7 +130,7 @@ struct CalenderView: View {
                 ForEach(Array(daysSymbol.enumerated()), id: \.1) { index, symbol in
                     Text(symbol)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(index == 0 ? .red : .black)
+                        .foregroundColor(index == 0 ? .red : Color("blackWhite"))
                 }
             }
             .padding(.bottom, 10)
@@ -194,7 +194,7 @@ private struct CellView: View {
                     .padding(15)
                     .opacity(0)
                     .overlay(Text(String(day)))
-                    .foregroundColor(isSunday ? .red : .black)
+                    .foregroundColor(isSunday ? .red : Color("blackWhite"))
                 
                 
             }
@@ -216,9 +216,10 @@ private struct ClickedCellView: View{
             .overlay(
                 Text(String(day))
                     .bold()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color("tempColor"))
                     .background(
                         Circle()
+                            .foregroundStyle(Color("blackWhite"))
                             .scaledToFill()
                             .frame(width: 30)
                     )

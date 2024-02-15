@@ -23,49 +23,62 @@ struct MainCustomTab: View {
             Rectangle()
                 .frame(height: 2)
                 .foregroundStyle(.placeholder)
-            
             HStack (alignment: .bottom, spacing: UIScreen.main.bounds.width/4 - 40){
                 Button{
                     selected = .home
                 }label: {
-                    Image(selected == .home ? "home_select" : "home_unselect")
+                    Image(systemName: selected == .home ? "house.fill" : "house")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30)
+                        .foregroundStyle(Color("blackWhite"))
+                        .animation(nil, value: selected)
                 }
+                
                 
                 Button{
                     selected = .folder
                 }label: {
-                    Image(selected == .folder ? "file_select" : "file_unselect")
+                    Image(systemName: selected == .folder ? "folder.fill" : "folder")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30)
+                        .foregroundStyle(Color("blackWhite"))
+                        .animation(nil, value: selected)
                 }
                 Button{
                     selected = .calender
                 }label: {
-                    Image(selected == .calender ? "calender_select" : "calender_unselect")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30)
+                    if selected == .calender{
+                        CalendarIconSelected()
+                            .animation(nil, value: selected)
+                        
+                    }else{
+                        CalendarIcon()
+                            .animation(nil, value: selected)
+                    }
                 }
+                
                 Button{
                     selected = .myPage
+                    
                 }label: {
-                    Image(selected == .myPage ? "myPage_select" : "myPage_unselect")
+                    Image(systemName: selected == .myPage ? "person.fill" : "person")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 30)
+                        .foregroundStyle(Color("blackWhite"))
+                        .animation(nil, value: selected)
                 }
             }
             .frame(width: UIScreen.main.bounds.width, height: 70)
-            .background(.white)
+            .background(Color("tempColor"))
         }
+        
 
     }
 }
 
 #Preview {
-    MainCustomTab(selected: .constant(.home))
+    MainCustomTab(selected: .constant(.myPage))
 }

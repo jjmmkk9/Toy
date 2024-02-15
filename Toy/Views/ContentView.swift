@@ -75,6 +75,7 @@ struct ContentView: View {
             
             
         }
+        .background(Color("tempColor"))
     }
 }
 

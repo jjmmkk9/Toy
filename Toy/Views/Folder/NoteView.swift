@@ -48,7 +48,7 @@ struct NoteView: View {
         }
         .padding(20)
         .frame(maxHeight: .infinity)
-        .background(Color(UIColor.MyTheme.bgColor))
+        .background(Color("bgColor"))
         
         
     }

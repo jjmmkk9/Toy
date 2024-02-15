@@ -15,7 +15,7 @@ struct MyPageView: View {
                     VStack(alignment: .leading){
                         Text("조문기")
                         Text("jmk9635@naver.com")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color("blackWhite"))
                     }
                     Spacer()
                     Image("cuham")
@@ -39,14 +39,15 @@ struct MyPageView: View {
                                     .frame(width: 90)
                                 VStack(alignment: .leading, spacing: 10){
                                     Text("남은 시간 226분 / 300분 >")
+                                        .foregroundStyle(.black)
                                     Text("2024.02.09. 00:00 갱신 예정")
                                         .font(.callout)
-                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(.gray)
                                 }
                             }
                             Divider()
                             Text("남은 시간이 모두 소진되면, 파일 업로드는 제한되지만 녹음은 무제한 변환 가능합니다.")
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(.gray)
                                 .font(.system(size: 14))
                         }
                         .padding(20)
@@ -62,35 +63,17 @@ struct MyPageView: View {
                     NavigationLink {
                         ProfileInfoView()
                     } label: {
-                        HStack{
-                            Text("프로필 정보")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                        MyPageRow(text: "프로필 정보")
                     }
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("계정 정보")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                       MyPageRow(text: "계정 정보")
                     }
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("이용 현황")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                        MyPageRow(text: "이용 현황")
                     }
             
                     
@@ -102,51 +85,40 @@ struct MyPageView: View {
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("자주 쓰는 단어")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                       MyPageRow(text: "자주 쓰는 단어")
                     }
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("인식 언어")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                        MyPageRow(text: "인식 언어")
                     }
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("관심 분야")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                        MyPageRow(text: "관심 분야")
                     }
                     NavigationLink {
                         Text("hi")
                     } label: {
-                        HStack{
-                            Text("알림")
-                                .foregroundStyle(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.gray)
-                        }
+                        MyPageRow(text: "알림")
                     }
                 }
                 
             }
             .padding(20)
+        }
+    }
+}
+
+private struct MyPageRow : View {
+    var text : String
+    var body: some View {
+        HStack{
+            Text(text)
+                .foregroundStyle(Color("blackWhite"))
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.gray)
         }
     }
 }

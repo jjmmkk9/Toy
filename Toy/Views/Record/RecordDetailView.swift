@@ -77,7 +77,7 @@ struct RecordDetailView: View {
                     Text("주요키워드")
                     Image(systemName: "info.circle")
                 }
-                .foregroundStyle(.black)
+                .foregroundStyle(Color("blackWhite"))
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -108,8 +108,8 @@ struct KeywordBtn: View {
         Text(keyword)
             .font(.caption)
             .padding(8)
-            .background(Color(red: 243 / 255, green: 249 / 255, blue: 254 / 255))
-            .foregroundStyle(.blue)
+            .background(Color("skyBlue"))
+            .foregroundStyle(Color("blueWhite"))
             .clipShape(Capsule())
     }
 }

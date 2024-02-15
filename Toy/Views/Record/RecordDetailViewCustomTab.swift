@@ -31,11 +31,11 @@ struct RecordDetailViewCustomTab: View {
                             Text(item.rawValue)
                                 .font(.title3)
                                 .frame(maxWidth: .infinity/4, minHeight: 50)
-                                .foregroundColor(selectedTab == item ? .black : .gray)
+                                .foregroundColor(selectedTab == item ? Color("blackWhite") : .gray)
 
                             if selectedTab == item {
                                 Capsule()
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("blackWhite"))
                                     .frame(height: 3)
 //                                    .matchedGeometryEffect(id: item, in: animation)
                             }
@@ -65,7 +65,7 @@ struct RecordDetailViewCustomTab: View {
                                 .padding()
                                 .overlay(
                                     Text("AI가 요약한 핵심 내용 확인하기")
-                                        .foregroundStyle(.black)
+                                        .foregroundStyle(Color("blackWhite"))
                                 )
                             
                         }

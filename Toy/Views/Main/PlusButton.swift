@@ -74,6 +74,7 @@ struct PlusButton: View {
                
             }
             
+            //plus 버튼
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.3)){
                     clicked.toggle()
@@ -83,9 +84,15 @@ struct PlusButton: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 55, height: 55) // 버튼 크기 조절
-                    .foregroundColor(.black) // 버튼 색상
+                    .foregroundColor(Color("blackWhite")) // 버튼 색상
                     .rotationEffect(.degrees(clicked ? -45 : 0))
+                    .background(
+                    Circle()
+                        .frame(width: 50)
+                        .foregroundStyle(Color("tempColor"))
+                    )
             }
+            
         }
         .padding()
     }

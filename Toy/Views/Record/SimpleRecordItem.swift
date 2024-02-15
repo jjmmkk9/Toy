@@ -12,7 +12,7 @@ struct SimpleRecordItem: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
             .frame(height: 110)
-            .foregroundStyle(Color(UIColor.MyTheme.bgColor))
+            .foregroundStyle(Color("bgItemColor"))
             .overlay(
                 VStack(alignment: .leading, spacing: 10) {
                     Text("\(record.name) \(record.id)")

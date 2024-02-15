@@ -17,7 +17,6 @@ struct ClovaMainView: View {
     
     
     var body: some View {
-            //1층
             HStack{
                 Text("CLOVA")
                     .bold()
@@ -41,8 +40,9 @@ struct ClovaMainView: View {
                     
                 }
             }
-            .foregroundColor(.black)
+            .foregroundColor(Color("blackWhite"))
             .padding( 20)
+            .background(Color("tempColor"))
             
             ScrollView{
                 ScrollView(.horizontal, showsIndicators: false){
@@ -106,7 +106,7 @@ struct ClovaMainView: View {
                 
                 //페이지뷰!!
                 PageView(pages: modelData.blogBigItems)
-                    .padding(EdgeInsets())
+//                    .padding(EdgeInsets())
                 
                 VStack(alignment: .leading, spacing: 30){
                     Text("유용한 기능 알아보기")
@@ -117,7 +117,7 @@ struct ClovaMainView: View {
                 .padding(20)
 
             }
-            .background(Color(UIColor.MyTheme.bgColor))
+            .background(Color("bgColor"))
 
 
     }
@@ -131,7 +131,7 @@ extension View{
             .frame(height: 150)
             .background(
                 RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color("whiteItemColor"))
             )
     }
     

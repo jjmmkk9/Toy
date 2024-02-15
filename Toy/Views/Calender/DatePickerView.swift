@@ -31,7 +31,10 @@ struct DatePickerView: View {
                 HStack{
                     Picker("select year", selection: $year) {
                         ForEach(2000..<2101, id: \.self) { year in
-                            Text("\(String(year))").tag(year)}
+                            Text("\(String(year))")
+                                .tag(year)
+                                .foregroundStyle(.black)
+                        }
                     }
                     .pickerStyle(.wheel)
                     .frame(height: 200)
@@ -39,7 +42,10 @@ struct DatePickerView: View {
                     
                     Picker("select month", selection: $month) {
                         ForEach(1..<13, id: \.self) { month in
-                            Text("\(month)").tag(month)}
+                            Text("\(month)")
+                                .tag(month)
+                                .foregroundStyle(.black)
+                        }
                     }
                     .pickerStyle(.wheel)
                     .frame(height: 200)

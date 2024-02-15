@@ -43,7 +43,7 @@ struct BlogBigItem: View {
                 RoundedRectangle(cornerRadius: 25.0)
                 .foregroundStyle(btnColor)
                 .padding(20)
-                .background(Color(UIColor.MyTheme.bgColor))
+                .background(Color("bgColor"))
             )
             .frame(height: 180)
             

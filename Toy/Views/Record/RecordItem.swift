@@ -13,7 +13,7 @@ struct RecordItem: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
             .frame(height: 110)
-            .foregroundStyle(.white)
+            .foregroundStyle(Color("whiteItemColor"))
             .overlay(
                 HStack{
                     Image(systemName: "mic.circle.fill")
@@ -25,10 +25,10 @@ struct RecordItem: View {
                             .font(.headline)
                         Text(record.summary)
                             .font(.system(size: 14))
-                            .foregroundStyle(Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255))
+                            .foregroundStyle(Color("script"))
                         Text(record.editTimeString + " - " + record.totalTimeString +  " - 전체 노트")
                             .font(.system(size: 14))
-                            .foregroundStyle(Color(red: 100 / 255, green: 100 / 255, blue: 100 / 255))
+                            .foregroundStyle(Color("script"))
                     }
                     .padding(10)
                 }
@@ -38,7 +38,7 @@ struct RecordItem: View {
     }
 }
 
-//#Preview {
-//    let modelData = ModelData.modelData
-//    return RecordItem(record: modelData.records[0])
-//}
+#Preview {
+    let modelData = ModelData.modelData
+    return RecordItem(record: modelData.records[0])
+}

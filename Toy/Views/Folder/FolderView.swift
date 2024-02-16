@@ -47,6 +47,7 @@ struct FolderView: View {
                         
                         Button{
                             //전체노트 + 버튼 클릭시
+                            vm.type = "folder"
                             vm.isOpen.toggle()
                         }label: {
                             Text("+")

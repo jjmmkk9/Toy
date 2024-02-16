@@ -14,8 +14,12 @@ extension AnyTransition{
 }
 
 struct PlusButton: View {
+    
+    @State private var fileClick : Bool = false
     @Binding var clicked : Bool
+    
     @State private var clickButton : Bool = false
+    
     var body: some View {
         VStack(alignment: .trailing){
             if clicked {
@@ -36,22 +40,29 @@ struct PlusButton: View {
                     
                 }
                 .transition(.move(edge: .bottom))
-                
-                Button{
-                    
-                }label: {
-                    Text("파일 업로드")
-                        .foregroundStyle(.white)
-                    Image(systemName: "square.and.arrow.up.circle.fill")
-                        .resizable()
-                        .frame(width: 55, height: 55)
-                        .foregroundStyle(.white)
-                        .background(
-                            Circle()
-                                .foregroundStyle(.black)
-                                .frame(width: 54)
-                        )
-                }
+
+                    HStack(spacing: 15){
+                        Text("파일 업로드")
+                            .foregroundStyle(.white)
+                        
+                        Image(systemName: "square.and.arrow.up.circle.fill")
+                            .resizable()
+                            .frame(width: 55, height: 55)
+                            .foregroundStyle(.white)
+                            .background(
+                                Circle()
+                                    .foregroundStyle(.black)
+                                    .frame(width: 54)
+                            )
+                    }
+                    .onTapGesture {
+                        
+                        fileClick.toggle()
+                        clicked = false
+                    }
+                    .sheet(isPresented: $fileClick, content: {
+                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Sheet Content")/*@END_MENU_TOKEN@*/
+                    })
                 .transition(.move(edge: .bottom))
                 
                 Button{
@@ -99,5 +110,5 @@ struct PlusButton: View {
 }
 
 #Preview {
-    PlusButton(clicked: .constant(false))
+    PlusButton(clicked: .constant(true))
 }

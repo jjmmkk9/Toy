@@ -7,25 +7,47 @@
 
 import SwiftUI
 
+@Observable
+class UserProfile {
+    
+    static let `default` = UserProfile()
+    
+    var name: String = "조문기"
+    var email: String = "jmk9635@naver.com"
+    var image : Image? = Image("cuham")
+    
+    
+    func makeProfileHorizontal() -> some View{
+        HStack{
+            VStack(alignment: .leading){
+                Text(self.name)
+                Text(self.email)
+                    .foregroundStyle(Color("blackWhite"))
+            }
+            Spacer()
+            if let image = self.image{
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(Circle())
+                    .frame(width:50, height: 50)
+            }else{
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width:50, height: 50)
+            }
+        }
+    }
+    
+}
 struct MyPageView: View {
+    @State var profile = UserProfile.default
+    
     var body: some View {
         NavigationStack {
             ScrollView{
-                HStack{
-                    VStack(alignment: .leading){
-                        Text("조문기")
-                        Text("jmk9635@naver.com")
-                            .foregroundStyle(Color("blackWhite"))
-                    }
-                    Spacer()
-                    Image("cuham")
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(Circle())
-                        .frame(width:50)
-                    
-                }
-
+                profile.makeProfileHorizontal()
                 
                 RoundedRectangle(cornerRadius: 20.0)
                     .frame(height: 230)
@@ -53,7 +75,6 @@ struct MyPageView: View {
                         .padding(20)
                     }
                     .padding(.vertical, 30)
-                    
                 
                 VStack(alignment: .leading, spacing: 25){
                     Text("내 정보")
@@ -62,20 +83,19 @@ struct MyPageView: View {
                     
                     NavigationLink {
                         ProfileInfoView()
+                            .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "프로필 정보")
+                        
                     }
                     NavigationLink {
-                        Text("hi")
+                        AccountInfoView()
+                            .navigationBarBackButtonHidden()
                     } label: {
-                       MyPageRow(text: "계정 정보")
+                        MyPageRow(text: "계정 정보")
+                        
                     }
-                    NavigationLink {
-                        Text("hi")
-                    } label: {
-                        MyPageRow(text: "이용 현황")
-                    }
-            
+                    
                     
                     
                     Text("이용 설정")
@@ -83,22 +103,24 @@ struct MyPageView: View {
                         .font(.system(size: 14))
                     
                     NavigationLink {
-                        Text("hi")
-                    } label: {
-                       MyPageRow(text: "자주 쓰는 단어")
-                    }
-                    NavigationLink {
-                        Text("hi")
+                        LanguageSelectView()
+                            .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "인식 언어")
                     }
                     NavigationLink {
-                        Text("hi")
+                        InterestingView()
+                            .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "관심 분야")
                     }
                     NavigationLink {
-                        Text("hi")
+                        VStack(spacing: 100){
+                            BackButtonWithHeader("알림")
+                            Text("알림이 없습니다.")
+                            Spacer()
+                        }
+                        .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "알림")
                     }
@@ -109,6 +131,33 @@ struct MyPageView: View {
         }
     }
 }
+
+struct BackButtonWithHeader : View {
+    var header : String
+    init(_ header: String) {
+        self.header = header
+    }
+    
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        ZStack{
+            Image(systemName: "arrow.left")
+                .font(.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .onTapGesture {
+                    dismiss()
+                }
+            
+            Text(header)
+                .font(.title3)
+        }
+        .foregroundStyle(Color("blackWhite"))
+        .frame(maxWidth: .infinity)
+        
+        
+    }
+}
+
 
 private struct MyPageRow : View {
     var text : String

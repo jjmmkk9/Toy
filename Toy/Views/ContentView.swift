@@ -66,7 +66,19 @@ struct ContentView: View {
                     }
                     .ignoresSafeArea()
                 
-                NewFolderPopup()
+                WhitePopup{
+                    switch vm.type {
+                        
+                    case "logout" : LogoutPopupView()
+                        
+                    case "folder": NewFolderPopupView()
+                    
+                    case "resign" : ResignPopupView()
+                        
+                    default: AnyView(EmptyView())
+                    }
+
+                }
                     .zIndex(4.0)
                     .padding(.horizontal, 40)
                     .offset(y: -80)

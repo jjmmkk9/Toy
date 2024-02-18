@@ -13,34 +13,27 @@ struct AudioUploadView: View {
     @State private var isImporting = false
     
     var body: some View {
-        VStack {
-            TextEditor(text: $text)
-                .padding()
-        }
-        .toolbar {
-            ToolbarItem() {
-                Button {
-                    isImporting = true
-                } label: {
-                    Label("Import file",
-                          systemImage: "square.and.arrow.down")
-                }
-            }
-        }
+        Button {
+               isImporting = true
+           } label: {
+               Label("Import file",
+                     systemImage: "square.and.arrow.down")
+           }
         .fileImporter(isPresented: $isImporting,
-                        allowedContentTypes: [.text]) {
-            let result = $0.flatMap { url in
-              read(from: url)
-            }
+                      allowedContentTypes: [.mp3]) { result in
             switch result {
-            case .success(let text):
-              self.text += text
+            case .success(let url):
+                let fileName = url.lastPathComponent
+                print("fileName : \(fileName)")
+              self.text = fileName
             case .failure(let error):
               self.error = error
             }
           }
     }
 }
+
+
 #Preview {
     AudioUploadView()
 }

@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-@Observable
-class PopupViewModel{
+class PopupViewModel : ObservableObject{
     static let shared = PopupViewModel()
-    var isOpen : Bool = false
-    var type: String?
+    @Published var isOpen : Bool = false
+    @Published var type: String?
     
 }
 

@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-@Observable
-class UserProfile {
+
+class UserProfile: ObservableObject {
     
     static let `default` = UserProfile()
     
-    var name: String = "조문기"
-    var email: String = "jmk9635@naver.com"
-    var image : Image? = Image("cuham")
-    
+    @Published var name: String = "조문기"
+    @Published var email: String = "jmk9635@naver.com"
+    @Published var image : Image? = Image("cuham")
     
     func makeProfileHorizontal() -> some View{
         HStack{
@@ -41,6 +40,7 @@ class UserProfile {
     }
     
 }
+
 struct MyPageView: View {
     @State var profile = UserProfile.default
     
@@ -103,7 +103,8 @@ struct MyPageView: View {
                         .font(.system(size: 14))
                     
                     NavigationLink {
-                        LanguageSelectView()
+//                        LanguageSelectView()
+                        AudioUploadView()
                             .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "인식 언어")
@@ -120,6 +121,7 @@ struct MyPageView: View {
                             Text("알림이 없습니다.")
                             Spacer()
                         }
+                        .padding(20)
                         .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "알림")

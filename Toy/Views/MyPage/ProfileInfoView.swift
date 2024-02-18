@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ProfileInfoView: View {
-    
-    @State private var text = "조문기"
-    @State private var email = "jmk9635@naver.com"
+    @State private var profile : UserProfile = UserProfile.default
     
     @State var showImagePicker = false
     @State var selectedUIImage: UIImage?
-    @State var image: Image? = Image("cuham")
     
     func loadImage() {
             guard let selectedImage = selectedUIImage else { return }
-            image = Image(uiImage: selectedImage)
+        profile.image = Image(uiImage: selectedImage)
         }
     
     
@@ -29,7 +26,7 @@ struct ProfileInfoView: View {
                 showImagePicker.toggle()
             }label: {
                 ZStack{
-                    if let image = image{
+                    if let image = profile.image{
                         image
                             .resizable()
                             .clipShape(Circle())
@@ -72,12 +69,12 @@ struct ProfileInfoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.gray)
                 
-                TextField("내 이름",text: $text)
+                TextField("내 이름",text: $profile.name)
                 
                 Text("이메일")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.gray)
-                TextField("내 이메일",text: $email)
+                TextField("내 이메일",text: $profile.email)
             }
             
             

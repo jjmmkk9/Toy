@@ -60,9 +60,7 @@ struct PlusButton: View {
                         fileClick.toggle()
                         clicked = false
                     }
-                    .sheet(isPresented: $fileClick, content: {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Sheet Content")/*@END_MENU_TOKEN@*/
-                    })
+                    
                 .transition(.move(edge: .bottom))
                 
                 Button{

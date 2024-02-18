@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-@Observable class DateViewModel{
+class DateViewModel : ObservableObject{
     static let shared = DateViewModel()
     
-    var newMonth : Date = Date()
+    @Published var newMonth : Date = Date()
 
 }

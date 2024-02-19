@@ -9,7 +9,16 @@ import SwiftUI
 
 class PopupViewModel : ObservableObject{
     static let shared = PopupViewModel()
-    @Published var isOpen : Bool = false
+    
+    private init() {
+        self.isOpen = isOpen
+        self.type = type
+    }
+    @Published var isOpen : Bool = false{
+        didSet{
+            print(isOpen)
+        }
+    }
     @Published var type: String?
     
 }
@@ -35,7 +44,7 @@ struct NewFolderPopupView:View {
     enum Field : Hashable{
         case name
     }
-    @State var vm : PopupViewModel = PopupViewModel.shared
+    var vm : PopupViewModel = PopupViewModel.shared
     @State private var modelData = ModelData.modelData
     @State private var name : String = ""
     @FocusState var isFocused : Field?
@@ -91,7 +100,7 @@ struct NewFolderPopupView:View {
 }
 
 struct LogoutPopupView :View {
-    @State var vm : PopupViewModel = PopupViewModel.shared
+    var vm : PopupViewModel = PopupViewModel.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
@@ -100,7 +109,7 @@ struct LogoutPopupView :View {
                 .font(.title2)
                 .foregroundStyle(.black)
             
-            Text("로그아웃 하시겠어요? 아마 안될텐데데 ㅎ")
+            Text("로그아웃 하시겠어요? 아마 안될텐데")
                 .foregroundStyle(.black)
             
             HStack(spacing: 30){
@@ -125,7 +134,7 @@ struct LogoutPopupView :View {
     }
 }
 struct ResignPopupView :View {
-    @State var vm : PopupViewModel = PopupViewModel.shared
+    var vm : PopupViewModel = PopupViewModel.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
@@ -134,7 +143,7 @@ struct ResignPopupView :View {
                 .font(.title2)
                 .foregroundStyle(.black)
             
-            Text("탈퇴 하시겠어요? 아마 안될텐데데 ㅎ")
+            Text("탈퇴 하시겠어요? 아마 안될텐데")
                 .foregroundStyle(.black)
             
             HStack(spacing: 30){

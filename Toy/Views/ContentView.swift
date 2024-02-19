@@ -11,7 +11,8 @@ struct ContentView: View {
     @State private var clicked : Bool = false
     @State private var wheelOn : Bool = false
     @State private var selected : Tab = .home
-    @State private var vm = PopupViewModel.shared
+    
+    @StateObject private var vm = PopupViewModel.shared
     
     var body: some View {
         

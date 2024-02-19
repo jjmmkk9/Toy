@@ -20,10 +20,12 @@ struct CalenderView: View {
     
     var today : Date = Date()
     var history = ModelData.modelData.history
-    
+    //전체 레코드
     @State private var records : [Record] = ModelData.modelData.records
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
+    
+    @State private var record : Record?
 
     var body: some View {
         NavigationStack{
@@ -53,9 +55,10 @@ struct CalenderView: View {
                         self.offset = CGSize()
                     }
             )
+            //clickedDate에 해당하는 레코드
             VStack{
                 
-            let filterdRecord = ModelData.modelData.dayRecords(date: clickedDate)
+                let filterdRecord : [Record] = ModelData.modelData.dayRecords(date: clickedDate)
                 if !filterdRecord.isEmpty {
                     ScrollView{
                         ForEach(filterdRecord.indices) { index in

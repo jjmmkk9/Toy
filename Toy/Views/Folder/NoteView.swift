@@ -17,7 +17,7 @@ struct NoteView: View {
     var items : [Record] {
         ModelData.modelData.categories[folder] ?? []
     }
-    @State private var modelData = ModelData.modelData
+    @State private var records = ModelData.modelData.records
     
     var body: some View {
         VStack{
@@ -29,15 +29,15 @@ struct NoteView: View {
                 Spacer()
             }
             
-            if modelData.records.isEmpty{
+            if records.isEmpty{
                 NoteNothingView()
             }else if isFullNote {
                 ScrollView{
-                    detailOpen(modelData: $modelData)
+                    detailOpen(records: $records)
                 }
             }else if !items.isEmpty {
                 ScrollView{
-                    detailOpen(modelData: $modelData)
+                    detailOpen(records: $records)
                 }
             }else{
                 NoteNothingView()

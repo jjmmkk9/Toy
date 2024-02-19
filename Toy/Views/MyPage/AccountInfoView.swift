@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AccountInfoView: View {
+    @State private var profile : UserProfileViewModel = UserProfileViewModel.default
+    
     var vm = PopupViewModel.shared
     var body: some View {
         VStack(spacing: 40){
@@ -17,7 +19,7 @@ struct AccountInfoView: View {
                 Text("이메일")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.gray)
-                Text("jmk9635@naver.com")
+                Text(profile.email)
                     
                 
                 Text("로그인 정보")

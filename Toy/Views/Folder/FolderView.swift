@@ -12,7 +12,7 @@ struct FolderView: View {
     @State private var isSharedNoteOpen : Bool = false
     
     
-    @State private var vm = PopupViewModel.shared
+    var vm = PopupViewModel.shared
     
     var myFolders : [String] = ModelData.modelData.myFolders
     var body: some View {

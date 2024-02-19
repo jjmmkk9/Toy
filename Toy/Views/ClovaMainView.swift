@@ -14,6 +14,7 @@ struct ClovaMainView: View {
     @State private var isPresented : Bool = false
     
     @State var modelData = ModelData.modelData
+    @State var records = ModelData.modelData.records
     
     
     var body: some View {
@@ -91,8 +92,8 @@ struct ClovaMainView: View {
                 
                 VStack{
                     if recentButtonSelected {
-                        if !modelData.records.isEmpty {
-                            detailOpen(modelData: $modelData)
+                        if !records.isEmpty {
+                            detailOpen(records: $records)
                         }else{
                             noteNothingInfo(noteName: "최근")
                         }
@@ -106,7 +107,6 @@ struct ClovaMainView: View {
                 
                 //페이지뷰!!
                 PageView(pages: modelData.blogBigItems)
-//                    .padding(EdgeInsets())
                 
                 VStack(alignment: .leading, spacing: 30){
                     Text("유용한 기능 알아보기")
@@ -135,9 +135,9 @@ extension View{
             )
     }
     
-    func detailOpen(modelData : Binding<ModelData>) -> some View{
-        ForEach(modelData.wrappedValue.records.indices, id:\.self){index in
-            let recordBinding = modelData.records[index]
+    func detailOpen(records : Binding<[Record]>) -> some View{
+        return ForEach(records.wrappedValue.indices, id:\.self){index in
+            let recordBinding = records[index]
             RecordItem(record: recordBinding.wrappedValue)
                 .onTapGesture {
                     recordBinding.isPresented.wrappedValue.toggle()

@@ -8,9 +8,9 @@
 import SwiftUI
 
 
-class UserProfile: ObservableObject {
+class UserProfileViewModel: ObservableObject {
     
-    static let `default` = UserProfile()
+    static let `default` = UserProfileViewModel()
     
     @Published var name: String = "조문기"
     @Published var email: String = "jmk9635@naver.com"
@@ -42,7 +42,7 @@ class UserProfile: ObservableObject {
 }
 
 struct MyPageView: View {
-    @State var profile = UserProfile.default
+    @State var profile = UserProfileViewModel.default
     
     var body: some View {
         NavigationStack {

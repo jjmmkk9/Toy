@@ -51,6 +51,7 @@
 		BDD4D6B12B68E52300330284 /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6B02B68E52300330284 /* PlusButton.swift */; };
 		BDD68E272B7EF49B0048BC29 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD68E262B7EF49B0048BC29 /* ImagePicker.swift */; };
 		BDD68E292B7EFFAF0048BC29 /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD68E282B7EFFAF0048BC29 /* AccountInfoView.swift */; };
+		BDE8F9102B82FD72003615CB /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE8F90F2B82FD72003615CB /* DoubleExtensions.swift */; };
 		BDEBEACC2B7F2DB7003D8752 /* LanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACB2B7F2DB7003D8752 /* LanguageSelectView.swift */; };
 		BDEBEACE2B7F41AF003D8752 /* InterestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACD2B7F41AF003D8752 /* InterestingView.swift */; };
 		BDEBEAD02B7F4F90003D8752 /* AudioUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACF2B7F4F90003D8752 /* AudioUploadView.swift */; };
@@ -120,6 +121,7 @@
 		BDD4D6B02B68E52300330284 /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		BDD68E262B7EF49B0048BC29 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BDD68E282B7EFFAF0048BC29 /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		BDE8F90F2B82FD72003615CB /* DoubleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		BDEBEACB2B7F2DB7003D8752 /* LanguageSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectView.swift; sourceTree = "<group>"; };
 		BDEBEACD2B7F41AF003D8752 /* InterestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestingView.swift; sourceTree = "<group>"; };
 		BDEBEACF2B7F4F90003D8752 /* AudioUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploadView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				BD6C6EDD2B5F924E00177408 /* UserModelData.swift */,
 				BD4DF0ED2B5F52A500D95864 /* LoginView.swift */,
 				BD6C6ED92B5F8E9A00177408 /* UserDetailView.swift */,
+				BDE8F90F2B82FD72003615CB /* DoubleExtensions.swift */,
 			);
 			path = Toy;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				BD9425E02B71BCB200676ADA /* CalenderView.swift in Sources */,
 				395BE9902B79F7FE0003D376 /* DateViewModel.swift in Sources */,
 				BD357DB72B6CC72A0090CF84 /* FolderItem.swift in Sources */,
+				BDE8F9102B82FD72003615CB /* DoubleExtensions.swift in Sources */,
 				BDEBEACC2B7F2DB7003D8752 /* LanguageSelectView.swift in Sources */,
 				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,
@@ -661,6 +665,7 @@
 				DEVELOPMENT_TEAM = MU8U64S8D2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) uses camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -691,6 +696,7 @@
 				DEVELOPMENT_TEAM = MU8U64S8D2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) uses camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

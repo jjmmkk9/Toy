@@ -21,7 +21,8 @@ class ModelData : ObservableObject{
     @Published var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]{
         
         didSet{
-            print("Records changed presented ID : \(records.filter{$0.isPresented}.map{$0.id})")
+            print("Records changed presented ID : \(records.filter{$0.isPresented}.map{$0.id})") //현재 보여주는 record
+//            print("Records changed : \(records.map{$0.name})")
         }
     }
     
@@ -53,6 +54,11 @@ class ModelData : ObservableObject{
             Calendar.current.isDate(date, inSameDayAs: $0.createTime ?? Date())
         }
         return fr
+    }
+    
+    func appendRecord(_ record : Record) {
+        records.append(record)
+    print("레코드 추가됨")
     }
     
 

@@ -22,7 +22,7 @@ struct MainCustomTab: View {
         VStack(spacing: 0){
             Rectangle()
                 .frame(height: 2)
-                .foregroundStyle(.placeholder)
+                .foregroundStyle(.gray) /// TODO: - .placeholder로 바꾸기 
             HStack (alignment: .bottom, spacing: UIScreen.main.bounds.width/4 - 40){
                 Button{
                     selected = .home

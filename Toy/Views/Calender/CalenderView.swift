@@ -33,8 +33,8 @@ struct CalenderView: View {
                 calendarGridView
             }
             .padding()
-            .onChange(of: dateViewModel.newMonth){
-                updateStates(date: dateViewModel.newMonth)
+            .onChange(of: dateViewModel.newMonth){ newValue in
+                updateStates(date: newValue)
             }
             //드래그 제스처로 달 옮기기
             .gesture(

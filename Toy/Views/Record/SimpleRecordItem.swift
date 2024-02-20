@@ -17,7 +17,7 @@ struct SimpleRecordItem: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("\(record.name) \(record.id)")
                     HStack(spacing: 5){
-                        Image(systemName: "fitness.timer")
+                        Image(systemName:"timer")
                         Text("\(record.simpleTimeString)") //생성 시간
                         Spacer()
                     }

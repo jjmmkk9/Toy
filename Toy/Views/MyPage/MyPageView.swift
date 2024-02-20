@@ -102,8 +102,7 @@ struct MyPageView: View {
                         .font(.system(size: 14))
                     
                     NavigationLink {
-//                        LanguageSelectView()
-                        AudioUploadView()
+                        LanguageSelectView()
                             .navigationBarBackButtonHidden()
                     } label: {
                         MyPageRow(text: "인식 언어")

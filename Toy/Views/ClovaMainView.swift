@@ -13,9 +13,7 @@ struct ClovaMainView: View {
     @State private var sharedButtonSelected = false
     @State private var isPresented : Bool = false
     
-    @State var modelData = ModelData.modelData
-    @State var records = ModelData.modelData.records
-    
+    @StateObject var modelData = ModelData.modelData
     
     var body: some View {
             HStack{
@@ -92,8 +90,8 @@ struct ClovaMainView: View {
                 
                 VStack{
                     if recentButtonSelected {
-                        if !records.isEmpty {
-                            detailOpen(records: $records)
+                        if !modelData.records.isEmpty {
+                            detailOpen(records: $modelData.records)
                         }else{
                             noteNothingInfo(noteName: "최근")
                         }

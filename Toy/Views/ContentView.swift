@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var wheelOn : Bool = false
     @State private var selected : Tab = .home
     
-    @StateObject private var vm = PopupViewModel.shared
+    @StateObject private var popupVm = PopupViewModel.shared
     
     var body: some View {
         
@@ -54,21 +54,21 @@ struct ContentView: View {
                     .zIndex(2.0)
                     .padding()
                     .offset(y: -60.0)
-                    .opacity(vm.isOpen ? 0 : 1)
+                    .opacity(popupVm.isOpen ? 0 : 1)
             }
             
-            if vm.isOpen {
+            if popupVm.isOpen {
                 Color.black.opacity(0.6)
                     .zIndex(3.0)
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 0.3)){
-                            vm.isOpen = false
+                            popupVm.isOpen = false
                         }
                     }
                     .ignoresSafeArea()
                 
                 WhitePopup{
-                    switch vm.type {
+                    switch popupVm.type {
                         
                     case "logout" : LogoutPopupView()
                         

@@ -41,6 +41,7 @@
 		BD94516E2B5F48D700E58FD6 /* ToyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94516D2B5F48D700E58FD6 /* ToyTests.swift */; };
 		BD9451782B5F48D700E58FD6 /* ToyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451772B5F48D700E58FD6 /* ToyUITests.swift */; };
 		BD94517A2B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */; };
+		BDA8FA142B844062006B457A /* TestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA8FA132B844062006B457A /* TestLayout.swift */; };
 		BDB977962B7DF1BD008A16C8 /* CalendarIconSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB977952B7DF1BD008A16C8 /* CalendarIconSelected.swift */; };
 		BDD4D6A22B687FA700330284 /* ClovaMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A12B687FA700330284 /* ClovaMainView.swift */; };
 		BDD4D6A62B68819200330284 /* BlogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD4D6A52B68819200330284 /* BlogItem.swift */; };
@@ -54,7 +55,6 @@
 		BDE8F9102B82FD72003615CB /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE8F90F2B82FD72003615CB /* DoubleExtensions.swift */; };
 		BDEBEACC2B7F2DB7003D8752 /* LanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACB2B7F2DB7003D8752 /* LanguageSelectView.swift */; };
 		BDEBEACE2B7F41AF003D8752 /* InterestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACD2B7F41AF003D8752 /* InterestingView.swift */; };
-		BDEBEAD02B7F4F90003D8752 /* AudioUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEBEACF2B7F4F90003D8752 /* AudioUploadView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +111,7 @@
 		BD9451732B5F48D700E58FD6 /* ToyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9451772B5F48D700E58FD6 /* ToyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITests.swift; sourceTree = "<group>"; };
 		BD9451792B5F48D700E58FD6 /* ToyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BDA8FA132B844062006B457A /* TestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLayout.swift; sourceTree = "<group>"; };
 		BDB977952B7DF1BD008A16C8 /* CalendarIconSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarIconSelected.swift; sourceTree = "<group>"; };
 		BDD4D6A12B687FA700330284 /* ClovaMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClovaMainView.swift; sourceTree = "<group>"; };
 		BDD4D6A52B68819200330284 /* BlogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogItem.swift; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		BDE8F90F2B82FD72003615CB /* DoubleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		BDEBEACB2B7F2DB7003D8752 /* LanguageSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectView.swift; sourceTree = "<group>"; };
 		BDEBEACD2B7F41AF003D8752 /* InterestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestingView.swift; sourceTree = "<group>"; };
-		BDEBEACF2B7F4F90003D8752 /* AudioUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUploadView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +178,7 @@
 				BD357DB12B6C9E640090CF84 /* LoadingIndicator.swift */,
 				BDD4D6A12B687FA700330284 /* ClovaMainView.swift */,
 				BD94515E2B5F48D600E58FD6 /* ContentView.swift */,
+				BDA8FA132B844062006B457A /* TestLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,7 +244,6 @@
 				39B2BD522B6F71AB00176D9D /* RecordDetailViewCustomTab.swift */,
 				BDD4D6A92B68A48C00330284 /* RecordItem.swift */,
 				BD9425E62B731E5800676ADA /* SimpleRecordItem.swift */,
-				BDEBEACF2B7F4F90003D8752 /* AudioUploadView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -469,6 +469,7 @@
 				BDD4D6AF2B68CFE800330284 /* MainCustomTab.swift in Sources */,
 				BD7B82A82B7382800002842C /* DatePickerView.swift in Sources */,
 				BDD4D6A82B68937000330284 /* EclipseButton.swift in Sources */,
+				BDA8FA142B844062006B457A /* TestLayout.swift in Sources */,
 				BDD4D6B12B68E52300330284 /* PlusButton.swift in Sources */,
 				BDB977962B7DF1BD008A16C8 /* CalendarIconSelected.swift in Sources */,
 				395BE9932B7AB2250003D376 /* MyPageView.swift in Sources */,
@@ -493,7 +494,6 @@
 				BDEBEACC2B7F2DB7003D8752 /* LanguageSelectView.swift in Sources */,
 				BD357DBC2B6CD4950090CF84 /* RecordDetailView.swift in Sources */,
 				BD357DAE2B6B85490090CF84 /* ModelData.swift in Sources */,
-				BDEBEAD02B7F4F90003D8752 /* AudioUploadView.swift in Sources */,
 				39B2BD532B6F71AB00176D9D /* RecordDetailViewCustomTab.swift in Sources */,
 				BD9425E72B731E5800676ADA /* SimpleRecordItem.swift in Sources */,
 				BD41E8522B69E02400931D23 /* PageViewController.swift in Sources */,

@@ -18,10 +18,8 @@ struct ProfileInfoView: View {
     @State private var libraryOpen: Bool = false
     
     func loadImage() {
-        //선택한 이미지를 profile에 저장
-        guard let selectedImage = selectedUIImage else { return }
-        //uiImage를 Image로 wrap
-        profile.image = Image(uiImage: selectedImage)
+        guard let selectedUIImage = selectedUIImage else { return }
+        profile.image = Image(uiImage: selectedUIImage)
     }
     
     
@@ -29,9 +27,7 @@ struct ProfileInfoView: View {
         VStack(spacing:50){
             BackButtonWithHeader("프로필 정보")
             Button{
-                //TODO: - picker 띄우기 카메라 or 라이브러리
-                presentsOptionSheet = true
-                //                showImagePicker.toggle()
+                presentsOptionSheet.toggle()
             }label: {
                 ZStack{
                     if let image = profile.image{
@@ -78,13 +74,11 @@ struct ProfileInfoView: View {
                     buttons: [
                         .default(
                             Text("camera"),
-                            action: {
-                                setOpenCamera()}
+                            action: {setOpenCamera()}
                         ),
                         .default(
                             Text("Library"),
                             action: {setOpenLibrary()}
-                            
                         ),
                         .cancel(
                             Text("cancel"),
@@ -122,13 +116,13 @@ extension ProfileInfoView{
         self.cameraOpen = true
         self.libraryOpen = false
         self.presentsOptionSheet = false
-        showImagePicker = true
+        showImagePicker.toggle()
     }
     func setOpenLibrary() {
         self.libraryOpen = true
         self.cameraOpen = false
         self.presentsOptionSheet = false
-        showImagePicker = true
+        showImagePicker.toggle()
     }
 }
 

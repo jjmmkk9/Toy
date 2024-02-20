@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileInfoView: View {
-    @State private var profile : UserProfileViewModel = UserProfileViewModel.default
+    @StateObject private var profile = UserProfileViewModel.default
     
     @State var showImagePicker = false
     @State var selectedUIImage: UIImage?

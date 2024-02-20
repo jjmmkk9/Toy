@@ -41,7 +41,7 @@ class UserProfileViewModel: ObservableObject {
 }
 
 struct MyPageView: View {
-    @State var profile = UserProfileViewModel.default
+    @StateObject var profile = UserProfileViewModel.default
     
     var body: some View {
         NavigationStack {

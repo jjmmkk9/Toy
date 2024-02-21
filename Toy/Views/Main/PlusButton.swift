@@ -116,8 +116,9 @@ struct FileUploadButton : View {
             
             switch result {
             case .success(let url): //성공하면 url이 담김
+                guard url.startAccessingSecurityScopedResource() else {return}
+
                 let fileName = url.lastPathComponent
-                let text = fileName
                 let duration = getAudioDuration(url: url)
                 
                 let record = Record(id: 5, name: fileName, totalTime: Int(duration ?? 0), createTime: Date())

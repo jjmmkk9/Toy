@@ -21,8 +21,7 @@ class ModelData : ObservableObject{
     @Published var records : [Record] = [Record(id: 1), Record(id: 2), Record(id: 3), Record(id: 4)]{
         
         didSet{
-            print("Records changed presented ID : \(records.filter{$0.isPresented}.map{$0.id})") //현재 보여주는 record
-//            print("Records changed : \(records.map{$0.name})")
+            print("Records changed presented ID : \(records.filter{$0.isPresented}.map{$0.id})")
         }
     }
     

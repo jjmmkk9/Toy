@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-class RecordViewModel{
-    
+
+class RecordViewModel: ObservableObject{
+    static let shared = RecordViewModel()
+    @Published var presented : Record?
 }
 
 struct NoteView: View {
@@ -18,7 +20,9 @@ struct NoteView: View {
     var items : [Record] {
         ModelData.modelData.categories[folder] ?? []
     }
-    @State private var records = ModelData.modelData.records
+    
+    @StateObject var modelData = ModelData.modelData
+    @StateObject var recordVm = RecordViewModel.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
@@ -33,15 +37,32 @@ struct NoteView: View {
                     .font(.title)
                     .bold()
             
-            if records.isEmpty{
+            if modelData.records.isEmpty{
                 NoteNothingView()
             }else if isFullNote {
                 ScrollView{
-                    detailOpen(records: $records)
+                    ForEach(modelData.records){record in
+                        RecordItem(record: record)
+                            .onTapGesture {
+                                recordVm.presented = record
+                            }
+                            .fullScreenCover(item: $recordVm.presented, content: {record in
+                                RecordDetailView(record: record)
+                            })
+                    }
                 }
+                
             }else if !items.isEmpty {
                 ScrollView{
-                    detailOpen(records: $records)
+                    ForEach(items){record in
+                        RecordItem(record: record)
+                            .onTapGesture {
+                                recordVm.presented = record
+                            }
+                            .fullScreenCover(item: $recordVm.presented, content: {record in
+                                RecordDetailView(record: record)
+                            })
+                    }
                 }
             }else{
                 NoteNothingView()

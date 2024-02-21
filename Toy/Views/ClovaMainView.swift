@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ClovaMainView: View {
-
     @State private var recentButtonSelected = true
     @State private var sharedButtonSelected = false
-    @State private var isPresented : Bool = false
     
     @StateObject var modelData = ModelData.modelData
+    
+    @StateObject var recordVm = RecordViewModel.shared
     
     var body: some View {
             HStack{
@@ -91,7 +91,15 @@ struct ClovaMainView: View {
                 VStack{
                     if recentButtonSelected {
                         if !modelData.records.isEmpty {
-                            detailOpen(records: $modelData.records)
+                            ForEach(modelData.records){record in
+                                RecordItem(record: record)
+                                    .onTapGesture {
+                                        recordVm.presented = record
+                                    }
+                                    .fullScreenCover(item: $recordVm.presented, content: {record in
+                                        RecordDetailView(record: record)
+                                    })
+                            }
                         }else{
                             noteNothingInfo(noteName: "최근")
                         }
@@ -132,20 +140,8 @@ extension View{
                     .foregroundStyle(Color("whiteItemColor"))
             )
     }
-    
-    func detailOpen(records : Binding<[Record]>) -> some View{
-        return ForEach(records.wrappedValue.indices, id:\.self){index in
-            let recordBinding = records[index]
-            RecordItem(record: recordBinding.wrappedValue)
-                .onTapGesture {
-                    recordBinding.isPresented.wrappedValue.toggle()
-                }
-                .fullScreenCover(isPresented: recordBinding.isPresented, content: {
-                    RecordDetailView(record: recordBinding.wrappedValue)
-                })
-        }
-    }
 }
+
 struct noteNothingInfo: View {
     var noteName: String
     var body: some View {

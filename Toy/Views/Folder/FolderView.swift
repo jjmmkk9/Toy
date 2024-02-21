@@ -39,10 +39,12 @@ struct FolderView: View {
                     HStack{
                         NavigationLink {
                             NoteView(folder: "전체 노트", isFullNote: true)
+                                .navigationBarBackButtonHidden()
                         } label: {
                             Image(systemName: "note")
                             Text("전체 노트")
                         }
+                        
                         Spacer()
                         
                         Button{
@@ -72,6 +74,7 @@ struct FolderView: View {
                             ForEach(myFolders, id: \.self){folder in
                                 NavigationLink{
                                     NoteView(folder: folder)
+                                        .navigationBarBackButtonHidden()
                                 }label: {
                                     Image(systemName: "folder")
                                     Text(folder)
@@ -87,6 +90,7 @@ struct FolderView: View {
                     HStack{
                         NavigationLink {
                             NoteView(folder: "공유 받은 노트")
+                                .navigationBarBackButtonHidden()
                         } label: {
                             Image(systemName: "note")
                             Text("공유 받은 노트")

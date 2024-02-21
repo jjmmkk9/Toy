@@ -69,25 +69,24 @@ struct ProfileInfoView: View {
             }
             .actionSheet(isPresented: $presentsOptionSheet, content: {
                 ActionSheet(
-                    title: Text("이미지 선택"),
+                    title: Text("프로필 이미지 선택"),
                     message: nil,
                     buttons: [
                         .default(
-                            Text("camera"),
+                            Text("카메라"),
                             action: {setOpenCamera()}
                         ),
                         .default(
-                            Text("Library"),
+                            Text("앨범"),
                             action: {setOpenLibrary()}
                         ),
                         .cancel(
-                            Text("cancel"),
+                            Text("취소"),
                             action: {presentsOptionSheet = false}
                         )
                     ]
                 )
             })
-            
             
             VStack{
                 Text("이름")

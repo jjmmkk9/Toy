@@ -18,11 +18,10 @@ enum Tab{
 struct MainCustomTab: View {
     @Binding var selected : Tab
     var body: some View {
-        
         VStack(spacing: 0){
             Rectangle()
-                .frame(height: 2)
-                .foregroundStyle(.gray) /// TODO: - .placeholder로 바꾸기 
+                .frame(height: 1)
+                .foregroundStyle(.mildGray) /// TODO: - .placeholder로 바꾸기
             HStack (alignment: .bottom, spacing: UIScreen.main.bounds.width/4 - 40){
                 Button{
                     selected = .home

@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         
         ZStack(alignment: .bottomTrailing){
-            VStack{
+            VStack(spacing:0){
                 switch selected {
                 case .home:
                     ClovaMainView()

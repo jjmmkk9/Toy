@@ -62,10 +62,11 @@ struct ProfileInfoView: View {
                 }
                 
             }
-            .sheet(isPresented: $showImagePicker, onDismiss: {
+            .fullScreenCover(isPresented: $showImagePicker, onDismiss: {
                 loadImage()
             }){
                 ImagePicker(image: $selectedUIImage, isCameraPicker: cameraOpen)
+                    .background(.black).ignoresSafeArea()
             }
             .actionSheet(isPresented: $presentsOptionSheet, content: {
                 ActionSheet(
@@ -101,10 +102,10 @@ struct ProfileInfoView: View {
                 TextField("내 이메일",text: $profile.email)
             }
             
-            
+            Spacer()
         }
         .padding( 20)
-        Spacer()
+        
         
         
     }

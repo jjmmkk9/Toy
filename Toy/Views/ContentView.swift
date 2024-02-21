@@ -81,8 +81,7 @@ struct ContentView: View {
 
                 }
                     .zIndex(4.0)
-                    .padding(.horizontal, 40)
-                    .offset(y: -80)
+                    .ignoresSafeArea(.keyboard)
             }
             
             

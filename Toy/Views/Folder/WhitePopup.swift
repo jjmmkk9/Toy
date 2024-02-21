@@ -32,12 +32,13 @@ struct WhitePopup<Content: View>: View {
     
     var body: some View {
         page
-            .padding( 40)
+            .padding(40)
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundStyle(.white)
             )
-
+            .padding(.horizontal, 40)
+            .position(x:UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 3)
     }
 }
 struct NewFolderPopupView:View {
@@ -68,9 +69,9 @@ struct NewFolderPopupView:View {
                     .foregroundStyle(.black)
             }
             .onAppear(perform: {
-                            isFocused = .name
-                            
-                        })
+                isFocused = .name
+                
+            })
             Capsule()
                 .frame(height: 2)
                 .foregroundStyle(.gray)
@@ -103,13 +104,13 @@ struct LogoutPopupView :View {
     var vm : PopupViewModel = PopupViewModel.shared
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
+        VStack(alignment: .leading, spacing: 30){
             Text("로그아웃")
                 .bold()
                 .font(.title2)
                 .foregroundStyle(.black)
             
-            Text("로그아웃 하시겠어요? 아마 안될텐데")
+            Text("로그아웃 하시겠어요?")
                 .foregroundStyle(.black)
             
             HStack(spacing: 30){
@@ -121,7 +122,6 @@ struct LogoutPopupView :View {
                         .foregroundStyle(.black)
                 }
                 Button{
-                    
                     vm.isOpen = false
                 }label: {
                     Text("확인")
@@ -137,13 +137,13 @@ struct ResignPopupView :View {
     var vm : PopupViewModel = PopupViewModel.shared
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
+        VStack(alignment: .leading, spacing: 30){
             Text("탈퇴")
                 .bold()
                 .font(.title2)
                 .foregroundStyle(.black)
             
-            Text("탈퇴 하시겠어요? 아마 안될텐데")
+            Text("탈퇴 하시겠어요?")
                 .foregroundStyle(.black)
             
             HStack(spacing: 30){

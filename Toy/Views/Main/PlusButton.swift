@@ -129,14 +129,15 @@ struct FileUploadButton : View {
                 self.error = error
             }
         }
-                      .fullScreenCover(isPresented: $appendSuccess, content: {
+                      .fullScreenCover(isPresented: $appendSuccess,
+                                       onDismiss: {clicked = false}, content: {
                           if let record = record {
                               RecordDetailView(record: record)
                           }else{
                               fatalError("레코드 정보가 존재하지 않습니다.")
                           }
-                          
                       })
+                     
     }
 }
 

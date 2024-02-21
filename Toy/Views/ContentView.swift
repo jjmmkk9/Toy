@@ -65,7 +65,7 @@ struct ContentView: View {
                             popupVm.isOpen = false
                         }
                     }
-                    .ignoresSafeArea()
+                    .ignoresSafeArea(.all)
                 
                 WhitePopup{
                     switch popupVm.type {
@@ -76,7 +76,7 @@ struct ContentView: View {
                     
                     case "resign" : ResignPopupView()
                         
-                    default: AnyView(EmptyView())
+                    default: EmptyView()
                     }
 
                 }

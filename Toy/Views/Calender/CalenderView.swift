@@ -21,7 +21,7 @@ struct CalenderView: View {
     var today : Date = Date()
     var history = ModelData.modelData.history
     //전체 레코드
-    @State private var records : [Record] = ModelData.modelData.records
+    @StateObject var modelData = ModelData.modelData
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
     
@@ -57,18 +57,16 @@ struct CalenderView: View {
             )
             //clickedDate에 해당하는 레코드
             VStack{
-                
-                let filterdRecord : [Record] = ModelData.modelData.dayRecords(date: clickedDate)
+                let filterdRecord : [Record] = modelData.dayRecords(date: clickedDate)
                 if !filterdRecord.isEmpty {
                     ScrollView{
-                        ForEach(filterdRecord.indices) { index in
-                            let record = filterdRecord[index]
+                        ForEach(filterdRecord, id:\.self) { record in
                             SimpleRecordItem(record: record)
                                 .onTapGesture {
-                                    records[index] = record
-                                    records[index].isPresented.toggle()
+                                    self.record = record
+                                    print("record : \(record.id)")
                                 }
-                                .fullScreenCover(isPresented: $records[index].isPresented, content: {
+                                .fullScreenCover(item: $record ,content: {record in
                                     RecordDetailView(record: record)
                                 })
                         }

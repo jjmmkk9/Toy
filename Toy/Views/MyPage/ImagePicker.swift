@@ -27,7 +27,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         }else{
             picker.sourceType = .photoLibrary
         }
-        picker.allowsEditing = true
+//        picker.allowsEditing = true
         return picker
     }
     
@@ -46,7 +46,7 @@ extension ImagePicker {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            guard let image = info[.editedImage] as? UIImage else { return }
+            guard let image = info[.originalImage] as? UIImage else { return }
             parent.image = image
             parent.mode.wrappedValue.dismiss()
         }

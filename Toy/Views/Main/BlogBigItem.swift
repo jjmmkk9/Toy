@@ -42,10 +42,10 @@ struct BlogBigItem: View {
             .background(
                 RoundedRectangle(cornerRadius: 25.0)
                 .foregroundStyle(btnColor)
+                .frame(height: 150)
                 .padding(20)
                 .background(Color("bgColor"))
             )
-            .frame(height: 180)
             
     }
 }

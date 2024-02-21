@@ -12,12 +12,11 @@ struct PageView<Page: View>: View {
     @State private var currentPage = 0
     
     var body: some View {
-        VStack {
                 PageViewController(pages: pages, currentPage: $currentPage)
-                .frame(height: 180)
+                .frame(height: 190)
                 PageControl(numberOfPages: pages.count, currentPage: $currentPage)
                 .offset(y: -10)
-                }
+
     
     }
 }

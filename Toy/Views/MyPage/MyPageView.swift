@@ -27,6 +27,7 @@ class UserProfileViewModel: ObservableObject {
             if let image = self.image{
                 image
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
                     .frame(width:50, height: 50)
             }else{

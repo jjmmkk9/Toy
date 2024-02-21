@@ -61,7 +61,9 @@ struct RecordDetailView: View {
             }
         }
         .font(.title2)
-        .padding(.leading, 20)
+        .padding(20)
+        .padding(.trailing, -10)
+        .foregroundStyle(Color("blackWhite"))
         
         //content
         ScrollView{

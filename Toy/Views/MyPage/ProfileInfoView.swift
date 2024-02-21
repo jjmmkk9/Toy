@@ -33,8 +33,9 @@ struct ProfileInfoView: View {
                     if let image = profile.image{
                         image
                             .resizable()
-                            .clipShape(Circle())
+                            .scaledToFill()
                             .frame(width:120, height: 120)
+                            .clipShape(Circle())
                         Circle()
                             .foregroundStyle(Color(UIColor.MyTheme.bgColor))
                             .frame(width: 35)

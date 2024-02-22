@@ -54,7 +54,7 @@ struct RecordDetailView: View {
                 Image(systemName: "arrowshape.turn.up.right")
             }
             Button{
-                
+                //TODO: - popup 아래에서 위로 슝
             }label: {
                 Image(systemName: "ellipsis")
                     .rotationEffect(.degrees(90.0))

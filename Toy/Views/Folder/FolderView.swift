@@ -86,44 +86,10 @@ struct FolderView: View {
                             NoteView(folder: folder)
                         }
                     }
-                    
-                    HStack{
-                        NavigationLink {
-                            NoteView(folder: "공유 받은 노트")
-                                .navigationBarBackButtonHidden()
-                        } label: {
-                            Image(systemName: "note")
-                            Text("공유 받은 노트")
-                        }
-                        Spacer()
-                        
-                        Button{
-                            
-                        }label: {
-                            Text("+")
-                                .font(.title)
-                                .padding(.trailing, 10)
-                                .foregroundStyle(.gray)
-                        }
-                        Button{
-                            // 전체 노트 접고 펴기
-                            
-                        }label: {
-                            Image(systemName:isNoteOpen ? "chevron.up" : "chevron.down")
-                                .font(.title)
-                                .foregroundStyle(.gray)
-                        }
-                    }
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
-                        Text("공유한 노트")
-                    }
-                    Button {
-                        
-                    } label: {
+                    NavigationLink{
+                        TrashView()
+                            .navigationBarBackButtonHidden()
+                    }label: {
                         Image(systemName: "trash")
                         Text("휴지통")
                     }

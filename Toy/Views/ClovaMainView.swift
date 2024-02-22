@@ -12,7 +12,6 @@ struct ClovaMainView: View {
     @State private var sharedButtonSelected = false
     
     @StateObject var modelData = ModelData.modelData
-    
     @StateObject var recordVm = RecordViewModel.shared
     
     var body: some View {
@@ -91,14 +90,10 @@ struct ClovaMainView: View {
                 VStack{
                     if recentButtonSelected {
                         if !modelData.records.isEmpty {
-                            ForEach(modelData.records){record in
-                                RecordItem(record: record)
-                                    .onTapGesture {
-                                        recordVm.presented = record
-                                    }
-                                    .fullScreenCover(item: $recordVm.presented, content: {record in
-                                        RecordDetailView(record: record)
-                                    })
+                            LazyVStack(spacing: 10){
+                                ForEach(modelData.records){record in
+                                    RecordItem(record: $modelData.records[getIndex(record: record)], records: $modelData.records)
+                                }
                             }
                         }else{
                             noteNothingInfo(noteName: "최근")
@@ -114,6 +109,7 @@ struct ClovaMainView: View {
                 //페이지뷰!!
                 PageView(pages: modelData.blogBigItems)
                 
+                //유용한 기능 알아보기
                 VStack(alignment: .leading, spacing: 30){
                     Text("유용한 기능 알아보기")
                         .font(.headline)
@@ -121,13 +117,16 @@ struct ClovaMainView: View {
                     UsefulFeatures()
                 }
                 .padding(20)
-
             }
             .background(Color("bgColor"))
 
-
     }
 
+    func getIndex(record: Record) -> Int{
+        return modelData.records.firstIndex { (record1) -> Bool in
+            return record.id == record1.id
+        } ?? 0
+    }
 }
 
 extension View{

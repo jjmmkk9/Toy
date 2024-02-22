@@ -42,6 +42,9 @@ struct Record: Hashable, Identifiable {
     
     var memo : String = ""
     
+    var offset : CGFloat = 0
+    var isSwiped: Bool = false
+    
 }
 
 extension Record {

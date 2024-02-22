@@ -25,7 +25,7 @@ class ModelData : ObservableObject{
         }
     }
     
-
+    @Published var trash : [Record] = []
     
     @Published var myFolders : [String] = ["기본", "학교"]{
         didSet{

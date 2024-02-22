@@ -40,6 +40,7 @@ struct Record: Hashable, Identifiable {
         self.id = id
     }
     
+    var memo : String = ""
     
 }
 

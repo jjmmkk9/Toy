@@ -6,23 +6,40 @@
 //
 
 import SwiftUI
+enum Popup {
+    case logout, folder, resign
+    
+    case removeOrTransfer
+}
 
-class PopupViewModel : ObservableObject{
-    static let shared = PopupViewModel()
+class WhitePopupViewModel : ObservableObject{
+    static let shared = WhitePopupViewModel()
     
     private init() {
         self.isOpen = isOpen
         self.type = type
     }
+    
     @Published var isOpen : Bool = false{
         didSet{
-            print(isOpen)
+            print("white popup open: \(isOpen)")
         }
     }
-    @Published var type: String?
+    @Published var type: Popup?
     
 }
 
+class BottomPopupViewModel : ObservableObject{
+    static let shared = BottomPopupViewModel()
+    
+    @Published var isOpen : Bool = false{
+        didSet{
+            print("bottom popup open: \(isOpen)")
+        }
+    }
+    @Published var type: Popup?
+    
+}
 struct WhitePopup<Content: View>: View {
     
     var page : Content
@@ -45,7 +62,7 @@ struct NewFolderPopupView:View {
     enum Field : Hashable{
         case name
     }
-    var vm : PopupViewModel = PopupViewModel.shared
+    var vm : WhitePopupViewModel = WhitePopupViewModel.shared
     @State private var modelData = ModelData.modelData
     @State private var name : String = ""
     @FocusState var isFocused : Field?
@@ -101,7 +118,7 @@ struct NewFolderPopupView:View {
 }
 
 struct LogoutPopupView :View {
-    var vm : PopupViewModel = PopupViewModel.shared
+    var vm : WhitePopupViewModel = WhitePopupViewModel.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30){
@@ -134,7 +151,7 @@ struct LogoutPopupView :View {
     }
 }
 struct ResignPopupView :View {
-    var vm : PopupViewModel = PopupViewModel.shared
+    var vm : WhitePopupViewModel = WhitePopupViewModel.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30){
@@ -168,8 +185,72 @@ struct ResignPopupView :View {
     }
 }
 
+struct BottomPopup<Content: View>: View {
+    var page : Content
+    @StateObject var popupVm = BottomPopupViewModel.shared
+    
+    init(@ViewBuilder content:() -> Content) {
+        self.page = content()
+    }
+    
+    var body: some View {
+            // 팝업 뷰
+            VStack {
+                Spacer()
+                page
+            }
+            .offset(y: popupVm.isOpen ? 0 : UIScreen.main.bounds.height)
+            .ignoresSafeArea()
+
+    }
+}
+
+struct RemoveOrTransferPopupView:View {
+    @StateObject var popupVm = BottomPopupViewModel.shared
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Button(action: {
+                popupVm.isOpen.toggle()
+            }) {
+                Image(systemName: "trash")
+                Text("삭제")
+                    
+            }
+            .foregroundColor(.red)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Button(action: {
+                popupVm.isOpen.toggle()
+            }) {
+                Image(systemName: "folder")
+                Text("이동")
+                    .foregroundColor(.blue)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+        }
+        
+        .bottomPopup()
+    }
+}
+
+extension View{
+    func bottomPopup() -> some View{
+        self
+            .padding(.bottom, 20)
+            .padding(20)
+            .frame(maxWidth: .infinity)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            
+    }
+}
 #Preview {
-    WhitePopup{
-        LogoutPopupView()
+    //    WhitePopup{
+    //        LogoutPopupView()
+    //    }
+    BottomPopup{
+        RemoveOrTransferPopupView()
     }
 }

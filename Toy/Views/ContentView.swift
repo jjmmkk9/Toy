@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var wheelOn : Bool = false
     @State private var selected : Tab = .home
     
-    @StateObject private var popupVm = PopupViewModel.shared
+    @StateObject private var popupVm = WhitePopupViewModel.shared
     
     var body: some View {
         
@@ -69,16 +69,16 @@ struct ContentView: View {
                 
                 WhitePopup{
                     switch popupVm.type {
+                    case .logout:
+                        LogoutPopupView()
+                    case .folder:
+                        NewFolderPopupView()
+                    case .resign:
+                        ResignPopupView()
                         
-                    case "logout" : LogoutPopupView()
-                        
-                    case "folder": NewFolderPopupView()
-                    
-                    case "resign" : ResignPopupView()
-                        
-                    default: EmptyView()
+                    default:
+                        EmptyView()
                     }
-
                 }
                     .zIndex(4.0)
                     .ignoresSafeArea(.keyboard)

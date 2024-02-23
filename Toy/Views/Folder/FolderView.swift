@@ -12,7 +12,7 @@ struct FolderView: View {
     @State private var isSharedNoteOpen : Bool = false
     
     
-    var vm = PopupViewModel.shared
+    var vm = WhitePopupViewModel.shared
     
     var myFolders : [String] = ModelData.modelData.myFolders
     var body: some View {
@@ -49,7 +49,7 @@ struct FolderView: View {
                         
                         Button{
                             //전체노트 + 버튼 클릭시
-                            vm.type = "folder"
+                            vm.type = .folder
                             vm.isOpen.toggle()
                         }label: {
                             Text("+")

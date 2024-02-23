@@ -10,7 +10,7 @@ import SwiftUI
 struct AccountInfoView: View {
     @State private var profile : UserProfileViewModel = UserProfileViewModel.default
     
-    var vm = PopupViewModel.shared
+    var vm = WhitePopupViewModel.shared
     var body: some View {
         VStack(spacing: 40){
             BackButtonWithHeader("계정 정보")
@@ -46,7 +46,7 @@ struct AccountInfoView: View {
             
             Text("로그아웃")
                 .onTapGesture {
-                    vm.type = "logout"
+                    vm.type = .logout
                     vm.isOpen.toggle()
                 }
             
@@ -55,7 +55,7 @@ struct AccountInfoView: View {
             Text("탈퇴하기")
                 .foregroundStyle(.gray)
                 .onTapGesture {
-                    vm.type = "resign"
+                    vm.type = .resign
                     vm.isOpen.toggle()
                 }
         }

@@ -53,9 +53,11 @@ struct RecordDetailViewCustomTab: View {
 
 //MARK: - 탭 컨텐츠
 private struct TabContentView : View {
+    @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject var modelData = ModelData.modelData
     var record: Record
     @State var text : String
+
     var tests : detailTab
     
     
@@ -74,20 +76,30 @@ private struct TabContentView : View {
                 let people = record.people
                 
                 ForEach(record.allText, id: \.self){string in
-                    
                     textRow(number: Int.random(in: 1...people), text: string)
                 }
                 //MARK: - 메모 요약
             case .memoSummary:
-                VStack {
-                    TextField("메모를 추가하세요", text: $text)
-                        .onChange(of: text){newValue in
-                            if let index = modelData.records.firstIndex(where: { $0.id == record.id }) {
-                                modelData.records[index].memo = newValue
-                            }
+                VStack(alignment: .leading) {
+                    if let index = modelData.records.firstIndex(of: self.record){
+                        if modelData.records[index].memo.isEmpty{
+                            Text("메모를 입력하세요.")
+                        }else{
+                            Text(modelData.records[index].memo)
                         }
+                    }
                 }
                 .padding(20)
+                .onTapGesture {
+                    //탭하면 메모 수정가능 - 팝업 올리기
+                    popupVm.type = .memo
+                    popupVm.isOpen.toggle()
+                    
+                }
+                .onChange(of: modelData.records){newValue in
+                    
+                }
+                
             }
         }
 

@@ -17,6 +17,7 @@ struct RecordDetailView: View {
     
     @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject var modelData = ModelData.modelData
+    @StateObject var recordVm = RecordViewModel.shared
     
     enum Tab: Hashable {
         case voiceRecord
@@ -31,6 +32,7 @@ struct RecordDetailView: View {
                 //header
                 HStack(spacing: 15){
                     Button{
+                        recordVm.presented = nil
                         dismiss()
                     }label: {
                         Image(systemName: "xmark")
@@ -49,8 +51,8 @@ struct RecordDetailView: View {
                         Image(systemName: "arrowshape.turn.up.right")
                     }
                     Button{
+                        popupVm.type = .removeOrTransfer
                         popupVm.isOpen.toggle()
-                        
                     }label: {
                         Image(systemName: "ellipsis")
                             .rotationEffect(.degrees(90.0))
@@ -105,35 +107,43 @@ struct RecordDetailView: View {
                         popupVm.isOpen.toggle()
                     }
                 BottomPopup{
-                    RemoveOrTransferPopupView()
+                    switch popupVm.type {
+                    case .removeOrTransfer:
+                        RemoveOrTransferPopupView()
+                    case .memo:
+                        MemoPopupView()
+                    default:
+                        EmptyView()
+                    }
                 }
-                    .zIndex(3.0)
+                .zIndex(3.0)
             }
             
         }//zstack close - animation은 팝업을 호출하는 Zstack에 써야한다.
-        .animation(.smooth(duration: 0.3), value: popupVm.isOpen)
-        
+        .animation(.smooth(duration: 0.5), value: popupVm.isOpen)
+        .onChange(of: popupVm.isRemove) { isRemove in
+            if isRemove{
+                appendTrash()
+            }
+        }
     }
-    
-    //휴지통으로 이동하기
-    //records에서 지우기
+}
+
+extension RecordDetailView{
     func deleteRecord() {
         appendTrash()
-        modelData.records.removeAll{ (record) -> Bool in
-            return self.record.id == record.id
-        }
-        
+        modelData.records.removeAll(where: {modelData.trash.contains($0)})
+        print("디테일 삭제완")
     }
     func appendTrash(){
         if let record = modelData.records.first(where: {$0.id == self.record.id}){
             modelData.trash.append(record)
         }else{return}
+        dismiss()
     }
     
-    
-    //fullscreen끄기
-    
     //휴지통으로 이동했습니다 토스트?
+
 }
 
 

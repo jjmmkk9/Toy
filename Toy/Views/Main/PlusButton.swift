@@ -90,8 +90,9 @@ struct FileUploadButton : View {
     @State private var appendSuccess = false
     @State private var error: Error?
     @State private var record : Record?
-    @State private var modelData = ModelData.modelData
+    @StateObject private var modelData = ModelData.modelData
     @Binding var clicked: Bool
+    @StateObject var recordVm = RecordViewModel.shared
     
     var body: some View {
         HStack(spacing: 15){
@@ -129,6 +130,12 @@ struct FileUploadButton : View {
                 self.error = error
             }
         }
+                      .onChange(of: appendSuccess){ appendSuccess in
+                          if appendSuccess{
+                              print("appendSuccess")
+                              recordVm.presented = record
+                          }
+                      }
                       .fullScreenCover(isPresented: $appendSuccess,
                                        onDismiss: {clicked = false}, content: {
                           if let record = record {

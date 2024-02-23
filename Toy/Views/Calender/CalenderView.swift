@@ -22,6 +22,7 @@ struct CalenderView: View {
     var history = ModelData.modelData.history
     //전체 레코드
     @StateObject var modelData = ModelData.modelData
+    @StateObject var recordVm = RecordViewModel.shared
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
     
@@ -63,6 +64,7 @@ struct CalenderView: View {
                         ForEach(filterdRecord, id:\.self) { record in
                             SimpleRecordItem(record: record)
                                 .onTapGesture {
+                                    recordVm.presented = record
                                     self.record = record
                                     print("record : \(record.id)")
                                 }

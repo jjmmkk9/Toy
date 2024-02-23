@@ -9,7 +9,7 @@ import SwiftUI
 enum Popup {
     case logout, folder, resign
     
-    case removeOrTransfer
+    case removeOrTransfer, memo
 }
 
 class WhitePopupViewModel : ObservableObject{
@@ -20,11 +20,7 @@ class WhitePopupViewModel : ObservableObject{
         self.type = type
     }
     
-    @Published var isOpen : Bool = false{
-        didSet{
-            print("white popup open: \(isOpen)")
-        }
-    }
+    @Published var isOpen : Bool = false
     @Published var type: Popup?
     
 }
@@ -32,12 +28,12 @@ class WhitePopupViewModel : ObservableObject{
 class BottomPopupViewModel : ObservableObject{
     static let shared = BottomPopupViewModel()
     
-    @Published var isOpen : Bool = false{
-        didSet{
-            print("bottom popup open: \(isOpen)")
-        }
-    }
+    @Published var isOpen : Bool = false
     @Published var type: Popup?
+    
+    
+    @Published var isRemove: Bool = false
+    @Published var isTransfer: Bool = false
     
 }
 struct WhitePopup<Content: View>: View {
@@ -198,8 +194,10 @@ struct BottomPopup<Content: View>: View {
             VStack {
                 Spacer()
                 page
+                    .bottomPopup()
             }
-            .offset(y: popupVm.isOpen ? 0 : UIScreen.main.bounds.height)
+//            .offset(y: popupVm.isOpen ? 0 : UIScreen.main.bounds.height)
+            .offset( y:  0)
             .ignoresSafeArea()
 
     }
@@ -211,27 +209,80 @@ struct RemoveOrTransferPopupView:View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Button(action: {
+                popupVm.type = .none
+                popupVm.isRemove.toggle()
                 popupVm.isOpen.toggle()
             }) {
                 Image(systemName: "trash")
                 Text("삭제")
                     
             }
-            .foregroundColor(.red)
+            .foregroundStyle(.red)
             .frame(maxWidth: .infinity, alignment: .leading)
             
             Button(action: {
+                popupVm.type = .none
+                popupVm.isTransfer.toggle()
                 popupVm.isOpen.toggle()
             }) {
                 Image(systemName: "folder")
                 Text("이동")
-                    .foregroundColor(.blue)
+                    .foregroundStyle(.blue)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
         }
-        
-        .bottomPopup()
+    }
+}
+
+struct MemoPopupView: View {
+    @StateObject var popupVm = BottomPopupViewModel.shared
+    @StateObject var recordVm = RecordViewModel.shared
+    @StateObject var modelData = ModelData.modelData
+    
+    @State private var text : String = ""
+    
+    init() {
+        self.text = recordVm.presented?.memo ?? ""
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20){
+            HStack{
+                Image(systemName: "xmark")
+                    .onTapGesture {
+                        popupVm.type = .none
+                        popupVm.isOpen.toggle()
+                    }
+                Spacer()
+                Text("완료")
+                    .onTapGesture {
+                        //text 업데이트 시키기
+                        if let index = modelData.records.firstIndex(of: recordVm.presented!){
+                            modelData.records[index].memo = text
+                            popupVm.type = .none
+                            popupVm.isOpen.toggle()
+                        }else{
+                            print("memoupdate 불가:::: WhitePopup")
+                        }
+                        
+                    }
+            }
+            .foregroundStyle(.black)
+            ZStack(alignment: .topLeading){
+                if text.isEmpty{
+                    Text("메모를 입력하세요.")
+                        .foregroundStyle(.gray)
+                        .padding()
+                        .offset(x: 6, y: 10)
+                }
+                
+                TextEditor(text: $text)
+                    .scrollContentBackground(.hidden)
+                    .foregroundStyle(.black)
+                    .padding()
+            }
+        }
+        .frame(maxHeight: UIScreen.main.bounds.height - 200)
     }
 }
 
@@ -240,7 +291,6 @@ extension View{
         self
             .padding(.bottom, 20)
             .padding(20)
-            .frame(maxWidth: .infinity)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             
@@ -251,6 +301,6 @@ extension View{
     //        LogoutPopupView()
     //    }
     BottomPopup{
-        RemoveOrTransferPopupView()
+        MemoPopupView()
     }
 }

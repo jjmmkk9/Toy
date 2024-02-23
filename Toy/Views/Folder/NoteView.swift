@@ -10,6 +10,28 @@ import SwiftUI
 class RecordViewModel: ObservableObject{
     static let shared = RecordViewModel()
     @Published var presented : Record?
+    
+    @Published var records : [Record]
+    @Published var filteredRecords : [Record]
+    
+    init() {
+        self.records = ModelData.modelData.records
+      self.filteredRecords = []
+    }
+    
+    func dayRecords(date : Date) -> [Record]{
+        let fr = records.filter{
+            Calendar.current.isDate(date, inSameDayAs: $0.createTime ?? Date())
+        }
+        return fr
+    }
+    
+    func updateRecord(record: Record) {
+        // 원본 데이터 업데이트
+        if let index = self.records.firstIndex(where: { $0.id == record.id }) {
+            self.records[index] = record
+        }
+    }
 }
 
 struct NoteView: View {

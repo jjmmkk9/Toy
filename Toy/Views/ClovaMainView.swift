@@ -119,6 +119,9 @@ struct ClovaMainView: View {
                 .padding(20)
             }
             .background(Color("bgColor"))
+            .onChange(of: modelData.trash){trash in
+                updateItems()
+            }
 
     }
 
@@ -126,6 +129,10 @@ struct ClovaMainView: View {
         return modelData.records.firstIndex { (record1) -> Bool in
             return record.id == record1.id
         } ?? 0
+    }
+    
+    func updateItems(){
+        modelData.records.removeAll(where: {modelData.trash.contains($0)})
     }
 }
 

@@ -13,14 +13,15 @@ enum detailTab: String, CaseIterable {
 }
 
 struct RecordDetailViewCustomTab: View {
-    @State private var selectedTab: detailTab = .voiceRecord
     var record: Record
-    //    @Namespace private var animation
+    @State private var selectedTab: detailTab = .voiceRecord
+    @Binding var searchTxt : String
+    @Binding var count : Int
     
     var body: some View {
         VStack {
             makeTabHeader()
-            TabContentView(record: record ,tests: selectedTab)
+            TabContentView(tests: selectedTab, searchTxt: $searchTxt, count: $count)
             
         }
     }
@@ -54,55 +55,72 @@ struct RecordDetailViewCustomTab: View {
 //MARK: - 탭 컨텐츠
 private struct TabContentView : View {
     @StateObject var popupVm = BottomPopupViewModel.shared
-    @StateObject var modelData = ModelData.modelData
-    var record: Record
-    @State var text : String
-
+    @StateObject private var recordVm = RecordViewModel.shared
     var tests : detailTab
     
-    
-    init(record: Record, tests: detailTab){
-        self.record = record
-        _text = State(initialValue: record.memo)
-        self.tests = tests
-    }
-    
+    @Binding var searchTxt : String
+    @Binding var count : Int
+    @State private var scrollIndex : Int = 0
+
     var body: some View {
         
-        ScrollView(.vertical, showsIndicators: false) {
-            switch tests {
-                //MARK: - 음성 녹음
-            case .voiceRecord :
-                let people = record.people
-                
-                ForEach(record.allText, id: \.self){string in
-                    textRow(number: Int.random(in: 1...people), text: string)
-                }
-                //MARK: - 메모 요약
-            case .memoSummary:
-                VStack(alignment: .leading) {
-                    if let index = modelData.records.firstIndex(of: self.record){
-                        if modelData.records[index].memo.isEmpty{
-                            Text("메모를 입력하세요.")
-                        }else{
-                            Text(modelData.records[index].memo)
+        if let record = recordVm.presented{
+            ScrollView(.vertical, showsIndicators: false) {
+                ScrollViewReader{proxy in
+                    
+                    switch tests {
+                    case .voiceRecord :
+                        let people = record.people
+                        let allText = record.allText
+                        ForEach(allText.indices, id: \.self){index in
+                            let string = allText[index]
+                            textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
+                                .id(index)
                         }
+                        .onChange(of: searchTxt){ newTxt in
+                            let indices : [Int] = matchingString(of: newTxt, in: allText)
+                            //첫 검색결과로 이동
+                            print(indices)
+                            scrollIndex = indices.first ?? 0
+                            withAnimation{
+                                proxy.scrollTo(scrollIndex, anchor: .top)
+                            }
+                        }
+                    case .memoSummary:
+                        VStack(alignment: .leading) {
+                            
+                            if record.memo.isEmpty{
+                                Text("메모를 입력하세요.")
+                            }else{
+                                Text(record.memo)
+                            }
+                            
+                        }
+                        .padding(20)
+                        .onTapGesture {
+                            popupVm.type = .memo
+                            popupVm.isOpen.toggle()
+                            
+                        }
+                        
                     }
                 }
-                .padding(20)
-                .onTapGesture {
-                    //탭하면 메모 수정가능 - 팝업 올리기
-                    popupVm.type = .memo
-                    popupVm.isOpen.toggle()
-                    
-                }
-                .onChange(of: modelData.records){newValue in
-                    
-                }
-                
+            }
+        }else{
+            Text("recordVm에 정보가 없네요")
+        }
+        
+    }
+    func matchingString(of substring: String, in strings : [String]) -> [Int]{
+        //string을 [string]에서 찾아 그리고 찾아진 녀석들의 인덱스를 담아서 반환
+        var indices : [Int] = []
+        
+        for (index, string) in strings.enumerated() {
+            if string.contains(substring){
+                indices.append(index)
             }
         }
-
+        return indices
     }
 }
 
@@ -112,6 +130,9 @@ private struct textRow : View {
     var number: Int
     var text : String
     let colors : [Color] = [.red, .cyan, .purple, .orange, .blue]
+    
+    @Binding var count : Int
+    @Binding var searchTxt : String
     
     var body: some View {
         HStack(alignment:.top, spacing: 15){
@@ -131,17 +152,38 @@ private struct textRow : View {
                     Text("00:00")
                         .foregroundStyle(.gray)
                 }
-                Text(text)
+                highlightedText(str: text, searched: searchTxt)
             }
+            
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
-        
-        
+//        .onChange(of: searchTxt){newTxt in
+//            count = 0
+//        }
     }
+    
+    func highlightedText(str: String, searched: String) -> Text {
+            guard !str.isEmpty && !searched.isEmpty else { return Text(str) }
+
+            var result: Text!
+            let parts = str.components(separatedBy: searched)
+        
+            for i in parts.indices {
+                result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
+                //검색어가 하나라도 있는경우
+                if i != parts.count - 1 {
+                    self.count += 1
+                    result = result + Text(searched).foregroundColor(.red).bold()
+                }
+            }
+            return result ?? Text(str)
+        }
 }
 
 #Preview {
-    RecordDetailViewCustomTab(record: ModelData.modelData.records[0])
+    RecordViewModel.shared.presented = ModelData.modelData.records[0]
+    return RecordDetailViewCustomTab(record: ModelData.modelData.records[0],
+                                     searchTxt: .constant("조금"), count: .constant(0))
 }

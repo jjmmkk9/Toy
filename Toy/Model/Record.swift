@@ -42,9 +42,6 @@ struct Record: Hashable, Identifiable {
     
     var memo : String = ""
     
-    var offset : CGFloat = 0
-    var isSwiped: Bool = false
-    
 }
 
 extension Record {
@@ -56,4 +53,39 @@ extension Record {
         self.createTime = createTime
     }
     
+}
+
+
+class RecordViewModel: ObservableObject{
+    static let shared = RecordViewModel()
+    @Published var presented : Record?{
+        didSet{
+            print("presented changed")
+        }
+    }
+    
+    @Published var records : [Record]
+    @Published var filteredRecords : [Record]
+    
+    init() {
+        self.records = ModelData.modelData.records
+      self.filteredRecords = []
+    }
+    
+    func dayRecords(date : Date) -> [Record]{
+        let fr = records.filter{
+            Calendar.current.isDate(date, inSameDayAs: $0.createTime ?? Date())
+        }
+        return fr
+    }
+
+    func updateRecord(record: Record) {
+        if let index = self.records.firstIndex(where: { $0.id == record.id }) {
+            self.records[index] = record
+        }
+    }
+        //memo 넣은 record 객체를 presented에 update
+    func updatePresented(record: Record){
+        self.presented = record
+    }
 }

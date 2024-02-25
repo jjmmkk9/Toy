@@ -17,7 +17,10 @@ struct RecordDetailView: View {
     
     @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject var modelData = ModelData.modelData
-    @StateObject var recordVm = RecordViewModel.shared
+    
+    @State private var searchOpen : Bool = false
+    @State private var searchTxt : String = ""
+    @State private var count : Int = 0
     
     enum Tab: Hashable {
         case voiceRecord
@@ -30,69 +33,77 @@ struct RecordDetailView: View {
             //content
             VStack{
                 //header
-                HStack(spacing: 15){
-                    Button{
-                        recordVm.presented = nil
-                        dismiss()
-                    }label: {
-                        Image(systemName: "xmark")
-                    }
-                    
-                    Spacer()
+                if searchOpen{
+                    SearchBar(isOpen: $searchOpen, searchTxt: $searchTxt)
+                        .shadow(color: .gray.opacity(0.2) ,radius: 5)
+                }else{
+                    HStack(spacing: 15){
+                        Button{
+                            dismiss()
+                        }label: {
+                            Image(systemName: "xmark")
+                        }
+                        
+                        Spacer()
+                        
+                        Button{
+                                searchOpen = true
 
-                    Button{
-                        
-                    }label: {
-                        Image(systemName: "magnifyingglass")
-                    }
-                    Button{
-                        
-                    }label: {
-                        Image(systemName: "arrowshape.turn.up.right")
-                    }
-                    Button{
-                        popupVm.type = .removeOrTransfer
-                        popupVm.isOpen.toggle()
-                    }label: {
-                        Image(systemName: "ellipsis")
-                            .rotationEffect(.degrees(90.0))
-                    }
-                }
-                .font(.title2)
-                .padding(20)
-                .padding(.trailing, -10)
-                .foregroundStyle(Color("blackWhite"))
-                
-                //scrollView
-                ScrollView{
-                    //info
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("\(record.detailTimeString) . \(record.totalTimeString)")
-                        Text("\(record.name) \(record.id)")
-                            .font(.title)
-                            .bold()
-                        
+                        }label: {
+                            Image(systemName: "magnifyingglass")
+                        }
                         Button{
                             
                         }label: {
-                            Text("주요키워드")
-                            Image(systemName: "info.circle")
+                            Image(systemName: "arrowshape.turn.up.right")
                         }
-                        .foregroundStyle(Color("blackWhite"))
+                        Button{
+                            popupVm.type = .removeOrTransfer
+                            popupVm.isOpen.toggle()
+                        }label: {
+                            Image(systemName: "ellipsis")
+                                .rotationEffect(.degrees(90.0))
+                        }
+                    }
+                    .font(.title2)
+                    .padding(20)
+                    .padding(.trailing, -10)
+                    .foregroundStyle(Color("blackWhite"))
+                }
+                
+                
+                //scrollView
+                ScrollView{
+                    ScrollViewReader{proxy in
+                        //info
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("\(record.detailTimeString) . \(record.totalTimeString)")
+                            Text("\(record.name) \(record.id)")
+                                .font(.title)
+                                .bold()
+                            
+                            Button{
+                                
+                            }label: {
+                                Text("주요키워드")
+                                Image(systemName: "info.circle")
+                            }
+                            .foregroundStyle(Color("blackWhite"))
+                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(20)
                         
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(20)
-                    
-                    //키워드
-                    WrappingHStack(alignment: .leading){
-                        ForEach(record.keyword, id: \.self){keyword in
-                            KeywordBtn(keyword: keyword)
+                        //키워드
+                        WrappingHStack(alignment: .leading){
+                            ForEach(record.keyword, id: \.self){keyword in
+                                KeywordBtn(keyword: keyword)
+                            }
                         }
+                        .padding(20)
+                        
+                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count)
                     }
-                    .padding(20)
-                    
-                    RecordDetailViewCustomTab(record: record)
                 }
                 
             }//vstack close
@@ -111,7 +122,7 @@ struct RecordDetailView: View {
                     case .removeOrTransfer:
                         RemoveOrTransferPopupView()
                     case .memo:
-                        MemoPopupView()
+                        MemoPopupView(text: record.memo)
                     default:
                         EmptyView()
                     }
@@ -164,5 +175,6 @@ struct KeywordBtn: View {
 
 #Preview {
     let modelData = ModelData.modelData
+    RecordViewModel.shared.presented = modelData.records[0]
     return RecordDetailView(record: modelData.records[0])
 }

@@ -11,6 +11,9 @@ struct RecordItem: View {
     @Binding var record : Record
     @Binding var records : [Record]
     
+    @State private var offset : CGFloat = 0
+    @State private var isSwiped : Bool = false
+    
     @StateObject var recordVm = RecordViewModel.shared
     @StateObject var modelData = ModelData.modelData
     
@@ -57,7 +60,7 @@ struct RecordItem: View {
             .padding(10)
             .background(Color("whiteItemColor"))
             .clipShape(RoundedRectangle(cornerRadius: 15))
-            .offset(x: record.offset)
+            .offset(x: offset)
             .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
             .onTapGesture {
                 recordVm.presented = record
@@ -71,10 +74,10 @@ struct RecordItem: View {
     }
     func onChanged(value: DragGesture.Value){
         if value.translation.width < 0 {
-            if record.isSwiped{
-                record.offset = value.translation.width - 90
+            if isSwiped{
+                offset = value.translation.width - 90
             }else{
-                record.offset = value.translation.width
+                offset = value.translation.width
             }
         }
     }
@@ -82,23 +85,22 @@ struct RecordItem: View {
     func onEnd(value: DragGesture.Value){
         withAnimation(.easeOut){
             if value.translation.width < 0 {
-                if -record.offset > 50 {
-                    record.isSwiped = true
-                    record.offset = -90
+                if -offset > 50 {
+                    isSwiped = true
+                    offset = -90
                 }else{
-                    record.isSwiped = false
-                    record.offset = 0
+                    isSwiped = false
+                    offset = 0
                 }
             }else{
-                record.isSwiped = false
-                record.offset = 0
+                isSwiped = false
+                offset = 0
             }
         }
     }
     
     func deleteRecord() {
         //record를 받고 bool 값을 반환, 현재 binding 받은 record id랑 일치하는 record를 records에서 삭제해라
-        setRecordOffset()
         appendTrash()
         records.removeAll{ (record) -> Bool in
             return self.record.id == record.id
@@ -110,10 +112,7 @@ struct RecordItem: View {
             modelData.trash.append(record)
         }else{return}
     }
-    func setRecordOffset() {
-        self.record.isSwiped = false
-        self.record.offset = 0
-    }
+    
 }
 
 #Preview {

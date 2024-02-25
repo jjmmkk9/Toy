@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SimpleRecordItem: View {
+    @StateObject private var recordVm = RecordViewModel.shared
     var record : Record
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
@@ -26,6 +27,13 @@ struct SimpleRecordItem: View {
                 }
                     .padding(20)
             )
+            .onTapGesture {
+                recordVm.presented = record
+                print("record : \(record.id) 열림 calendarView")
+            }
+            .fullScreenCover(item: $recordVm.presented ,content: {record in
+                RecordDetailView(record: record)
+            })
     }
 }
 

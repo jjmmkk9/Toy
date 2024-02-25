@@ -12,7 +12,6 @@ struct ClovaMainView: View {
     @State private var sharedButtonSelected = false
     
     @StateObject var modelData = ModelData.modelData
-    @StateObject var recordVm = RecordViewModel.shared
     
     var body: some View {
             HStack{
@@ -91,6 +90,7 @@ struct ClovaMainView: View {
                     if recentButtonSelected {
                         if !modelData.records.isEmpty {
                             LazyVStack(spacing: 10){
+                                //foreEach돌리는 배열이랑 item에 주는 배열이 똑같아야 함 그래야 사라지는 모션 확인 가능
                                 ForEach(modelData.records){record in
                                     RecordItem(record: $modelData.records[getIndex(record: record)], records: $modelData.records)
                                 }

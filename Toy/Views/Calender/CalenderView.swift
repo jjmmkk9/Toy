@@ -25,8 +25,7 @@ struct CalenderView: View {
     @StateObject var recordVm = RecordViewModel.shared
     @Binding var clicked : Bool
     @Binding var wheelOn : Bool
-    
-    @State private var record : Record?
+
 
     var body: some View {
         NavigationStack{
@@ -63,14 +62,6 @@ struct CalenderView: View {
                     ScrollView{
                         ForEach(filterdRecord, id:\.self) { record in
                             SimpleRecordItem(record: record)
-                                .onTapGesture {
-                                    recordVm.presented = record
-                                    self.record = record
-                                    print("record : \(record.id)")
-                                }
-                                .fullScreenCover(item: $record ,content: {record in
-                                    RecordDetailView(record: record)
-                                })
                         }
                         Text("")
                             .frame(height: 50)

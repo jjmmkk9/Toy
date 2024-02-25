@@ -240,11 +240,12 @@ struct MemoPopupView: View {
     @StateObject var recordVm = RecordViewModel.shared
     @StateObject var modelData = ModelData.modelData
     
-    @State private var text : String = ""
+    @State private var text : String = "메모"
     
-    init() {
-        self.text = recordVm.presented?.memo ?? ""
+    init(text : String){
+        self._text = .init(initialValue: text)
     }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
             HStack{
@@ -257,12 +258,19 @@ struct MemoPopupView: View {
                 Text("완료")
                     .onTapGesture {
                         //text 업데이트 시키기
-                        if let index = modelData.records.firstIndex(of: recordVm.presented!){
-                            modelData.records[index].memo = text
+                        if let record = recordVm.presented,
+                           let index = modelData.records.firstIndex(of: record){
+                            var newRecord = record
+                            newRecord.memo = text
+                            //TODO: - 나중에 둘중에 하나만 업데이트
+                            recordVm.updatePresented(record: newRecord)
+                            modelData.records[index] = newRecord
+
                             popupVm.type = .none
                             popupVm.isOpen.toggle()
-                        }else{
-                            print("memoupdate 불가:::: WhitePopup")
+                        }
+                        else{
+                            print("memoupdate 불가:::: recordVm.presented 없음")
                         }
                         
                     }
@@ -282,6 +290,7 @@ struct MemoPopupView: View {
                     .padding()
             }
         }
+
         .frame(maxHeight: UIScreen.main.bounds.height - 200)
     }
 }
@@ -301,6 +310,6 @@ extension View{
     //        LogoutPopupView()
     //    }
     BottomPopup{
-        MemoPopupView()
+        MemoPopupView(text: "")
     }
 }

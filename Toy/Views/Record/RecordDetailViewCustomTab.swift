@@ -89,15 +89,16 @@ private struct TabContentView : View {
                     
                     self.indices = matchingString(of: newTxt, in: allText)
                     //초기 인덱스 0
-                    guard indices.indices.contains(index) else{
+                    if indices.indices.contains(index){
+                        withAnimation{
+                            proxy.scrollTo(scrollIndex, anchor: .top)
+                            print("\(scrollIndex) 로 이동")
+                        }
+                        scrollIndex = indices[index]
+                    }else{
                         print("index가 범위를 넘었다능")
-                        return
                     }
-                    scrollIndex = indices[index]
-                    withAnimation{
-                        proxy.scrollTo(scrollIndex, anchor: .top)
-                        print("\(scrollIndex) 로 이동")
-                    }
+                    
                 }
                 .onChange(of: index){newIndex in
                     scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
@@ -111,8 +112,10 @@ private struct TabContentView : View {
                     
                     if record.memo.isEmpty{
                         Text("메모를 입력하세요.")
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }else{
                         Text(record.memo)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
                 }
@@ -124,8 +127,7 @@ private struct TabContentView : View {
                 }
                 
             }
-            
-            
+
         }else{
             Text("recordVm에 정보가 없네요")
         }
@@ -136,7 +138,11 @@ private struct TabContentView : View {
         var indices : [Int] = []
         
         for (index, string) in strings.enumerated() {
-            if string.contains(substring){
+            // if string을 만날때마다 indices.append(index)
+            let occurrences = string.components(separatedBy: substring)
+            let count = occurrences.count // substring 개수
+            
+            for _ in 0..<count - 1 {
                 indices.append(index)
             }
         }
@@ -153,8 +159,6 @@ private struct textRow : View {
     
     @Binding var count : Int
     @Binding var searchTxt : String
-    
-//    @State private var startIndex = 0
     
     var body: some View {
         HStack(alignment:.top, spacing: 15){

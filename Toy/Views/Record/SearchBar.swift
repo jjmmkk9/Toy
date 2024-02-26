@@ -49,6 +49,8 @@ struct SearchBar: View {
                     .onTapGesture {
                         //TODO: - 취소하기
                         withAnimation{
+                            text = ""
+                            searchTxt = ""
                             isOpen = false
                         }
                     }

@@ -21,6 +21,7 @@ struct RecordDetailView: View {
     @State private var searchOpen : Bool = false
     @State private var searchTxt : String = ""
     @State private var count : Int = 0
+    @State private var index : Int = 0
     
     enum Tab: Hashable {
         case voiceRecord
@@ -34,7 +35,9 @@ struct RecordDetailView: View {
             VStack{
                 //header
                 if searchOpen{
-                    SearchBar(isOpen: $searchOpen, searchTxt: $searchTxt)
+                    SearchBar(isOpen: $searchOpen,
+                              searchTxt: $searchTxt,
+                              count: $count, index: $index)
                         .shadow(color: .gray.opacity(0.2) ,radius: 5)
                 }else{
                     HStack(spacing: 15){
@@ -102,7 +105,7 @@ struct RecordDetailView: View {
                         }
                         .padding(20)
                         
-                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count)
+                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
                     }
                 }
                 

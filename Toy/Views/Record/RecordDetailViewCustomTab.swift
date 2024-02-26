@@ -17,11 +17,13 @@ struct RecordDetailViewCustomTab: View {
     @State private var selectedTab: detailTab = .voiceRecord
     @Binding var searchTxt : String
     @Binding var count : Int
+    let proxy : ScrollViewProxy
+    @Binding var index : Int
     
     var body: some View {
         VStack {
             makeTabHeader()
-            TabContentView(tests: selectedTab, searchTxt: $searchTxt, count: $count)
+            TabContentView(tests: selectedTab, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
             
         }
     }
@@ -61,51 +63,69 @@ private struct TabContentView : View {
     @Binding var searchTxt : String
     @Binding var count : Int
     @State private var scrollIndex : Int = 0
-
+    let proxy : ScrollViewProxy
+    @Binding var index : Int
+    
+    
+    @State private var indices : [Int] = []
+    
     var body: some View {
         
         if let record = recordVm.presented{
-            ScrollView(.vertical, showsIndicators: false) {
-                ScrollViewReader{proxy in
+
+            switch tests {
+            case .voiceRecord :
+                let people = record.people
+                let allText = record.allText
+                ForEach(allText.indices, id: \.self){index in
+                    let string = allText[index]
+                    textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
+                        .id(index)
+                }
+                .onChange(of: searchTxt){ newTxt in
+                    //count 초기화
+                    self.count = 0
+                    self.index = 0
                     
-                    switch tests {
-                    case .voiceRecord :
-                        let people = record.people
-                        let allText = record.allText
-                        ForEach(allText.indices, id: \.self){index in
-                            let string = allText[index]
-                            textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
-                                .id(index)
-                        }
-                        .onChange(of: searchTxt){ newTxt in
-                            let indices : [Int] = matchingString(of: newTxt, in: allText)
-                            //첫 검색결과로 이동
-                            print(indices)
-                            scrollIndex = indices.first ?? 0
-                            withAnimation{
-                                proxy.scrollTo(scrollIndex, anchor: .top)
-                            }
-                        }
-                    case .memoSummary:
-                        VStack(alignment: .leading) {
-                            
-                            if record.memo.isEmpty{
-                                Text("메모를 입력하세요.")
-                            }else{
-                                Text(record.memo)
-                            }
-                            
-                        }
-                        .padding(20)
-                        .onTapGesture {
-                            popupVm.type = .memo
-                            popupVm.isOpen.toggle()
-                            
-                        }
-                        
+                    self.indices = matchingString(of: newTxt, in: allText)
+                    //초기 인덱스 0
+                    guard indices.indices.contains(index) else{
+                        print("index가 범위를 넘었다능")
+                        return
+                    }
+                    scrollIndex = indices[index]
+                    withAnimation{
+                        proxy.scrollTo(scrollIndex, anchor: .top)
+                        print("\(scrollIndex) 로 이동")
                     }
                 }
+                .onChange(of: index){newIndex in
+                    scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
+                    withAnimation{
+                        proxy.scrollTo(scrollIndex, anchor: .top)
+                        print("\(scrollIndex) 로 이동")
+                    }
+                }
+            case .memoSummary:
+                VStack(alignment: .leading) {
+                    
+                    if record.memo.isEmpty{
+                        Text("메모를 입력하세요.")
+                    }else{
+                        Text(record.memo)
+                    }
+                    
+                }
+                .padding(20)
+                .onTapGesture {
+                    popupVm.type = .memo
+                    popupVm.isOpen.toggle()
+                    
+                }
+                
             }
+            
+            
         }else{
             Text("recordVm에 정보가 없네요")
         }
@@ -134,6 +154,8 @@ private struct textRow : View {
     @Binding var count : Int
     @Binding var searchTxt : String
     
+//    @State private var startIndex = 0
+    
     var body: some View {
         HStack(alignment:.top, spacing: 15){
             Text("\(number)")
@@ -159,31 +181,35 @@ private struct textRow : View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
-//        .onChange(of: searchTxt){newTxt in
-//            count = 0
-//        }
+        .onChange(of: searchTxt){newTxt in
+            textCount(str: text, searched: searchTxt)
+        }
     }
     
     func highlightedText(str: String, searched: String) -> Text {
-            guard !str.isEmpty && !searched.isEmpty else { return Text(str) }
-
-            var result: Text!
-            let parts = str.components(separatedBy: searched)
+        guard !str.isEmpty && !searched.isEmpty else { return Text(str) }
         
-            for i in parts.indices {
-                result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
-                //검색어가 하나라도 있는경우
-                if i != parts.count - 1 {
-                    self.count += 1
-                    result = result + Text(searched).foregroundColor(.red).bold()
-                }
+        var result: Text!
+        let parts = str.components(separatedBy: searched)
+        for i in parts.indices {
+            result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
+            //검색어가 하나라도 있는경우
+            if i != parts.count - 1 {
+                result = result + Text(searched).foregroundColor(.red).bold()
             }
-            return result ?? Text(str)
         }
+        return result ?? Text(str)
+    }
+    
+    func textCount(str: String, searched: String){
+        let components = str.components(separatedBy: searched)
+        let count = components.count - 1
+        self.count += count
+    }
 }
 
-#Preview {
-    RecordViewModel.shared.presented = ModelData.modelData.records[0]
-    return RecordDetailViewCustomTab(record: ModelData.modelData.records[0],
-                                     searchTxt: .constant("조금"), count: .constant(0))
-}
+//#Preview {
+//    RecordViewModel.shared.presented = ModelData.modelData.records[0]
+//    return RecordDetailViewCustomTab(record: ModelData.modelData.records[0],
+//                                     searchTxt: .constant("조금"), count: .constant(0), proxy: ScrollViewProxy)
+//}

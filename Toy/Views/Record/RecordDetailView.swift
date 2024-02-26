@@ -56,11 +56,6 @@ struct RecordDetailView: View {
                             Image(systemName: "magnifyingglass")
                         }
                         Button{
-                            
-                        }label: {
-                            Image(systemName: "arrowshape.turn.up.right")
-                        }
-                        Button{
                             popupVm.type = .removeOrTransfer
                             popupVm.isOpen.toggle()
                         }label: {

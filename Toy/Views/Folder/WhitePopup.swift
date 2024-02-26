@@ -219,17 +219,17 @@ struct RemoveOrTransferPopupView:View {
             }
             .foregroundStyle(.red)
             .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Button(action: {
-                popupVm.type = .none
-                popupVm.isTransfer.toggle()
-                popupVm.isOpen.toggle()
-            }) {
-                Image(systemName: "folder")
-                Text("이동")
-                    .foregroundStyle(.blue)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+//
+//            Button(action: {
+//                popupVm.type = .none
+//                popupVm.isTransfer.toggle()
+//                popupVm.isOpen.toggle()
+//            }) {
+//                Image(systemName: "folder")
+//                Text("이동")
+//                    .foregroundStyle(.blue)
+//            }
+//            .frame(maxWidth: .infinity, alignment: .leading)
             
         }
     }

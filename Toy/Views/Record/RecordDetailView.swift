@@ -100,7 +100,7 @@ struct RecordDetailView: View {
                         }
                         .padding(20)
                         
-                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
+                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index, searchOpen: $searchOpen)
                     }
                 }
                 

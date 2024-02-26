@@ -19,13 +19,25 @@ struct RecordDetailViewCustomTab: View {
     @Binding var count : Int
     let proxy : ScrollViewProxy
     @Binding var index : Int
+    @Binding var searchOpen : Bool
     
     var body: some View {
         VStack {
             makeTabHeader()
-            TabContentView(tests: selectedTab, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
-            
+            TabContentView(tab: $selectedTab, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
         }
+//        .onChange(of: searchOpen){serchOpen in
+//            if searchOpen{
+//                if selectedTab == .memoSummary{
+//                    selectedTab = .voiceRecord
+//                }
+//            }
+//        }
+//        .onChange(of: selectedTab){selectedTab in
+//            if selectedTab == .memoSummary{
+//                searchOpen = false
+//            }
+//        }
     }
     //MARK: - 탭 헤더
     @ViewBuilder
@@ -51,6 +63,7 @@ struct RecordDetailViewCustomTab: View {
                 }
             }
         }
+        
     }
 }
 
@@ -58,7 +71,7 @@ struct RecordDetailViewCustomTab: View {
 private struct TabContentView : View {
     @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject private var recordVm = RecordViewModel.shared
-    var tests : detailTab
+    @Binding var tab : detailTab
     
     @Binding var searchTxt : String
     @Binding var count : Int
@@ -66,87 +79,83 @@ private struct TabContentView : View {
     let proxy : ScrollViewProxy
     @Binding var index : Int
     
-    
     @State private var indices : [Int] = []
     
     var body: some View {
         
         if let record = recordVm.presented{
+            let people = record.people
+            let allText = record.allText
+            VStack{
+                switch tab {
+                case .voiceRecord :
+                    ForEach(allText.indices, id: \.self){index in
+                        let string = allText[index]
+                        textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
+                            .id(index)
+                    }
 
-            switch tests {
-            case .voiceRecord :
-                let people = record.people
-                let allText = record.allText
-                ForEach(allText.indices, id: \.self){index in
-                    let string = allText[index]
-                    textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
-                        .id(index)
-                }
-                .onChange(of: searchTxt){ newTxt in
-                    //count 초기화
-                    self.count = 0
-                    self.index = 0
-                    
-                    self.indices = matchingString(of: newTxt, in: allText)
-                    //초기 인덱스 0
-                    if indices.indices.contains(index){
-                        withAnimation{
-                            proxy.scrollTo(scrollIndex, anchor: .top)
-                            print("\(scrollIndex) 로 이동")
+                case .memoSummary:
+                    VStack(alignment: .leading) {
+                        
+                        if record.memo.isEmpty{
+                            Text("메모를 입력하세요.")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }else{
+                            Text(record.memo)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        scrollIndex = indices[index]
-                    }else{
-                        print("index가 범위를 넘었다능")
+                        
+                    }
+                    .padding(20)
+                    .onTapGesture {
+                        popupVm.type = .memo
+                        popupVm.isOpen.toggle()
+                        
                     }
                     
                 }
-                .onChange(of: index){newIndex in
-                    scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
+            }
+            .onChange(of: searchTxt){ newTxt in
+                //count 초기화
+                self.count = 0
+                self.index = 0
+                
+                self.indices = matchingString(of: newTxt, in: allText)
+                print(indices)
+                //초기 인덱스 0
+                if !indices.isEmpty{
+                    scrollIndex = indices[index]
                     withAnimation{
                         proxy.scrollTo(scrollIndex, anchor: .top)
                         print("\(scrollIndex) 로 이동")
                     }
-                }
-            case .memoSummary:
-                VStack(alignment: .leading) {
-                    
-                    if record.memo.isEmpty{
-                        Text("메모를 입력하세요.")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }else{
-                        Text(record.memo)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
-                }
-                .padding(20)
-                .onTapGesture {
-                    popupVm.type = .memo
-                    popupVm.isOpen.toggle()
-                    
+                }else{
+                    print("index가 범위를 넘었다능")
                 }
                 
             }
+            .onChange(of: index){newIndex in
+                scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
+                withAnimation{
+                    proxy.scrollTo(scrollIndex, anchor: .top)
+                    print("\(scrollIndex) 로 이동")
+                }
+            }
+            
+            
 
         }else{
             Text("recordVm에 정보가 없네요")
         }
         
     }
+    
     func matchingString(of substring: String, in strings : [String]) -> [Int]{
         //string을 [string]에서 찾아 그리고 찾아진 녀석들의 인덱스를 담아서 반환
-        var indices : [Int] = []
-        
-        for (index, string) in strings.enumerated() {
-            // if string을 만날때마다 indices.append(index)
-            let occurrences = string.components(separatedBy: substring)
-            let count = occurrences.count // substring 개수
-            
-            for _ in 0..<count - 1 {
-                indices.append(index)
-            }
-        }
-        return indices
+        strings.enumerated().filter{index, string in
+            string.contains(substring)
+        }.map{$0.0}
     }
 }
 
@@ -186,7 +195,7 @@ private struct textRow : View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
         .onChange(of: searchTxt){newTxt in
-            textCount(str: text, searched: searchTxt)
+            textCount(str: text, searched: newTxt)
         }
     }
     
@@ -207,8 +216,9 @@ private struct textRow : View {
     
     func textCount(str: String, searched: String){
         let components = str.components(separatedBy: searched)
-        let count = components.count - 1
-        self.count += count
+        let num = components.count - 1
+        print(num)
+        self.count += num
     }
 }
 

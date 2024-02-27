@@ -18,12 +18,14 @@ struct SearchBar: View {
         VStack(spacing: 10){
             
             HStack(alignment: .center){
+                //검색창
                 HStack{
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.gray)
                     TextField("음성 기록 검색", text: $text)
                         .onSubmit {
-                            searchTxt = text
+                            self.count = 0
+                            self.searchTxt = text
                         }
                     Spacer()
                     if !text.isEmpty{
@@ -35,7 +37,6 @@ struct SearchBar: View {
                         }
                     }
                 }
-                
                 .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
@@ -45,6 +46,7 @@ struct SearchBar: View {
                     
                 )
                 .padding(10)
+                
                 Text("취소")
                     .onTapGesture {
                         //TODO: - 취소하기
@@ -66,7 +68,7 @@ struct SearchBar: View {
                             indexDown(count: count)
                             
                         }
-                    Text("  \(index + 1) / \(count)  ")
+                    Text("  \(count == 0 ? 0 : index + 1) / \(count)  ")
                         .font(.title3)
                     Image(systemName: "chevron.down")
                         .font(.title3)

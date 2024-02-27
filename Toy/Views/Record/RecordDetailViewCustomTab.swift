@@ -117,8 +117,6 @@ private struct TabContentView : View {
                 }
             }
             .onChange(of: searchTxt){ newTxt in
-                //count 초기화
-                self.count = 0
                 self.index = 0
                 
                 self.indices = matchingString(of: newTxt, in: allText)

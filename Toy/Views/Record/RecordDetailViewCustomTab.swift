@@ -133,28 +133,35 @@ private struct TabContentView : View {
                 
             }
             .onChange(of: index){newIndex in
-                scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
-                withAnimation{
-                    proxy.scrollTo(scrollIndex, anchor: .top)
-                    print("\(scrollIndex) 로 이동")
+                print("newIndex : \(newIndex)")
+                if !indices.isEmpty{
+                    scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
+                    withAnimation{
+                        proxy.scrollTo(scrollIndex, anchor: .top)
+                    }
                 }
             }
             
             
-
         }else{
             Text("recordVm에 정보가 없네요")
         }
         
     }
     
-    func matchingString(of substring: String, in strings : [String]) -> [Int]{
-        //string을 [string]에서 찾아 그리고 찾아진 녀석들의 인덱스를 담아서 반환
-        strings.enumerated().filter{index, string in
-            string.contains(substring)
-        }.map{$0.0}
+    func matchingString(of substring: String, in strings: [String]) -> [Int] {
+        return strings.enumerated().flatMap { index, string in
+            let cnt = stringCount(str: string, substring: substring)
+            return Array(repeating: index, count: cnt)
+        }
+    }
+    
+    func stringCount(str: String, substring: String) -> Int{
+        let cnt = str.components(separatedBy: substring).count - 1
+        return cnt
     }
 }
+
 
 
 
@@ -192,7 +199,9 @@ private struct textRow : View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
         .onChange(of: searchTxt){newTxt in
-            textCount(str: text, searched: newTxt)
+            if !newTxt.isEmpty{
+                textCount(str: text, searched: newTxt)
+            }
         }
     }
     
@@ -211,11 +220,11 @@ private struct textRow : View {
         return result ?? Text(str)
     }
     
+    //searched가 str에서 몇번 검색되었는지 count 올리기 위한 함수
+    //split로 count를 수정하면 취소할때 textCount가 실행되면서 count가 전체 글자수대로 올라가는듯..^^ 왜이래
     func textCount(str: String, searched: String){
-        let components = str.components(separatedBy: searched)
-        let num = components.count - 1
-        print(num)
-        self.count += num
+        let txtCount = str.components(separatedBy: searched).count - 1
+        self.count += txtCount
     }
 }
 

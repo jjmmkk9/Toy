@@ -26,18 +26,18 @@ struct RecordDetailViewCustomTab: View {
             makeTabHeader()
             TabContentView(tab: $selectedTab, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
         }
-//        .onChange(of: searchOpen){serchOpen in
-//            if searchOpen{
-//                if selectedTab == .memoSummary{
-//                    selectedTab = .voiceRecord
-//                }
-//            }
-//        }
-//        .onChange(of: selectedTab){selectedTab in
-//            if selectedTab == .memoSummary{
-//                searchOpen = false
-//            }
-//        }
+        //        .onChange(of: searchOpen){serchOpen in
+        //            if searchOpen{
+        //                if selectedTab == .memoSummary{
+        //                    selectedTab = .voiceRecord
+        //                }
+        //            }
+        //        }
+        //        .onChange(of: selectedTab){selectedTab in
+        //            if selectedTab == .memoSummary{
+        //                searchOpen = false
+        //            }
+        //        }
     }
     //MARK: - 탭 헤더
     @ViewBuilder
@@ -94,7 +94,7 @@ private struct TabContentView : View {
                         textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
                             .id(index)
                     }
-
+                    
                 case .memoSummary:
                     VStack(alignment: .leading) {
                         
@@ -128,7 +128,6 @@ private struct TabContentView : View {
                     scrollIndex = indices[index]
                     withAnimation{
                         proxy.scrollTo(scrollIndex, anchor: .top)
-                        print("\(scrollIndex) 로 이동")
                     }
                 }else{
                     print("index가 범위를 넘었다능")

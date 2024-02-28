@@ -17,11 +17,11 @@ struct RecordDetailView: View {
     
     @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject var modelData = ModelData.modelData
-    
-    @State private var searchOpen : Bool = false
-    @State private var searchTxt : String = ""
-    @State private var count : Int = 0
-    @State private var index : Int = 0
+    @StateObject var searchVm = SearchViewModel.shared
+//    @State private var searchOpen : Bool = false
+//    @State private var searchTxt : String = ""
+//    @State private var count : Int = 0
+//    @State private var index : Int = 0
     
     enum Tab: Hashable {
         case voiceRecord
@@ -34,10 +34,8 @@ struct RecordDetailView: View {
             //content
             VStack{
                 //header
-                if searchOpen{
-                    SearchBar(isOpen: $searchOpen,
-                              searchTxt: $searchTxt,
-                              count: $count, index: $index)
+                if searchVm.isOpen{
+                    SearchBar()
                         .shadow(color: .gray.opacity(0.2) ,radius: 5)
                 }else{
                     HStack(spacing: 15){
@@ -50,7 +48,7 @@ struct RecordDetailView: View {
                         Spacer()
                         
                         Button{
-                                searchOpen = true
+                            searchVm.isOpen = true
 
                         }label: {
                             Image(systemName: "magnifyingglass")
@@ -68,7 +66,6 @@ struct RecordDetailView: View {
                     .padding(.trailing, -10)
                     .foregroundStyle(Color("blackWhite"))
                 }
-                
                 
                 //scrollView
                 ScrollView{
@@ -97,16 +94,18 @@ struct RecordDetailView: View {
                             ForEach(record.keyword, id: \.self){keyword in
                                 KeywordBtn(keyword: keyword)
                                     .onTapGesture {
-                                        if !self.searchOpen{
-                                            self.searchOpen = true
-                                        }
-                                        self.searchTxt = keyword
+                                        searchVm.openBarWithKeyword(keyword: keyword)
                                     }
                             }
                         }
                         .padding(20)
+                        //TODO: - 얘 위치 정하기
+                        .onChange(of: searchVm.searchTxt){newTxt in
+                            searchVm.index = 0 
+                            searchVm.indices = matchingString(of: newTxt, in: record.allText)
+                        }
                         
-                        RecordDetailViewCustomTab(record: record, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index, searchOpen: $searchOpen)
+                        RecordDetailViewCustomTab(record: record, proxy: proxy)
                     }
                 }
                 
@@ -141,7 +140,24 @@ struct RecordDetailView: View {
                 appendTrash()
             }
         }
+        .onAppear{
+            //등록
+            searchVm.allText = record.allText
+        }
     }
+    //TODO: - 지우기 여기서 일단 전부 올리기
+    func matchingString(of substring: String, in strings: [String]) -> [Int] {
+        return strings.enumerated().flatMap { index, string in
+            let cnt = stringCount(str: string, substring: substring)
+            return Array(repeating: index, count: cnt)
+        }
+    }
+    func stringCount(str: String, substring: String) -> Int{
+        let cnt = str.components(separatedBy: substring).count - 1
+        print("cnt : \(cnt)")
+        return cnt
+    }
+    
 }
 
 extension RecordDetailView{

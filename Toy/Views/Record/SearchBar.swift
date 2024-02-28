@@ -7,12 +7,48 @@
 
 import SwiftUI
 
+class SearchViewModel : ObservableObject{
+    
+    static let shared = SearchViewModel()
+    
+    @Published var searchTxt : String = ""{
+        didSet{
+            self.count = 0
+            self.index = 0
+            self.text = self.searchTxt
+            self.indices = matchingString(of: searchTxt, in: allText)
+        }
+    }
+    @Published var text : String = ""
+    @Published var count : Int = 0
+    @Published var index : Int = 0
+    @Published var isOpen : Bool = false
+    @Published var indices : [Int] = []
+    var allText : [String] = []
+    
+    func openBarWithKeyword(keyword : String) {
+        if !self.isOpen{
+            self.isOpen = true
+        }
+        self.searchTxt = keyword
+    }
+    func matchingString(of substring: String, in strings: [String]) -> [Int] {
+        return strings.enumerated().flatMap { index, string in
+            let cnt = stringCount(str: string, substring: substring)
+            return Array(repeating: index, count: cnt)
+        }
+    }
+    func stringCount(str: String, substring: String) -> Int{
+        let cnt = str.components(separatedBy: substring).count - 1
+        print("cnt : \(cnt)")
+        return cnt
+    }
+}
+
+
 struct SearchBar: View {
-    @State private var text = ""
-    @Binding var isOpen : Bool
-    @Binding var searchTxt : String
-    @Binding var count : Int
-    @Binding var index : Int
+    @StateObject var searchVm = SearchViewModel.shared
+
     
     var body: some View {
         VStack(spacing: 10){
@@ -22,14 +58,14 @@ struct SearchBar: View {
                 HStack{
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.gray)
-                    TextField("음성 기록 검색", text: $text)
+                    TextField("음성 기록 검색", text: $searchVm.text)
                         .onSubmit {
-                            self.searchTxt = text
+                            searchVm.searchTxt = searchVm.text
                         }
                     Spacer()
-                    if !text.isEmpty{
+                    if !searchVm.text.isEmpty{
                         Button{
-                            text = ""
+                            searchVm.text = ""
                         }label: {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundStyle(.gray)
@@ -48,56 +84,55 @@ struct SearchBar: View {
                 
                 Text("취소")
                     .onTapGesture {
-                        //TODO: - 취소하기
                         withAnimation{
-                            text = ""
-                            searchTxt = ""
-                            isOpen = false
+                            searchVm.text = ""
+                            searchVm.searchTxt = ""
+                            searchVm.isOpen = false
                         }
                     }
             }
             .padding(.horizontal, 10)
-            if !searchTxt.isEmpty{
+            if !searchVm.searchTxt.isEmpty{
                 HStack{
                     Spacer()
                     Image(systemName: "chevron.up")
                         .font(.title3)
                         .onTapGesture {
                             //index를 내리기 - 위로
-                            indexDown(count: count)
+                            indexDown()
                             
                         }
-                    Text("  \(index + 1) / \(count)  ")
+                    Text("  \(searchVm.index + 1) / \(searchVm.count)  ")
                         .font(.title3)
                     Image(systemName: "chevron.down")
                         .font(.title3)
                         .onTapGesture {
                             //index를 올리기 - 아래로
-                            indexUp(count: count)
+                            indexUp()
                         }
                 }
                 .padding([.horizontal, .bottom], 20)
             }
         }
         .background(Color("tempColor"))
-        .onChange(of: searchTxt){newTxt in
-            self.count = 0
-            self.text = newTxt
-            
+        .onChange(of: searchVm.searchTxt){newTxt in
+            print("searchTxt 변경: \(newTxt)")
+            searchVm.count = 0
         }
     }
     
-    func indexUp(count: Int){
-        guard count > 0 else {return}
-        index = (index + 1) % count
- 
+    func indexUp(){
+        guard searchVm.count > 0 else {return}
+        searchVm.index = (searchVm.index + 1) % searchVm.count
+        
     }
-    func indexDown(count: Int){
-        guard count > 0 else {return}
-        index = (index + count - 1) % count
+    func indexDown(){
+        guard searchVm.count > 0 else {return}
+        searchVm.index = (searchVm.index + searchVm.count - 1) % searchVm.count
     }
 }
 
-#Preview {
-    SearchBar(isOpen: .constant(true), searchTxt: .constant(""), count: .constant(1), index: .constant(0))
-}
+//#Preview {
+//    //    SearchBar(isOpen: .constant(true), searchTxt: .constant(""), count: .constant(1), index: .constant(0))
+//    SearchBar()
+//}

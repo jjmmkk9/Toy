@@ -15,16 +15,14 @@ enum detailTab: String, CaseIterable {
 struct RecordDetailViewCustomTab: View {
     var record: Record
     @State private var selectedTab: detailTab = .voiceRecord
-    @Binding var searchTxt : String
-    @Binding var count : Int
+
     let proxy : ScrollViewProxy
-    @Binding var index : Int
-    @Binding var searchOpen : Bool
+
     
     var body: some View {
         VStack {
             makeTabHeader()
-            TabContentView(tab: $selectedTab, searchTxt: $searchTxt, count: $count, proxy: proxy, index: $index)
+            TabContentView(tab: $selectedTab, proxy: proxy)
         }
         //        .onChange(of: searchOpen){serchOpen in
         //            if searchOpen{
@@ -72,14 +70,12 @@ private struct TabContentView : View {
     @StateObject var popupVm = BottomPopupViewModel.shared
     @StateObject private var recordVm = RecordViewModel.shared
     @Binding var tab : detailTab
-    
-    @Binding var searchTxt : String
-    @Binding var count : Int
+    @StateObject var searchVm = SearchViewModel.shared
     @State private var scrollIndex : Int = 0
-    let proxy : ScrollViewProxy
-    @Binding var index : Int
     
-    @State private var indices : [Int] = []
+    @State private var counts : [Int:Int] = [:]
+    let proxy : ScrollViewProxy
+    
     
     var body: some View {
         
@@ -91,7 +87,7 @@ private struct TabContentView : View {
                 case .voiceRecord :
                     ForEach(allText.indices, id: \.self){index in
                         let string = allText[index]
-                        textRow(number: Int.random(in: 1...people), text: string, count: $count, searchTxt: $searchTxt)
+                        textRow(number: Int.random(in: 1...people), text: string, rowIndex: index)
                             .id(index)
                     }
                     
@@ -116,21 +112,24 @@ private struct TabContentView : View {
                     
                 }
             }
-            .onChange(of: searchTxt){ newTxt in
-                if count > 0{
-                    self.index = 0
-                    self.indices = matchingString(of: newTxt, in: allText)
+            .onChange(of: searchVm.searchTxt){ newTxt in
+                if searchVm.count > 0{
+//                    searchVm.index = 0
+//                    searchVm.indices = matchingString(of: newTxt, in: allText)
                     //초기 인덱스 0
                     scroll()
+//                    print("indices : \(searchVm.indices)")
                     
                 }else{
-                    self.index = -1
-                    self.indices = matchingString(of: newTxt, in: allText)
+                    searchVm.index = -1
+                    searchVm.indices = []
                 }
                 
                 
             }
-            .onChange(of: index){newIndex in
+            .onChange(of: searchVm.index){newIndex in
+                //TODO: - 인덱스 변경될때마다 substring 각자의 index 위치(?) 아무튼 그 부분에 배경색 변경
+                
                 print("newIndex : \(newIndex)")
                 scroll()
             }
@@ -142,21 +141,22 @@ private struct TabContentView : View {
         
     }
     
-    func matchingString(of substring: String, in strings: [String]) -> [Int] {
-        return strings.enumerated().flatMap { index, string in
-            let cnt = stringCount(str: string, substring: substring)
-            return Array(repeating: index, count: cnt)
-        }
-    }
-    
-    func stringCount(str: String, substring: String) -> Int{
-        let cnt = str.components(separatedBy: substring).count - 1
-        return cnt
-    }
+    //TODO: - 여기거 살릴지 말지
+//    func matchingString(of substring: String, in strings: [String]) -> [Int] {
+//        return strings.enumerated().flatMap { index, string in
+//            let cnt = stringCount(str: string, substring: substring)
+//            return Array(repeating: index, count: cnt)
+//        }
+//    }
+//    
+//    func stringCount(str: String, substring: String) -> Int{
+//        let cnt = str.components(separatedBy: substring).count - 1
+//        return cnt
+//    }
     
     func scroll(){
-        if !indices.isEmpty{
-            scrollIndex = indices[index]
+        if !searchVm.indices.isEmpty{
+            scrollIndex = searchVm.indices[searchVm.index]
             withAnimation{
                 proxy.scrollTo(scrollIndex, anchor: .top)
             }
@@ -174,8 +174,8 @@ private struct textRow : View {
     var text : String
     let colors : [Color] = [.red, .cyan, .purple, .orange, .blue]
     
-    @Binding var count : Int
-    @Binding var searchTxt : String
+    @StateObject var searchVm = SearchViewModel.shared
+    var rowIndex : Int
     
     var body: some View {
         HStack(alignment:.top, spacing: 15){
@@ -195,14 +195,14 @@ private struct textRow : View {
                     Text("00:00")
                         .foregroundStyle(.gray)
                 }
-                highlightedText(str: text, searched: searchTxt)
+                highlightedText(str: text, searched: searchVm.searchTxt)
             }
             
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
-        .onChange(of: searchTxt){newTxt in
+        .onChange(of: searchVm.searchTxt){newTxt in
             if !newTxt.isEmpty{
                 textCount(str: text, searched: newTxt)
             }
@@ -214,11 +214,25 @@ private struct textRow : View {
         
         var result: Text!
         let parts = str.components(separatedBy: searched)
+    
         for i in parts.indices {
+            //searched를 기준으로 잘린 부분 i result에 넣고
             result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
-            //검색어가 하나라도 있는경우
+            
             if i != parts.count - 1 {
-                result = result + Text(searched).foregroundColor(.red).bold()
+                print("indices in textRow : \(searchVm.indices)")
+                //searched를 attributedString으로 색칠해서 result에 더하기
+                if searchVm.indices[searchVm.index] == rowIndex {
+                    var txt = AttributedString(searched)
+                    txt.backgroundColor = .red
+                    txt.foregroundColor = .white
+                    result = result + Text(txt)
+                }else{
+                    var txt = AttributedString(searched)
+                    txt.backgroundColor = .yellow
+                    txt.foregroundColor = .red
+                    result = result + Text(txt)
+                }
             }
         }
         return result ?? Text(str)
@@ -228,7 +242,7 @@ private struct textRow : View {
     //split로 count를 수정하면 취소할때 textCount가 실행되면서 count가 전체 글자수대로 올라가는듯..^^ 왜이래
     func textCount(str: String, searched: String){
         let txtCount = str.components(separatedBy: searched).count - 1
-        self.count += txtCount
+        searchVm.count += txtCount
     }
 }
 

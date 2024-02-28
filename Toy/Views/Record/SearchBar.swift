@@ -24,7 +24,6 @@ struct SearchBar: View {
                         .foregroundStyle(.gray)
                     TextField("음성 기록 검색", text: $text)
                         .onSubmit {
-                            self.count = 0
                             self.searchTxt = text
                         }
                     Spacer()
@@ -68,7 +67,7 @@ struct SearchBar: View {
                             indexDown(count: count)
                             
                         }
-                    Text("  \(count == 0 ? 0 : index + 1) / \(count)  ")
+                    Text("  \(index + 1) / \(count)  ")
                         .font(.title3)
                     Image(systemName: "chevron.down")
                         .font(.title3)
@@ -81,22 +80,21 @@ struct SearchBar: View {
             }
         }
         .background(Color("tempColor"))
+        .onChange(of: searchTxt){newTxt in
+            self.count = 0
+            self.text = newTxt
+            
+        }
     }
     
     func indexUp(count: Int){
-        if index < count - 1{
-            self.index += 1
-        }else{
-            self.index = 0
-        }
-        
+        guard count > 0 else {return}
+        index = (index + 1) % count
+ 
     }
     func indexDown(count: Int){
-        if index == 0 {
-            self.index = count - 1
-        }else{
-            self.index -= 1
-        }
+        guard count > 0 else {return}
+        index = (index + count - 1) % count
     }
 }
 

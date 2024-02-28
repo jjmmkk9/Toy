@@ -117,29 +117,22 @@ private struct TabContentView : View {
                 }
             }
             .onChange(of: searchTxt){ newTxt in
-                self.index = 0
-                
-                self.indices = matchingString(of: newTxt, in: allText)
-                print(indices)
-                //초기 인덱스 0
-                if !indices.isEmpty{
-                    scrollIndex = indices[index]
-                    withAnimation{
-                        proxy.scrollTo(scrollIndex, anchor: .top)
-                    }
+                if count > 0{
+                    self.index = 0
+                    self.indices = matchingString(of: newTxt, in: allText)
+                    //초기 인덱스 0
+                    scroll()
+                    
                 }else{
-                    print("index가 범위를 넘었다능")
+                    self.index = -1
+                    self.indices = matchingString(of: newTxt, in: allText)
                 }
+                
                 
             }
             .onChange(of: index){newIndex in
                 print("newIndex : \(newIndex)")
-                if !indices.isEmpty{
-                    scrollIndex = indices[newIndex] //스크롤할 인덱스를 담은 배열에 접근
-                    withAnimation{
-                        proxy.scrollTo(scrollIndex, anchor: .top)
-                    }
-                }
+                scroll()
             }
             
             
@@ -159,6 +152,17 @@ private struct TabContentView : View {
     func stringCount(str: String, substring: String) -> Int{
         let cnt = str.components(separatedBy: substring).count - 1
         return cnt
+    }
+    
+    func scroll(){
+        if !indices.isEmpty{
+            scrollIndex = indices[index]
+            withAnimation{
+                proxy.scrollTo(scrollIndex, anchor: .top)
+            }
+        }else{
+            print("index가 범위를 넘었다능")
+        }
     }
 }
 

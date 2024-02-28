@@ -96,6 +96,12 @@ struct RecordDetailView: View {
                         WrappingHStack(alignment: .leading){
                             ForEach(record.keyword, id: \.self){keyword in
                                 KeywordBtn(keyword: keyword)
+                                    .onTapGesture {
+                                        if !self.searchOpen{
+                                            self.searchOpen = true
+                                        }
+                                        self.searchTxt = keyword
+                                    }
                             }
                         }
                         .padding(20)
@@ -154,7 +160,6 @@ extension RecordDetailView{
     //휴지통으로 이동했습니다 토스트?
 
 }
-
 
 struct KeywordBtn: View {
     var keyword : String

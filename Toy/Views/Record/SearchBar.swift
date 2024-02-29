@@ -132,10 +132,6 @@ struct SearchBar: View {
             }
         }
         .background(Color("tempColor"))
-        .onChange(of: searchVm.searchTxt){newTxt in
-            print("searchTxt 변경: \(newTxt)")
-            searchVm.count = 0
-        }
     }
     
     func indexUp(){

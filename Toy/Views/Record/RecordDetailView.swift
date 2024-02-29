@@ -98,13 +98,7 @@ struct RecordDetailView: View {
                                     }
                             }
                         }
-                        .padding(20)
-                        //TODO: - 얘 위치 정하기
-                        .onChange(of: searchVm.searchTxt){newTxt in
-                            searchVm.index = 0 
-                            searchVm.indices = matchingString(of: newTxt, in: record.allText)
-                        }
-                        
+                        .padding(20)                        
                         RecordDetailViewCustomTab(record: record, proxy: proxy)
                     }
                 }

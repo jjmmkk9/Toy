@@ -114,12 +114,8 @@ private struct TabContentView : View {
             }
             .onChange(of: searchVm.searchTxt){ newTxt in
                 if searchVm.count > 0{
-//                    searchVm.index = 0
-//                    searchVm.indices = matchingString(of: newTxt, in: allText)
-                    //초기 인덱스 0
                     scroll()
-//                    print("indices : \(searchVm.indices)")
-                    
+
                 }else{
                     searchVm.index = -1
                     searchVm.indices = []
@@ -140,19 +136,6 @@ private struct TabContentView : View {
         }
         
     }
-    
-    //TODO: - 여기거 살릴지 말지
-//    func matchingString(of substring: String, in strings: [String]) -> [Int] {
-//        return strings.enumerated().flatMap { index, string in
-//            let cnt = stringCount(str: string, substring: substring)
-//            return Array(repeating: index, count: cnt)
-//        }
-//    }
-//    
-//    func stringCount(str: String, substring: String) -> Int{
-//        let cnt = str.components(separatedBy: substring).count - 1
-//        return cnt
-//    }
     
     func scroll(){
         if !searchVm.indices.isEmpty{
@@ -196,7 +179,9 @@ private struct textRow : View {
                         .foregroundStyle(.gray)
                 }
                 highlightedText(str: text, searched: searchVm.searchTxt)
+
             }
+            
             
             
         }

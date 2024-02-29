@@ -112,21 +112,24 @@ struct SearchBar: View {
             if !searchVm.searchTxt.isEmpty{
                 HStack{
                     Spacer()
-                    Image(systemName: "chevron.up")
-                        .font(.title3)
-                        .onTapGesture {
-                            //index를 내리기 - 위로
-                            indexDown()
-                            
-                        }
+                    Button {
+                        indexDown()
+                    } label: {
+                        Image(systemName: "chevron.up")
+                            .font(.title3)
+                            .foregroundStyle(Color("blackWhite"))
+                    }
+                    .disabled(searchVm.count < 2)
                     Text("  \(searchVm.index + 1) / \(searchVm.count)  ")
                         .font(.title3)
-                    Image(systemName: "chevron.down")
-                        .font(.title3)
-                        .onTapGesture {
-                            //index를 올리기 - 아래로
-                            indexUp()
-                        }
+                    Button {
+                        indexUp()
+                    } label: {
+                        Image(systemName: "chevron.down")
+                            .font(.title3)
+                            .foregroundStyle(Color("blackWhite"))
+                    }
+                    .disabled(searchVm.count < 2)
                 }
                 .padding([.horizontal, .bottom], 20)
             }

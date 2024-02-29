@@ -40,15 +40,32 @@ class SearchViewModel : ObservableObject{
     }
     func stringCount(str: String, substring: String) -> Int{
         let cnt = str.components(separatedBy: substring).count - 1
-        print("cnt : \(cnt)")
         return cnt
     }
+    func createRowIndices(from array: [Int]) -> [Int] {
+        var counts : [Int] = [0]
+        var indices : [Int?] = [array.first]
+        var arrcopy = array
+        arrcopy.removeFirst()
+        for (idx, el) in arrcopy.enumerated() {
+            if indices[idx] == el{
+                indices.append(el)
+                counts.append(counts[idx] + 1)
+            }else{
+                indices.append(el)
+                counts.append(0)
+            }
+            
+        }
+        return counts
+    }
+    
 }
 
 
 struct SearchBar: View {
     @StateObject var searchVm = SearchViewModel.shared
-
+    
     
     var body: some View {
         VStack(spacing: 10){

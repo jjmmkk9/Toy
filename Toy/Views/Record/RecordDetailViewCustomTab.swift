@@ -196,38 +196,42 @@ private struct textRow : View {
     
     func highlightedText(str: String, searched: String) -> Text {
         guard !str.isEmpty && !searched.isEmpty else { return Text(str) }
+        let parts = str.components(separatedBy: searched)
+        guard parts.count > 1 else{return Text(str)}
         
         var result: Text!
-        let parts = str.components(separatedBy: searched)
-    
+        
+        let rowIndices = searchVm.createRowIndices(from: searchVm.indices)
+        
         for i in parts.indices {
-            //searched를 기준으로 잘린 부분 i result에 넣고
             result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
             
+            //한 문장에서 검색되는 개수만큼 출력
             if i != parts.count - 1 {
-                print("indices in textRow : \(searchVm.indices)")
-                //searched를 attributedString으로 색칠해서 result에 더하기
                 if searchVm.indices[searchVm.index] == rowIndex {
-                    var txt = AttributedString(searched)
-                    txt.backgroundColor = .red
-                    txt.foregroundColor = .white
-                    result = result + Text(txt)
+                    if rowIndices[searchVm.index] == i{
+                        result = result + markText(bgcolor: .red, txtColor: .white, str: searched)
+                    }else{
+                        result = result + markText(bgcolor: .yellow, txtColor: .black, str: searched)
+                    }
                 }else{
-                    var txt = AttributedString(searched)
-                    txt.backgroundColor = .yellow
-                    txt.foregroundColor = .red
-                    result = result + Text(txt)
+                    result = result + markText(bgcolor: .yellow, txtColor: .black, str: searched)
                 }
             }
         }
         return result ?? Text(str)
     }
-    
-    //searched가 str에서 몇번 검색되었는지 count 올리기 위한 함수
-    //split로 count를 수정하면 취소할때 textCount가 실행되면서 count가 전체 글자수대로 올라가는듯..^^ 왜이래
+
     func textCount(str: String, searched: String){
         let txtCount = str.components(separatedBy: searched).count - 1
         searchVm.count += txtCount
+    }
+    
+    func markText(bgcolor: Color, txtColor : Color, str: String) -> Text{
+        var txt = AttributedString(str)
+        txt.backgroundColor = bgcolor
+        txt.foregroundColor = txtColor
+        return Text(txt)
     }
 }
 

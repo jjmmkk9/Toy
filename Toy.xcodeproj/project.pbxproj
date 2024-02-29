@@ -168,6 +168,13 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		BD17DAF02B90540700116EFB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BD357DA92B6B34E90090CF84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +281,7 @@
 		BD94515B2B5F48D600E58FD6 /* Toy */ = {
 			isa = PBXGroup;
 			children = (
+				BD17DAF02B90540700116EFB /* Extensions */,
 				BD9425E32B73141A00676ADA /* Sources */,
 				BD94515C2B5F48D600E58FD6 /* ToyApp.swift */,
 				BD357DA92B6B34E90090CF84 /* Views */,
